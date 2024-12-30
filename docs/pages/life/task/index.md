@@ -97,12 +97,12 @@
 #### 12/30 ~ 12/31 目標
 
 - ⬜ 看完[Vue3 51 ~ 60](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)
-- 改好履歷
-  - ⬜ 104
+- ~~改好履歷~~
+  - ✅ ~~104~~
 - ⬜ 善心捐款
-- 整理衣櫃
+- ~~整理衣櫃~~
 
-  - ⬜ 整理立櫃
+  - ✅ ~~整理立櫃~~
 
 - 日期：
   - [2024-12-30-週一](/pages/life/task/2024/12月/2024-12-30-週一.md)
