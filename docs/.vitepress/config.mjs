@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import logo from "../pages/img/goImg.png";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: "/vlog/",
@@ -7,11 +8,11 @@ export default defineConfig({
   },
   ignoreDeadLinks: true,
   title: "地瓜球工程師",
-  head: [["link", { rel: "icon", href: "/docs/pages/img/logo.png" }]],
+  head: [["link", { rel: "icon", href: logo }]],
   description: "地瓜球工程師的vlog",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: "/docs/pages/img/logo.png",
+    logo: logo,
     nav: [
       { text: "首頁", link: "/" },
       {
