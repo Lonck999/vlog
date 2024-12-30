@@ -6,7 +6,6 @@ export default defineConfig({
     "/pages/(.*)": "/(.*)",
   },
   ignoreDeadLinks: true,
-  srcDir: "docs",
   title: "地瓜球工程師",
   head: [["link", { rel: "icon", href: "/docs/pages/img/logo.png" }]],
   description: "地瓜球工程師的vlog",
