@@ -7,7 +7,7 @@ hero:
   text: "地瓜球小攤"
   tagline: 裡面記錄著自己的一些學習和自介，也歡迎大家來看看有沒有你需要的東西。
   image:
-    src: /pages/img/logo.png
+    src: /docs/pages/img/logo.png
     alt: 地瓜球
   actions:
     - theme: brand
