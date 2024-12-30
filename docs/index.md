@@ -28,10 +28,3 @@ features:
     details: 目前正在學習粵語，之後可能會再多花點時間點一下生活技能，例如：開車、游泳、做菜、等等......
     link: /life/index.md
 ---
-
-<style>
-:root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe, #41d1ff);
-}
-</style>

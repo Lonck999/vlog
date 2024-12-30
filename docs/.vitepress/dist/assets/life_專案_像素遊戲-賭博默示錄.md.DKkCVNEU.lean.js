@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as _}from"./chunks/framework.B0cMFUTE.js";const d=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"life/專案/像素遊戲-賭博默示錄.md","filePath":"life/專案/像素遊戲-賭博默示錄.md"}'),a={name:"life/專案/像素遊戲-賭博默示錄.md"};function r(o,s,c,n,i,f){return _(),t("div")}const l=e(a,[["render",r]]);export{d as __pageData,l as default};
