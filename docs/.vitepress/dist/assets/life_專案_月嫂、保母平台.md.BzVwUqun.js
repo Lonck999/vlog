@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a}from"./chunks/framework.B0cMFUTE.js";const d=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"life/專案/月嫂、保母平台.md","filePath":"life/專案/月嫂、保母平台.md"}'),r={name:"life/專案/月嫂、保母平台.md"};function _(o,s,c,n,i,f){return a(),t("div")}const l=e(r,[["render",_]]);export{d as __pageData,l as default};
