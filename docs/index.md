@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "歡迎來到 (,,・ω・,,)"
   text: "地瓜球小攤"
-  tagline: 裡面記錄著自己的一些學習和自介，歡迎大家來看看有沒有你需要的。
+  tagline: 裡面記錄著自己的一些學習和自介，也歡迎大家來看看有沒有你需要的東西。
   image:
     src: /assets/logo.png
     alt: 地瓜球
