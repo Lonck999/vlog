@@ -3,11 +3,11 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   ignoreDeadLinks: true,
   title: "地瓜球工程師",
-  head: [["link", { rel: "icon", href: "/assets/logo.png" }]],
+  head: [["link", { rel: "icon", href: "/img/logo.png" }]],
   description: "地瓜球工程師的vlog",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: "/assets/logo.png",
+    logo: "/img/logo.png",
     nav: [
       { text: "首頁", link: "/" },
       {
