@@ -16,7 +16,7 @@ export default defineConfig({
       {
         text: "學習筆記",
         items: [
-          { text: "Vue", link: "/pages/studyNotes/contents/vue/Vue/index.md" },
+          { text: "Vue", link: "/studyNotes/contents/vue/Vue/index.md" },
           {
             text: "TypeScript",
             link: "/pages/studyNotes/contents/typeScript/index.md",
