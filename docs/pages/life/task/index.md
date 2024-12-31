@@ -74,19 +74,22 @@
 
 #### 01/01 ~ 01/05 目標
 
-###### 專案
+##### 專案
 
 - ⬜ 看完[Vue3 31 ~ 40](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)
 - ⬜ 德美網路掛號(Vue3)
-- 部落客
-  - ⬜ 完成 所有路徑
-  - ⬜ 多一個 每日任務 icon
-  - ⬜ 完成 favicon.ico
 
-###### 生活
+###### 部落客
 
-- 改好履歷
-  - ⬜ 蛋糕
+- ⬜ 完成 所有路徑
+- ⬜ 多一個 每日任務 icon
+- ⬜ 完成 favicon.ico
+
+##### 生活
+
+###### 改好履歷
+
+- ⬜ 蛋糕
 - ⬜ 研究道傳小六壬
 - ⬜ 辦健身房月卡
 
