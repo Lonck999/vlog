@@ -20,20 +20,28 @@ export default defineConfig({
         items: [
           { text: "Vue", link: "/pages/studyNotes/contents/vue/Vue/index.md" },
           {
-            text: "TypeScript",
-            link: "/pages/studyNotes/contents/typeScript/index.md",
+            items: [
+              {
+                text: "TypeScript",
+                link: "/pages/studyNotes/contents/typeScript/index.md",
+              },
+              {
+                text: "JavaScript",
+                link: "/pages/studyNotes/contents/javaScript/index.md",
+              },
+            ],
           },
           {
-            text: "JavaScript",
-            link: "/pages/studyNotes/contents/javaScript/index.md",
-          },
-          {
-            text: "SCSS",
-            link: "/pages/studyNotes/contents/SCSS/index.md",
-          },
-          {
-            text: "TailwindCSS",
-            link: "/pages/studyNotes/contents/tailwindCSS/index.md",
+            items: [
+              {
+                text: "SCSS",
+                link: "/pages/studyNotes/contents/SCSS/index.md",
+              },
+              {
+                text: "TailwindCSS",
+                link: "/pages/studyNotes/contents/tailwindCSS/index.md",
+              },
+            ],
           },
         ],
       },
