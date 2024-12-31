@@ -11,7 +11,7 @@
 
 簡單來說就是一個網頁從最一開始到結束的過程，分成了幾個階段，你可以一你的想法把你要作用的函式放在這幾個階段中執行達到你要的效果。
 
-![lifecycleHooks](/pages/public/lifecycleHooks.png)
+![lifecycleHooks](/img/lifecycleHooks.png)
 
 ## 生命週期鉤子列表
 

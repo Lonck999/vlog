@@ -8,11 +8,11 @@ export default defineConfig({
   ignoreDeadLinks: true,
   lastUpdated: true,
   title: "地瓜球工程師",
-  head: [["link", { rel: "icon", href: "./pages/public/logo.png" }]],
+  head: [["link", { rel: "icon", href: "/img/logo.png" }]],
   description: "地瓜球工程師的vlog",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: "/pages/public/logo.png",
+    logo: "/img/logo.png",
     nav: [
       { text: "首頁", link: "/" },
       {
