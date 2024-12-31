@@ -131,6 +131,10 @@ export default defineConfig({
     socialLinks: [
       { icon: "github", link: "https://github.com/Lonck999" },
       { icon: "linkedin", link: "https://www.linkedin.com/in/lonck999/" },
+      {
+        icon: "task",
+        link: "https://lonck999.github.io/vlog/pages/life/task/",
+      },
     ],
     footer: {
       message: "Released under the MIT License.",
