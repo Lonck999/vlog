@@ -8,7 +8,7 @@ export default defineConfig({
   ignoreDeadLinks: true,
   lastUpdated: true,
   title: "地瓜球工程師",
-  head: [["link", { rel: "icon", href: "/img/logo.png" }]],
+  head: [["link", { rel: "icon", href: "/vlog/logo.png" }]],
   description: "地瓜球工程師的vlog",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
