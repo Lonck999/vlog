@@ -113,12 +113,12 @@
 
 #### 12/30 ~ 12/31 目標
 
-- ⬜ 善心捐款
-- ~~改好履歷~~
+- ✅ ~~善心捐款~~
+- ✅ ~~改好履歷~~
   - ✅ ~~104~~
-- ~~整理衣櫃~~
+- ✅ ~~整理衣櫃~~
 
-  - ✅ 整理衣櫃
+  - ✅ ~~整理衣櫃~~
 
 - 日期：
   - [2024-12-30-週一](/pages/life/task/2024/12月/2024-12-30-週一.md)
@@ -142,14 +142,14 @@
 
 #### 12/16 ~ 12/22 目標
 
-- ✅ 看完[Vue3 11 ~ 20](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)
-- ✅ 研究道傳小六壬
-- ✅ 改好履歷
-- 整理衣櫃
-  - ✅ 要一個紙箱
-  - ✅ 整理第四層
-  - ✅ 整理第五層
-  - ✅ 拿去回收
+- ✅ ~~看完[Vue3 11 ~ 20](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)~~
+- ✅ ~~研究道傳小六壬~~
+- ✅ ~~改好履歷~~
+- ✅ ~~整理衣櫃~~
+  - ✅ ~~要一個紙箱~~
+  - ✅ ~~整理第四層~~
+  - ✅ ~~整理第五層~~
+  - ✅ ~~拿去回收~~
 - 日期：
   - [2024-12-16-週一](/pages/life/task/2024/12月/2024-12-16-週一.md)
   - [2024-12-17-週二](/pages/life/task/2024/12月/2024-12-17-週二.md)
@@ -161,8 +161,8 @@
 
 #### 12/09 ~ 12/15 目標
 
-- ✅ 看完[Vue3 1 ~ 10](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)
-- ✅ 研究道傳小六壬
+- ✅ ~~看完[Vue3 1 ~ 10](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&`vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)~~
+- ✅ ~~研究道傳小六壬~~
 - 日期：
   - [2024-12-09-週一](/pages/life/task/2024/12月/2024-12-09-週一.md)
   - [2024-12-10-週二](/pages/life/task/2024/12月/2024-12-10-週二.md)
@@ -174,9 +174,9 @@
 
 #### 12/02 ~ 12/08 目標
 
-- ✅ JavaScript 看完第十章
-- ✅ Vue 看第三章
-- ✅ 研究道傳小六壬
+- ✅ ~~JavaScript 看完第十章~~
+- ✅ ~~Vue 看第三章~~
+- ✅ ~~研究道傳小六壬~~
 - 日期：
   - [2024-12-03-週二](/pages/life/task/2024/12月/2024-12-03-週二.md)
   - [2024-12-04-週三](/pages/life/task/2024/12月/2024-12-04-週三.md)
