@@ -20,6 +20,8 @@ src 是 src 是 source 的縮寫，是源碼目錄，裡面放的是我們的源
 
 裡面有兩個資料夾 `assets` 和 `components`，
 
+還有另外三個檔案，分別是 `App.vue`、`main.js`、`style.css`，
+
 - 2-1. `assets` 是資源目錄，裡面放的是一些靜態資源，例如：圖片、圖標、靜態資源，建議有圖片、圖標、靜態資源，都放這裡，
 
   功能跟 `public` 一樣，但 `public` 是絕對路徑，`assets` 是相對路徑，
@@ -30,11 +32,29 @@ src 是 src 是 source 的縮寫，是源碼目錄，裡面放的是我們的源
 
   之後開發元件、頁面，都會放在這裡。
 
+- 2-3. `App.vue` 是主元件，是整個專案的入口，主要畫面結構是從這裡開始的。
+
+  它是一個 Vue 組件（Component），裡面包含 HTML、CSS 和 JavaScript，幫助我們設計畫面和功能。
+
+  想像成畫一幅畫，App.vue 就是畫的「底圖」。
+
+- 2-4. `main.js` 是主程式，是整個專案的入口，
+
+  它告訴 Vue：「嘿，請開始運行，並把畫面顯示在 HTML 裡的某個地方。」
+
+  通常會看到 createApp(App).mount('#app')，
+
+  意思是把 App.vue 的內容塞進 #app 這個 HTML 標籤裡，
+
+  所謂的有什麼東西要寫在 "全域" 的，就寫在這裡。
+
+- 2-5. `style.css` 是樣式表，是整個專案的樣式，
+
 ## 3. `.gitignore`
 
-這個是 git 的忽略檔案，裡面放的是一些不需要被 git 追蹤的檔案，例如：node_modules、dist、.DS_Store 等等，
+這個是 git 的忽略檔案，裡面放的是一些不需要被 git 追蹤的檔案，
 
-如果不想被追蹤，可以放在這裡。
+例如：node_modules、dist、.DS_Store 等等，如果不想被追蹤，可以放在這裡。
 
 ## 4. `index.html`
 
