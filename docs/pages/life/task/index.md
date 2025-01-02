@@ -62,8 +62,7 @@
 
 - ⬜ 看完[Vue3 41 ~ 45](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)
 - ⬜ 德美網路掛號(Vue3)
-- 改好履歷
-  - ⬜ linkedin
+
 - 日期：
   - [2025-01-06-週一](/pages/life/task/2025/1月/2025-01-06-週一.md)
   - [2025-01-07-週二](/pages/life/task/2025/1月/2025-01-07-週二.md)
@@ -86,7 +85,8 @@
 ##### 生活
 
 - 改好履歷
-  - ⬜ 蛋糕
+  - ✅ 蛋糕
+  - ⬜ linkedin
 - 辦理結婚文件
   - ⬜ 戶籍謄本
   - ⬜ 身分證影本
