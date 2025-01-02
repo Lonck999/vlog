@@ -19,3 +19,4 @@
 - [computed](./computed.md)
 - [watch](./watch.md)
 - [lifecycleHooks](./lifecycleHooks.md)
+- [reviewingTheFiles](./reviewingTheFiles.md)
