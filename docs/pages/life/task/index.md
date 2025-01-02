@@ -27,7 +27,7 @@
 - 選擇後端語言
 - 一起培養一個運動
   - ⬜ 找運動項目
-  - [Get Hit Boxing](https://maps.app.goo.gl/LgmxHeeZGX8MBMJZ8)
+    - [Get Hit Boxing](https://maps.app.goo.gl/LgmxHeeZGX8MBMJZ8)
 
 ### 一月目標
 
