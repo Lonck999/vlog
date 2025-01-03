@@ -75,12 +75,9 @@
 
 ##### 專案
 
-- ⬜ 看完[Vue3 51 ~ 60](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)
-- ⬜ 德美網路掛號(Vue3)
-- 部落客
-  - ⬜ 完成 所有路徑
-  - ✅ ~~多一個 每日任務 icon~~
-  - ✅ ~~完成 favicon.ico~~
+- 看[Vue3](https://www.bilibili.com/video/BV1ECzdYbEB5?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=5)
+- [德美網路掛號(Vue3)](/pages/life/專案/德美新的網路掛號.md)
+- [部落客](/pages/life/專案/自己的部落格.md)
 
 ##### 生活
 
