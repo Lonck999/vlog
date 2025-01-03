@@ -2,7 +2,7 @@
 
 ## 整年度目標
 
-- [年度計畫](/pages/life/task/list/annualPlan.md)
+- [年度計畫](/pages/life/task/list/2025/annualPlan.md)
 
 ### 一月目標
 
