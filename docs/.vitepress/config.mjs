@@ -117,6 +117,10 @@ export default defineConfig({
               text: "lifecycleHooks",
               link: "/pages/studyNotes/contents/vue/Vue/lifecycleHooks.md",
             },
+            {
+              text: "props",
+              link: "/pages/studyNotes/contents/vue/Vue/props.md",
+            },
           ],
         },
       ],
