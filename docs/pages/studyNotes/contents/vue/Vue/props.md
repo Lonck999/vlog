@@ -55,8 +55,36 @@ const props = defineProps({
 </template>
 ```
 
-## 總結
+Props 的詳細設定項
 
-- 父層傳遞數據給子層
-- 子層使用 props 接收數據
-- 子層不能直接修改 props 的值
+- type: 限定資料類型，例如 String, Number, Boolean, Array, Object...
+- required: 是否必填，預設是 false。若設成 true，父元件一定要傳。
+- default: 預設值，如果父元件沒給，就用此值。
+- validator: 自訂驗證規則，若不通過會在 console 警告。
+
+```vue
+<script setup>
+const props = defineProps({
+  userName: {
+    type: String,
+    required: true,
+  },
+  age: {
+    type: Number,
+    default: 18,
+  },
+  hobbies: {
+    type: Array,
+    default: () => [],
+  },
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
+  score: {
+    type: Number,
+    validator: (value) => value >= 0 && value <= 100,
+  },
+});
+</script>
+```
