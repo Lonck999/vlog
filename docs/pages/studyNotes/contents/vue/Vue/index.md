@@ -21,3 +21,5 @@
 - [lifecycleHooks](./lifecycleHooks.md)
 - [reviewingTheFiles](./reviewingTheFiles.md)
 - [props](./props.md)
+- [emit](./emit.md)
+- [callBack](./callBack.md)
