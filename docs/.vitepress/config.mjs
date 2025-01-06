@@ -59,67 +59,87 @@ export default defineConfig({
             },
             {
               text: "v-bind",
-              link: "/pages/studyNotes/contents/vue/Vue/v-bind.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-bind.md",
             },
             {
               text: "v-cloak",
-              link: "/pages/studyNotes/contents/vue/Vue/v-cloak.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-cloak.md",
             },
             {
               text: "v-for",
-              link: "/pages/studyNotes/contents/vue/Vue/v-for.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-for.md",
             },
             {
               text: "v-html",
-              link: "/pages/studyNotes/contents/vue/Vue/v-html.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-html.md",
             },
             {
               text: "v-if",
-              link: "/pages/studyNotes/contents/vue/Vue/v-if.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-if.md",
             },
             {
               text: "v-memo",
-              link: "/pages/studyNotes/contents/vue/Vue/v-memo.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-memo.md",
             },
             {
               text: "v-model",
-              link: "/pages/studyNotes/contents/vue/Vue/v-model.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-model.md",
             },
             {
               text: "v-on",
-              link: "/pages/studyNotes/contents/vue/Vue/v-on.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-on.md",
             },
             {
               text: "v-once",
-              link: "/pages/studyNotes/contents/vue/Vue/v-once.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-once.md",
             },
             {
               text: "v-show",
-              link: "/pages/studyNotes/contents/vue/Vue/v-show.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-show.md",
             },
             {
               text: "v-slot",
-              link: "/pages/studyNotes/contents/vue/Vue/v-slot.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-slot.md",
             },
             {
               text: "v-text",
-              link: "/pages/studyNotes/contents/vue/Vue/v-text.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/v-text.md",
             },
             {
               text: "computed",
-              link: "/pages/studyNotes/contents/vue/Vue/computed.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/computed.md",
+            },
+            {
+              text: "methods",
+              link: "/pages/studyNotes/contents/vue/Vue/course/methods.md",
             },
             {
               text: "watch",
-              link: "/pages/studyNotes/contents/vue/Vue/watch.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/watch.md",
             },
             {
               text: "lifecycleHooks",
-              link: "/pages/studyNotes/contents/vue/Vue/lifecycleHooks.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/lifecycleHooks.md",
+            },
+            {
+              text: "reviewingTheFiles",
+              link: "/pages/studyNotes/contents/vue/Vue/course/reviewingTheFiles.md",
             },
             {
               text: "props",
-              link: "/pages/studyNotes/contents/vue/Vue/props.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/props.md",
+            },
+            {
+              text: "emit",
+              link: "/pages/studyNotes/contents/vue/Vue/course/emit.md",
+            },
+            {
+              text: "callBack",
+              link: "/pages/studyNotes/contents/vue/Vue/course/callBack.md",
+            },
+            {
+              text: "component",
+              link: "/pages/studyNotes/contents/vue/Vue/course/component.md",
             },
           ],
         },
