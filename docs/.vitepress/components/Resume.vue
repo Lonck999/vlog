@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive } from "vue";
 
-const headImg = ref("/public/img/logo.png");
+const headImg = ref("/vlog/img/logo.png");
 const name = ref("蕭鼎澄");
 const job = ref("Front-End Developer");
 const skills = reactive([
