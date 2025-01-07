@@ -1,13 +1,15 @@
 <script setup>
 import { ref } from "vue";
 
-const test = ref("test");
+const headImg = ref("../../public/img/logo.png");
 </script>
 
 <template>
   <div class="resume">
-    <div>大頭照</div>
-    <div>文字自介</div>
+    <div class="head">
+      <img :src="headImg" alt="head" />
+    </div>
+    <div class="content">文字自介</div>
   </div>
 </template>
 
@@ -15,5 +17,17 @@ const test = ref("test");
 .resume {
   background-color: #815656;
   display: flex;
+
+  .head {
+    width: 20rem;
+
+    img {
+      width: 18rem;
+      height: 18rem;
+      border-radius: 50%;
+      border: 0.4rem solid #efe9aa;
+      padding: 0.6rem;
+    }
+  }
 }
 </style>
