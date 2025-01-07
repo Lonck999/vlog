@@ -7,25 +7,25 @@ const job = ref("Front-End Developer");
 const skills = reactive([
   {
     id: 1,
-    icon: "../../public/img/vue-icon.svg",
+    icon: "/vlog/img/vue-icon.svg",
     name: "Vue.js",
     class: "vue",
   },
   {
     id: 2,
-    icon: "../../public/img/pinia-icon.svg",
+    icon: "/vlog/img/pinia-icon.svg",
     name: "Pinia",
     class: "pinia",
   },
   {
     id: 3,
-    icon: "../../public/img/vueRouter-icon.png",
+    icon: "/vlog/img/vueRouter-icon.png",
     name: "Vue-Router",
     class: "vueRouter",
   },
   {
     id: 4,
-    icon: "../../public/img/vite-icon.svg",
+    icon: "/vlog/img/vite-icon.svg",
     name: "Vite",
     class: "vite",
   },
