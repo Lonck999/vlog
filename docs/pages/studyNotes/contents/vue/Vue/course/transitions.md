@@ -68,3 +68,13 @@ const visible = ref(true);
 }
 </style>
 ```
+
+我們也可以透過以前的 CSS 方式來實現過渡效果，
+
+CSS 以前的方式是透過 `@keyframes` 來實現過渡效果，
+
+Vue 也提供了這樣的選項，
+
+只需要在 `<style>` 中使用 `@keyframes` 來實現過渡效果，
+
+並在 fade-enter-active、fade-leave-active 中使用 `animation` 來實現過渡效果。
