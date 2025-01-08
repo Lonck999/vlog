@@ -25,3 +25,4 @@
 - [emit](./course/emit.md)
 - [callBack](./course/callBack.md)
 - [component](./course/component.md)
+- [transitions](./course/transitions.md)
