@@ -209,8 +209,9 @@ const contactTitle = ref("Contact");
           <li v-for="contact in contacts" :key="contact.id">
             <p>
               {{ contact.name }}
-              <a :href="contact.line" target="_blank">{{ contact.line }}</a>
             </p>
+
+            <a :href="contact.line" target="_blank">{{ contact.line }}</a>
           </li>
         </ul>
       </div>
@@ -312,6 +313,23 @@ const contactTitle = ref("Contact");
         color: #fff;
         font-weight: 700;
         margin: 1rem 0 0 0;
+      }
+
+      ul {
+        font-size: 1.4rem;
+        margin-top: 1rem;
+
+        li {
+          margin-bottom: 0.5rem;
+
+          a {
+            font-size: 1rem;
+
+            &:hover {
+              color: #f6bb62;
+            }
+          }
+        }
       }
     }
   }
