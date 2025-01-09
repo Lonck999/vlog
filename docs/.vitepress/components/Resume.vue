@@ -210,7 +210,6 @@ const contactTitle = ref("Contact");
             <p>
               {{ contact.name }}
             </p>
-
             <a :href="contact.line" target="_blank">{{ contact.line }}</a>
           </li>
         </ul>
@@ -287,7 +286,7 @@ const contactTitle = ref("Contact");
             align-items: center;
             gap: 0.2rem;
             border-radius: 0.5rem;
-            padding: 0.18rem;
+            padding: 0.18rem 0.24rem 0.18rem 0.18rem;
 
             img {
               width: 1.8rem;
