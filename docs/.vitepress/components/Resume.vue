@@ -154,6 +154,23 @@ const skillsUi = ref("UI Framework：");
 const skillsCss = ref("CSS類：");
 const skillsOther = ref("其他：");
 const contactTitle = ref("Contact");
+const mySelf = ref(
+  `
+  我是一名擁有一年多快兩年經驗的前端工程師，<br>
+  擅長 Vue 2、Vue 3、Vue Router 和 Pinia 等前端框架技術。<br>
+  在職期間，參與多個專案開發與維護，熟練運用這些技術框架，提升了應用的性能和用戶體驗。<br>
+  <br>
+  例如：<br>
+  1. 在德霖科技時的線上預約掛號、線上看診進度、排班後台。<br>
+  2. 在新誼整合科技的攝影機後台控制系統、設備短路系統、對內電商平台、行銷活動頁、ＥＤＭ、分類頁面、購物車、Selenium整合測試。<br>
+  <br>
+  在假日期間，我積極與團隊合作承接外部專案，主要使用 Vue 3、Element plus、Vue Router、Pinia 、TypeScript 進行開發。<br>
+  這些經驗讓我更加熟悉團隊協作流程，並提升了實戰技能，能夠高效地解決專案中遇到的各種技術挑戰。<br>
+  <br>
+  知道自己還不夠想做的更好。因此，平時我利用平日空閒時間持續進修，目前也有自己安排一些讀書計畫，不斷完善自己的知識體系，力求在專業領域保持領先。<br>
+  我的目標是成為一名具備有技術力的前端工程師，為公司和團隊和自己創造更大的價值。
+  `
+);
 </script>
 
 <template>
@@ -215,7 +232,10 @@ const contactTitle = ref("Contact");
         </ul>
       </div>
     </div>
-    <div class="content">文字自介</div>
+    <div class="content">
+      <div class="content-title">自我介紹</div>
+      <div v-html="mySelf" class="content-text"></div>
+    </div>
   </div>
 </template>
 
@@ -224,7 +244,7 @@ const contactTitle = ref("Contact");
   display: flex;
 
   .head {
-    width: 20rem;
+    width: 30%;
 
     .head-img {
       width: 18rem;
@@ -330,6 +350,26 @@ const contactTitle = ref("Contact");
           }
         }
       }
+    }
+  }
+
+  .content {
+    width: 70%;
+    border-left: 0.2rem solid #fff;
+    padding-left: 0.6rem;
+
+    .content-title {
+      font-size: 2.2rem;
+      color: #fff;
+      font-weight: 700;
+      margin: 1rem 0 0 0;
+    }
+
+    .content-text {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: #fff;
+      margin: 2rem 0;
     }
   }
 }
