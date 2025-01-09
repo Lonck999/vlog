@@ -87,7 +87,7 @@ const cssSkills = reactive([
   {
     id: 3,
     icon: "/vlog/img/css-icon.svg",
-    name: "CSS 3",
+    name: "CSS",
     class: "css",
   },
 ]);
