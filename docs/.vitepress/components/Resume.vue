@@ -1,9 +1,5 @@
 <script setup>
 import { ref, reactive } from "vue";
-
-const headImg = ref("/vlog/img/head.jpg");
-const name = ref("蕭鼎澄");
-const job = ref("Front-End Developer");
 const mainSkills = reactive([
   {
     id: 1,
@@ -49,7 +45,6 @@ const mainSkills = reactive([
     class: "javascript",
   },
 ]);
-
 const uiSkills = reactive([
   {
     id: 1,
@@ -76,7 +71,6 @@ const uiSkills = reactive([
     class: "bootstrap",
   },
 ]);
-
 const cssSkills = reactive([
   {
     id: 1,
@@ -97,7 +91,6 @@ const cssSkills = reactive([
     class: "css",
   },
 ]);
-
 const otherSkills = reactive([
   {
     id: 1,
@@ -130,6 +123,37 @@ const otherSkills = reactive([
     class: "html",
   },
 ]);
+const contacts = reactive([
+  {
+    id: 1,
+    name: "Github:",
+    line: "https://github.com/Lonck999",
+  },
+  {
+    id: 2,
+    name: "Linkedin:",
+    line: "https://pse.is/6y3nsj",
+  },
+  {
+    id: 3,
+    name: "Email:",
+    line: "joe22053814@gmail.com",
+  },
+  {
+    id: 4,
+    name: "Phone:",
+    line: "0989204737",
+  },
+]);
+const headImg = ref("/vlog/img/head.jpg");
+const name = ref("蕭鼎澄");
+const job = ref("Front-End Developer");
+const skillsTitle = ref("Front-End Skills");
+const skillsMain = ref("前端主要：");
+const skillsUi = ref("UI Framework：");
+const skillsCss = ref("CSS類：");
+const skillsOther = ref("其他：");
+const contactTitle = ref("Contact");
 </script>
 
 <template>
@@ -141,8 +165,8 @@ const otherSkills = reactive([
         <p class="job">{{ job }}</p>
       </div>
       <div class="skills">
-        <p class="skills-title">Front-End Skills</p>
-        <p class="skills-main">前端主要：</p>
+        <p class="skills-title">{{ skillsTitle }}</p>
+        <p class="skills-main">{{ skillsMain }}</p>
         <ul>
           <li v-for="mainSkill in mainSkills" :key="mainSkill.id">
             <div :class="mainSkill.class">
@@ -151,7 +175,7 @@ const otherSkills = reactive([
             </div>
           </li>
         </ul>
-        <p class="skills-ui">UI Framework：</p>
+        <p class="skills-ui">{{ skillsUi }}</p>
         <ul>
           <li v-for="uiSkill in uiSkills" :key="uiSkill.id">
             <div :class="uiSkill.class">
@@ -160,7 +184,7 @@ const otherSkills = reactive([
             </div>
           </li>
         </ul>
-        <p class="skills-css">CSS類：</p>
+        <p class="skills-css">{{ skillsCss }}</p>
         <ul>
           <li v-for="cssSkill in cssSkills" :key="cssSkill.id">
             <div :class="cssSkill.class">
@@ -169,13 +193,24 @@ const otherSkills = reactive([
             </div>
           </li>
         </ul>
-        <p class="skills-other">其他：</p>
+        <p class="skills-other">{{ skillsOther }}</p>
         <ul>
           <li v-for="otherSkill in otherSkills" :key="otherSkill.id">
             <div :class="otherSkill.class">
               <img :src="otherSkill.icon" :alt="otherSkill.name" />
               <p>{{ otherSkill.name }}</p>
             </div>
+          </li>
+        </ul>
+      </div>
+      <div class="contact">
+        <p class="contact-title">{{ contactTitle }}</p>
+        <ul>
+          <li v-for="contact in contacts" :key="contact.id">
+            <p>
+              {{ contact.name }}
+              <a :href="contact.line" target="_blank">{{ contact.line }}</a>
+            </p>
           </li>
         </ul>
       </div>
@@ -221,7 +256,8 @@ const otherSkills = reactive([
 
     .skills {
       margin: 0 0.8rem;
-      padding-top: 0.5rem;
+      padding: 0.5rem 0 0.8rem 0;
+      border-bottom: 0.2rem solid #fff;
 
       .skills-title {
         font-size: 2.2rem;
@@ -263,6 +299,19 @@ const otherSkills = reactive([
             }
           }
         }
+      }
+    }
+
+    .contact {
+      margin: 0 0.8rem;
+      padding: 0.5rem 0 0.8rem 0;
+      border-bottom: 0.2rem solid #fff;
+
+      .contact-title {
+        font-size: 2.2rem;
+        color: #fff;
+        font-weight: 700;
+        margin: 1rem 0 0 0;
       }
     }
   }
