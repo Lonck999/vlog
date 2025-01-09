@@ -244,7 +244,7 @@ const mySelf = ref(
   display: flex;
 
   .head {
-    width: 30%;
+    width: 18.75rem;
 
     .head-img {
       width: 18rem;
@@ -354,7 +354,7 @@ const mySelf = ref(
   }
 
   .content {
-    width: 70%;
+    width: 54rem;
     border-left: 0.2rem solid #fff;
     padding-left: 0.6rem;
 
