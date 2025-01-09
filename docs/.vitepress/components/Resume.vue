@@ -316,7 +316,7 @@ const contactTitle = ref("Contact");
       }
 
       ul {
-        font-size: 1.4rem;
+        font-size: 1.25rem;
         margin-top: 1rem;
 
         li {
