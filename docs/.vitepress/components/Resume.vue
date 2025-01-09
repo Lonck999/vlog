@@ -35,6 +35,19 @@ const mainSkills = reactive([
     name: "Vite",
     class: "vite",
   },
+
+  {
+    id: 6,
+    icon: "/vlog/img/typescript-icon.svg",
+    name: "TypeScript",
+    class: "typescript",
+  },
+  {
+    id: 7,
+    icon: "/vlog/img/javascript-icon.svg",
+    name: "JavaScript",
+    class: "javascript",
+  },
 ]);
 
 const uiSkills = reactive([
@@ -52,15 +65,15 @@ const uiSkills = reactive([
   },
   {
     id: 3,
-    icon: "/vlog/img/bootstrap-icon.svg",
-    name: "Bootstrap",
-    class: "bootstrap",
-  },
-  {
-    id: 4,
     icon: "/vlog/img/element-icon.png",
     name: "Element Plus",
     class: "element",
+  },
+  {
+    id: 4,
+    icon: "/vlog/img/bootstrap-icon.svg",
+    name: "Bootstrap",
+    class: "bootstrap",
   },
 ]);
 
@@ -82,6 +95,39 @@ const cssSkills = reactive([
     icon: "/vlog/img/css-icon.svg",
     name: "CSS 3",
     class: "css",
+  },
+]);
+
+const otherSkills = reactive([
+  {
+    id: 1,
+    icon: "/vlog/img/jquery-icon.svg",
+    name: "jQuery",
+    class: "jquery",
+  },
+  {
+    id: 2,
+    icon: "/vlog/img/git-icon.svg",
+    name: "Git",
+    class: "git",
+  },
+  {
+    id: 3,
+    icon: "/vlog/img/selenium-icon.svg",
+    name: "Selenium",
+    class: "selenium",
+  },
+  {
+    id: 4,
+    icon: "/vlog/img/node-icon.svg",
+    name: "Node.js",
+    class: "node",
+  },
+  {
+    id: 5,
+    icon: "/vlog/img/html-icon.svg",
+    name: "HTML",
+    class: "html",
   },
 ]);
 </script>
@@ -120,6 +166,15 @@ const cssSkills = reactive([
             <div :class="cssSkill.class">
               <img :src="cssSkill.icon" :alt="cssSkill.name" />
               <p>{{ cssSkill.name }}</p>
+            </div>
+          </li>
+        </ul>
+        <p class="skills-other">其他：</p>
+        <ul>
+          <li v-for="otherSkill in otherSkills" :key="otherSkill.id">
+            <div :class="otherSkill.class">
+              <img :src="otherSkill.icon" :alt="otherSkill.name" />
+              <p>{{ otherSkill.name }}</p>
             </div>
           </li>
         </ul>
@@ -177,7 +232,8 @@ const cssSkills = reactive([
 
       .skills-main,
       .skills-ui,
-      .skills-css {
+      .skills-css,
+      .skills-other {
         font-size: 1.2rem;
         color: #fff;
         margin: 1rem 0;
@@ -194,7 +250,7 @@ const cssSkills = reactive([
             align-items: center;
             gap: 0.2rem;
             border-radius: 0.5rem;
-            padding-right: 0.15rem;
+            padding: 0.18rem;
 
             img {
               width: 1.8rem;
@@ -207,56 +263,83 @@ const cssSkills = reactive([
             }
           }
         }
-
-        .vue {
-          border: 0.2rem solid #42b883;
-        }
-
-        .pinia {
-          border: 0.2rem solid #ffd700;
-        }
-
-        .axios {
-          border: 0.2rem solid #5c21bb;
-        }
-
-        .vueRouter {
-          border: 0.2rem solid #328a63;
-        }
-
-        .vite {
-          border: 0.2rem solid #9b5ffc;
-        }
-
-        .quasar {
-          border: 0.2rem solid #2f8aa6;
-        }
-
-        .veutify {
-          border: 0.2rem solid #5f9efc;
-        }
-
-        .bootstrap {
-          border: 0.2rem solid #563d7c;
-        }
-
-        .element {
-          border: 0.2rem solid #409eff;
-        }
-
-        .tailwind {
-          border: 0.2rem solid #3cadd0;
-        }
-
-        .scss {
-          border: 0.2rem solid #cd6799;
-        }
-
-        .css {
-          border: 0.2rem solid #3cadd0;
-        }
       }
     }
   }
+}
+.vue {
+  border: 0.2rem solid #42b883;
+}
+
+.pinia {
+  border: 0.2rem solid #ffd700;
+}
+
+.axios {
+  border: 0.2rem solid #5c21bb;
+}
+
+.vueRouter {
+  border: 0.2rem solid #328a63;
+}
+
+.vite {
+  border: 0.2rem solid #9b5ffc;
+}
+
+.quasar {
+  border: 0.2rem solid #2f8aa6;
+}
+
+.veutify {
+  border: 0.2rem solid #5f9efc;
+}
+
+.bootstrap {
+  border: 0.2rem solid #712cf9;
+}
+
+.element {
+  border: 0.2rem solid #409eff;
+}
+
+.tailwind {
+  border: 0.2rem solid #3cadd0;
+}
+
+.scss {
+  border: 0.2rem solid #cd6799;
+}
+
+.css {
+  border: 0.2rem solid #3cadd0;
+}
+
+.typescript {
+  border: 0.2rem solid #3178c6;
+}
+
+.javascript {
+  border: 0.2rem solid #f7df1e;
+}
+
+.jquery {
+  border: 0.2rem solid #0769ad;
+}
+
+.git {
+  border: 0.2rem solid #f05032;
+}
+
+.selenium {
+  border: 0.2rem solid #43b02a;
+}
+
+.node {
+  border: 0.2rem solid #689f63;
+}
+
+.html {
+  border: 0.2rem solid #e96228;
 }
 </style>
