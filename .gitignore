@@ -1,0 +1,17 @@
+# 忽略的檔案
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 忽略的資料夾
+node_modules
+dist
+dist-ssr
+*.local
