@@ -145,6 +145,60 @@ const contacts = reactive([
     line: "0989204737",
   },
 ]);
+const works = reactive([
+  {
+    id: 1,
+    icon: "/vlog/img/shinsoft-icon.png",
+    job: "前端工程師",
+    company: "新誼整合科技",
+    time: "2023-07 ~ 在職中",
+    content: [
+      "1. 使用Vue3開發應用,提升了應用的加載速度和性能。",
+      "2. 優化組件渲染。",
+      "3. 利用 Vue Router 構建動態和嵌套路由。",
+      "4. 採用Pinia 進行全域狀態管理,簡化了資料流,提高了程式碼的可維護性。",
+      "5. 使用Axios進行API資料的交互。",
+      "6. 幫忙設定使用者測驗角色跟檢測方式與大量下單測試,在Node用Mocha、selenium騙寫自動化測試程式。",
+      "7. 使用 SCSS 預處理器編寫 CSS 代碼，以提高開發效率和維護性。",
+      "8. 支援後端使用C#開發後端API,確保前後端的高效溝通。",
+    ],
+  },
+  {
+    id: 2,
+    icon: "/vlog/img/dlin-icon.png",
+    job: "前端工程師",
+    company: "德霖科技有限公司",
+    time: "2022-11 ~ 2023-06",
+    content: [
+      "1. 使用 Vue.js 框架開發前端應用程式。例如：線上即時看診進度、網上預約掛號、等等......",
+      "2. 使用 Visual Studio 2022等開發工具進行程式碼編寫、除錯。",
+      "3. 使用 jQuery 函式庫進行前端開發，包括操作 DOM、事件處理、Ajax 請求等。",
+      "4. 使用 ASP.NET 框架開發網路應用程式。",
+      "5. 實作伺服器端的功能，如身份驗證、授權、資料庫操作等。",
+      "6. 使用 C# 程式語言進行應用程式開發，包括桌面應用程式(醫療行政系統)和網路應用程式(KMT黨部簡訊發送點數統計)。",
+    ],
+  },
+]);
+const projects = reactive([
+  {
+    id: 1,
+    icon: "/vlog/img/shinsoft-icon.png",
+    job: "前端工程師",
+    company: "新誼整合科技",
+    time: "2023-07 ~ 在職中",
+    content: [
+      "1. 使用Vue3開發應用,提升了應用的加載速度和性能。",
+      "2. 優化組件渲染。",
+      "3. 利用 Vue Router 構建動態和嵌套路由。",
+      "4. 採用Pinia 進行全域狀態管理,簡化了資料流,提高了程式碼的可維護性。",
+      "5. 使用Axios進行API資料的交互。",
+      "6. 幫忙設定使用者測驗角色跟檢測方式與大量下單測試,在Node用Mocha、selenium騙寫自動化測試程式。",
+      "7. 使用 SCSS 預處理器編寫 CSS 代碼，以提高開發效率和維護性。",
+      "8. 支援後端使用C#開發後端API,確保前後端的高效溝通。",
+    ],
+  },
+]);
+
 const headImg = ref("/vlog/img/head.jpg");
 const name = ref("蕭鼎澄");
 const job = ref("Front-End Developer");
@@ -233,6 +287,47 @@ const mySelf = ref(
       </div>
     </div>
     <div class="content">
+      <div class="work">
+        <h1 class="content-title">工作經驗</h1>
+        <div class="work-item">
+          <h3>公司經歷：</h3>
+          <div v-for="work in works" :key="work.id" class="work-introduce">
+            <img :src="work.icon" :alt="work.company" class="work-img" />
+            <div class="work-content">
+              <p class="work-company">{{ work.company }}</p>
+              <p class="work-job">{{ work.job }}</p>
+              <p class="work-time">{{ work.time }}</p>
+              <p class="work-text">工作內容：</p>
+              <ul>
+                <li v-for="(content, index) in work.content" :key="index">
+                  {{ content }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="work-item">
+          <h3>接案經歷：</h3>
+          <div
+            v-for="project in projects"
+            :key="project.id"
+            class="work-introduce"
+          >
+            <img :src="project.icon" :alt="project.company" class="work-img" />
+            <div class="work-content">
+              <p class="work-company">{{ project.company }}</p>
+              <p class="work-job">{{ project.job }}</p>
+              <p class="work-time">{{ project.time }}</p>
+              <p class="work-text">工作內容：</p>
+              <ul>
+                <li v-for="(content, index) in project.content" :key="index">
+                  {{ content }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="content-title">自我介紹</div>
       <div v-html="mySelf" class="content-text"></div>
     </div>
@@ -357,6 +452,58 @@ const mySelf = ref(
     width: 54rem;
     border-left: 0.2rem solid #fff;
     padding-left: 0.6rem;
+
+    .work {
+      .work-item {
+        h3 {
+          font-size: 2rem;
+          color: #fff;
+          font-weight: 700;
+          margin: 2.5rem 0;
+        }
+
+        .work-introduce {
+          display: flex;
+          gap: 0.8rem;
+          border-bottom: 0.1rem solid #fff;
+          margin: 1.7rem 0;
+
+          .work-img {
+            width: 6rem;
+            height: 6rem;
+          }
+
+          .work-content {
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+
+            .work-company {
+              font-size: 1.7rem;
+              color: #fff;
+              font-weight: 700;
+            }
+
+            .work-job,
+            .work-time {
+              font-size: 1.4rem;
+              color: #fff;
+            }
+
+            .work-text {
+              font-size: 1.2rem;
+              color: #fff;
+              margin: 1rem 0 0.5rem 0;
+            }
+
+            ul {
+              font-size: 1.2rem;
+              line-height: 1.4;
+              margin-left: 0.5rem;
+            }
+          }
+        }
+      }
+    }
 
     .content-title {
       font-size: 2.2rem;
