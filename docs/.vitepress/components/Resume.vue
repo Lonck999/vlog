@@ -182,19 +182,81 @@ const works = reactive([
 const projects = reactive([
   {
     id: 1,
-    icon: "/vlog/img/shinsoft-icon.png",
+    icon: "/vlog/img/t-icon.png",
     job: "前端工程師",
-    company: "新誼整合科技",
-    time: "2023-07 ~ 在職中",
+    company:
+      "團隊接案：(第三期)機器學習⾞牌辨識、車牌標記-處理⼤量前端滑鼠操作以及鍵盤快速鍵",
+    time: "2024-03 ~ 2024-06",
     content: [
-      "1. 使用Vue3開發應用,提升了應用的加載速度和性能。",
-      "2. 優化組件渲染。",
-      "3. 利用 Vue Router 構建動態和嵌套路由。",
-      "4. 採用Pinia 進行全域狀態管理,簡化了資料流,提高了程式碼的可維護性。",
-      "5. 使用Axios進行API資料的交互。",
-      "6. 幫忙設定使用者測驗角色跟檢測方式與大量下單測試,在Node用Mocha、selenium騙寫自動化測試程式。",
-      "7. 使用 SCSS 預處理器編寫 CSS 代碼，以提高開發效率和維護性。",
-      "8. 支援後端使用C#開發後端API,確保前後端的高效溝通。",
+      "1. Vue.js：使用 Vue 3 作為核心框架，實現前端動態 UI 組件和頁面邏輯。",
+      "2. Element Plus：使用 Element Plus 作為 UI 組件庫，快速構建高效、易用的介面，例如表單、表格和彈窗設計。",
+      "3. TypeScript：使用 TypeScript 提供嚴謹的型別檢查，減少潛在的運行時錯誤。",
+      "4. TailwindCSS：採用 TailwindCSS 實現快速樣式設計，透過原子化 CSS 減少樣式重複並加快開發效率。",
+      "5. RESTful API：串接後端提供的 RESTful API，完成資料的讀取、更新及操作功能。",
+      "6. Swagger：利用 Swagger 文檔進行 API 的溝通與測試，確保前後端協作效率和準確性。",
+      "7. WebSocket：使用 WebSocket 提供即時資料推送功能，提升用戶互動體驗。",
+      "8. MQTT 傳輸：利用 MQTT 通訊協議，實現高效能、低延遲的資料傳輸，適合處理物聯網設備數據",
+    ],
+  },
+  {
+    id: 2,
+    icon: "/vlog/img/i-icon.png",
+    job: "前端工程師",
+    company: "個人接案：團購群電商平台開發(身心保健)",
+    time: "2024-10 ~ 2024-11",
+    content: [
+      "1. SCSS：運用巢狀選擇器優化 CSS 層級結構，提升樣式的可讀性和管理效率，編寫高效的樣式表，利用變數、Mixin 和函數提升樣式的重用性與一致性。採用模組化樣式結構，將樣式拆分為多個文件，便於大型專案的維護與團隊協作。",
+      "2. JavaScript:使用 JavaScript 處理頁面交互邏輯，例如按鈕事件、表單驗證和動畫效果。使用原生 DOM 操作和事件監聽，實現即時數據渲染與用戶交互功能。",
+      "3. Bootstrap：採用內建的元件（如導航欄、按鈕、模態框等），縮短 UI 開發時間並保持設計一致性。",
+    ],
+  },
+  {
+    id: 3,
+    icon: "/vlog/img/t-icon.png",
+    job: "前端工程師",
+    company: "團隊接案：(第二期)攝影機即時識別顏色與車牌系統",
+    time: "2023-11 ~ 2024-01",
+    content: [
+      "1. Vue.js：使用 Vue 3 作為核心框架，實現前端動態 UI 組件和頁面邏輯。",
+      "2. Element Plus：使用 Element Plus 作為 UI 組件庫，快速構建高效、易用的介面，例如表單、表格和彈窗設計。",
+      "3. TypeScript：使用 TypeScript 提供嚴謹的型別檢查，減少潛在的運行時錯誤。",
+      "4. TailwindCSS：採用 TailwindCSS 實現快速樣式設計，透過原子化 CSS 減少樣式重複並加快開發效率。",
+      "5. RESTful API：串接後端提供的 RESTful API，完成資料的讀取、更新及操作功能。",
+      "6. Swagger：利用 Swagger 文檔進行 API 的溝通與測試，確保前後端協作效率和準確性。",
+      "7. WebSocket：使用 WebSocket 提供即時資料推送功能，提升用戶互動體驗。",
+      "8. MQTT 傳輸：利用 MQTT 通訊協議，實現高效能、低延遲的資料傳輸，適合處理物聯網設備數據",
+    ],
+  },
+  {
+    id: 4,
+    icon: "/vlog/img/t-icon.png",
+    job: "前端工程師",
+    company: "團隊接案：(第一期)道路車輛即時畫面與ＡＩ輪軸速度判定",
+    time: "2023-01 ~ 2023-03",
+    content: [
+      "1.使用 Vue.js 框架開發前端應用程式。",
+      "2.開發響應式設計的使用者介面，以支援不同大小的螢幕和裝置。",
+      "3.使用 TailwindCSS 套件進行樣式設計。",
+      "4.實作前端功能，如表單驗證、資料綁定、數據判斷等。",
+      "5.與設計師和後端工程師進行溝通，確保前端設計符合設計規格並且可以與後端整合。",
+      "6.使用Git版本控制系統，進行程式碼管理和協作。",
+    ],
+  },
+  {
+    id: 2,
+    icon: "/vlog/img/i-icon.png",
+    job: "前端工程師",
+    company: "個人接案：蘋果莊園手工香皂品牌網站",
+    time: "2022-08 ~ 2022-09",
+    content: [
+      "1.使用 HTML 語言開發前端網頁，確保網頁結構和內容符合標準和最佳實踐。",
+      "2.實作語意化的 HTML 標籤，以提高網頁的可訪問性和 SEO。",
+      "3.使用 SCSS 預處理器編寫 CSS 代碼，以提高開發效率和維護性。",
+      "4.開發模組化和可重用的 SCSS 代碼，以減少代碼重複和冗餘。",
+      "5.實作規範化的 CSS，以確保網頁樣式的一致性和可維護性。",
+      "6.使用 CSS media query 技術，實現不同裝置的樣式設定。",
+      "7.實作彈性圖片、彈性文字、彈性佈局等技術，以提高網頁的彈性和適應性。",
+      "8.RWD製作，以支援不同大小的螢幕和裝置。",
     ],
   },
 ]);
@@ -456,7 +518,7 @@ const mySelf = ref(
     .work {
       .work-item {
         h3 {
-          font-size: 2rem;
+          font-size: 1.75rem;
           color: #fff;
           font-weight: 700;
           margin: 2.5rem 0;
@@ -478,14 +540,14 @@ const mySelf = ref(
             margin-bottom: 1.5rem;
 
             .work-company {
-              font-size: 1.7rem;
+              font-size: 1.5rem;
               color: #fff;
               font-weight: 700;
             }
 
             .work-job,
             .work-time {
-              font-size: 1.4rem;
+              font-size: 1.25rem;
               color: #fff;
             }
 
