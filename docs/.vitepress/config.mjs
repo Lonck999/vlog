@@ -149,12 +149,7 @@ export default defineConfig({
           text: "作品與自介",
           items: [
             { text: "自介", link: "/pages/aboutMe/index.md" },
-            {
-              text: "專案經歷",
-              link: "/pages/aboutMe/contents/projectExperience.md",
-            },
             { text: "作品", link: "/pages/aboutMe/contents/works.md" },
-            { text: "聯絡我", link: "/pages/aboutMe/contents/contactMe.md" },
           ],
         },
       ],

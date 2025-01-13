@@ -464,7 +464,7 @@ const mySelf = ref(
 
         .work-introduce {
           display: flex;
-          gap: 0.8rem;
+          gap: 2rem;
           border-bottom: 0.1rem solid #fff;
           margin: 1.7rem 0;
 
