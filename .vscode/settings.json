@@ -4,5 +4,5 @@
     "titleBar.activeBackground": "#720B7B",
     "titleBar.activeForeground": "#FEFBFF"
   },
-  "files.autoSave": "onWindowChange"
+  "files.autoSave": "onFocusChange"
 }
