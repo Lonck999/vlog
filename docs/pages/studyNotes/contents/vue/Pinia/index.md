@@ -76,9 +76,9 @@ export const useCounterStore = defineStore("counter", () => {
 
 上面範例做解釋的話，我們就可以把它當作是
 
-- State：`ref()`
-- Getter：`computed()`
-- Action：`function` or `methods`
+- State ＝ `ref()`
+- Getter ＝ `computed()`
+- Action ＝ `function` or `methods()`
 
 ## 使用 State
 
