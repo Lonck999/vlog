@@ -49,9 +49,9 @@ export const useCountStore = defineStore("count", () => {
 });
 ```
 
-在<setup>模式中，Pinia 的 Store 裡寫法跟對 vue3 來說相當的直覺簡便，
+在 `<setup>` 模式中，Pinia 的 Store 裡寫法跟對 vue3 來說相當的直覺簡便，
 
-就跟你寫在該頁的<script srtup>是一樣的只是要記好上面的說的哪一個對應哪個就好，然後把他們 return 出去。
+就跟你寫在該頁的`<script srtup>`是一樣的只是要記好上面的說的哪一個對應哪個就好，然後把他們 return 出去。
 
 ```js
 <template>
@@ -94,7 +94,6 @@ button {
   height: 30px;
 }
 </style>
-
 ```
 
 如上面所示，能用 storeToRefs() 解構的就只有傳出來的參數，但他無法解構用 function，
