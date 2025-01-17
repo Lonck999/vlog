@@ -26,3 +26,4 @@
 - [20-callBack](./course/20-callBack.md)
 - [21-component](./course/21-component.md)
 - [22-transitions](./course/22-transitions.md)
+- [23-attrs](./course/23-attrs.md)
