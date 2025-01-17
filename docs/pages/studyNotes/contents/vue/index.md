@@ -6,7 +6,7 @@
 
 # 常用方法：
 
-- [active 範例，當用 v-for 時還能針對每個不同的數據傳入不同的 class](./Vue/method/active.md)
+- [01-active 範例，當用 v-for 時還能針對每個不同的數據傳入不同的 class](./Vue/method/01-active.md)
 
 # 學習筆記：
 
