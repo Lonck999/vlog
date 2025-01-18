@@ -2,7 +2,7 @@
 
 ## **團隊接案：(第三期)機器學習⾞牌辨識、車牌標記-處理⼤量前端滑鼠操作以及鍵盤快速鍵**
 
-圖片
+![圖片](/img/檢查照片標記.png)
 
 ### 專案描述：
 
@@ -29,7 +29,7 @@ Vue.js、Element plus、JavaScript、TypeScript、TailwindCSS、RESTful API
 
 ## **個人接案：團購群電商平台開發(身心保健)**
 
-圖片
+![圖片](/img/團購群電商平台.jpg)
 
 ### 專案描述：
 
@@ -62,7 +62,7 @@ SCSS、JavaScript、Bootstrap、HTML
 
 ## **團隊接案：(第二期)攝影機即時識別顏色與車牌系統**
 
-圖片
+![圖片](/img/攝影機即時識別顏色與車牌系統.jpg)
 
 ### 專案描述：
 
@@ -89,7 +89,7 @@ Vue.js、Element plus、JavaScript、TypeScript、TailwindCSS、RESTful API
 
 ## **德美診所網路預約、即時看診進度平台**
 
-圖片
+![圖片](/img/DM.jpg)
 
 ### 專案描述：
 
@@ -112,7 +112,7 @@ HTML、CSS、JavaScript、SCSS、jQuery
 
 ## **團隊接案：(第一期)道路車輛即時畫面與ＡＩ輪軸速度判定**
 
-圖片
+![圖片](/img/道路車輛即時畫面與ＡＩ輪軸速度判定.jpg)
 
 ### 專案描述：
 
@@ -137,7 +137,7 @@ JavaScript、TypeScript、TailwindCSS、Vue.js、RESTful API
 
 ## **個人接案：蘋果莊園手工香皂品牌網站**
 
-圖片
+![圖片](/img/蘋果莊園手工香皂品牌網站.jpg)
 
 ### 專案描述：
 
