@@ -45,7 +45,7 @@ export default defineConfig({
           },
         ],
       },
-      { text: "作品與自介", link: "/pages/aboutMe/index.md" },
+      { text: "生活", link: "/pages/life/index.md" },
     ],
 
     sidebar: {
@@ -59,87 +59,95 @@ export default defineConfig({
             },
             {
               text: "v-bind",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-bind.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/01-v-bind.md",
             },
             {
               text: "v-cloak",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-cloak.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/02-v-cloak.md",
             },
             {
               text: "v-for",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-for.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/03-v-for.md",
             },
             {
               text: "v-html",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-html.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/04-v-html.md",
             },
             {
               text: "v-if",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-if.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/05-v-if.md",
             },
             {
               text: "v-memo",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-memo.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/06-v-memo.md",
             },
             {
               text: "v-model",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-model.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/07-v-model.md",
             },
             {
               text: "v-on",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-on.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/08-v-on.md",
             },
             {
               text: "v-once",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-once.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/09-v-once.md",
             },
             {
               text: "v-show",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-show.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/10-v-show.md",
             },
             {
               text: "v-slot",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-slot.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/11-v-slot.md",
             },
             {
               text: "v-text",
-              link: "/pages/studyNotes/contents/vue/Vue/course/v-text.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/12-v-text.md",
             },
             {
               text: "computed",
-              link: "/pages/studyNotes/contents/vue/Vue/course/computed.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/13-computed.md",
             },
             {
               text: "methods",
-              link: "/pages/studyNotes/contents/vue/Vue/course/methods.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/14-methods.md",
             },
             {
               text: "watch",
-              link: "/pages/studyNotes/contents/vue/Vue/course/watch.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/15-watch.md",
             },
             {
               text: "lifecycleHooks",
-              link: "/pages/studyNotes/contents/vue/Vue/course/lifecycleHooks.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/16-lifecycleHooks.md",
             },
             {
               text: "reviewingTheFiles",
-              link: "/pages/studyNotes/contents/vue/Vue/course/reviewingTheFiles.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/17-reviewingTheFiles.md",
             },
             {
               text: "props",
-              link: "/pages/studyNotes/contents/vue/Vue/course/props.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/18-props.md",
             },
             {
               text: "emit",
-              link: "/pages/studyNotes/contents/vue/Vue/course/emit.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/19-emit.md",
             },
             {
               text: "callBack",
-              link: "/pages/studyNotes/contents/vue/Vue/course/callBack.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/20-callBack.md",
             },
             {
               text: "component",
-              link: "/pages/studyNotes/contents/vue/Vue/course/component.md",
+              link: "/pages/studyNotes/contents/vue/Vue/course/21-component.md",
+            },
+            {
+              text: "transitions",
+              link: "/pages/studyNotes/contents/vue/Vue/course/22-transitions.md",
+            },
+            {
+              text: "attrs",
+              link: "/pages/studyNotes/contents/vue/Vue/course/23-attrs.md",
             },
           ],
         },

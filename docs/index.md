@@ -24,7 +24,7 @@ features:
   - title: 玄學術數
     details: 小道的術數技能，對於人生有何迷茫、問事、斷命、論流年也歡迎跟我聊聊，裡面也有放一些經驗、問術筆記，有想要學習的可以來看看。
     link: /pages/occult/index.md
-  - title: 生活
-    details: 目前正在學習粵語，之後可能會再多花點時間點一下生活技能，例如：開車、游泳、做菜、等等......
-    link: /pages/life/index.md
+  - title: 作品與自介
+    details: 這裡有我的一些作品，以及自介，歡迎大家來看看。
+    link: /pages/aboutMe/index.md
 ---
