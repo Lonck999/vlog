@@ -19,3 +19,4 @@
 - [Nuxt](./Nuxt/index.md)
 - [VueQuery](./VueQuery/index.md)
 - [Vitest](./Vitest/index.md)
+- [VeeValidate](./VeeValidate/index.md)
