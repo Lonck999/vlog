@@ -27,3 +27,21 @@ const app = createApp(App);
 app.use(router);
 app.mount("#app");
 ```
+
+### 路由配置
+
+一般來說，我們會將路由配置放在 `src/router/index.js` 中，並在 `main.js` 中引入，
+
+然後把有關路由的元件放在 `src/views/` 中。
+
+```css
+my-vue-app/
+├─ src/
+│  ├─ main.js
+│  ├─ router/
+│  │  └─ index.js
+│  ├─ views/
+│  │  ├─ Home.vue
+│  │  └─ About.vue
+└─ package.json
+```
