@@ -9,11 +9,11 @@
 
 - ⬜ 目標減重 1 公斤
 
-- 買[冬季襯衫](https://www.madenwear.com/products/%E9%A6%AC%E7%99%BB%E5%B7%A5%E8%A3%9D-%E5%B1%B1%E7%B3%BB%E6%88%B6%E5%A4%96%E5%A4%9A%E5%8F%A3%E8%A2%8B%E9%80%A3%E5%B8%BD%E6%B2%96%E9%8B%92%E8%A1%A3%E9%98%B2%E9%A2%A8%E5%A5%97%E9%A0%AD%E6%A9%9F%E8%83%BD%E5%A4%BE%E5%85%8B%E5%A4%96%E5%A5%97%E7%94%B7%E6%98%A5)
+- 買[冬季襯衫](https://shopee.tw/ma_den_clothing?gad_source=1&gclid=CjwKCAiAwaG9BhAREiwAdhv6YwFbcIPkF4hPSALWb1hPD7f-SJRbHB96HsjeZwuRkGrk2782eIpMbhoCqDAQAvD_BwE)
   - ⬜ 工裝襯衫 X2
   - ✅ 格子襯衫 X1
   - ⬜ 素色襯衫 X2
-- 買[褲子](https://www.madenwear.com/products/%E9%A6%AC%E7%99%BB%E5%B7%A5%E8%A3%9D-%E5%B1%B1%E7%B3%BB%E6%88%B6%E5%A4%96%E5%A4%9A%E5%8F%A3%E8%A2%8B%E9%80%A3%E5%B8%BD%E6%B2%96%E9%8B%92%E8%A1%A3%E9%98%B2%E9%A2%A8%E5%A5%97%E9%A0%AD%E6%A9%9F%E8%83%BD%E5%A4%BE%E5%85%8B%E5%A4%96%E5%A5%97%E7%94%B7%E6%98%A5)
+- 買[褲子](https://shopee.tw/ma_den_clothing?gad_source=1&gclid=CjwKCAiAwaG9BhAREiwAdhv6YwFbcIPkF4hPSALWb1hPD7f-SJRbHB96HsjeZwuRkGrk2782eIpMbhoCqDAQAvD_BwE)
   - ⬜ 牛仔褲 X2
   - ⬜ 工作褲 X2
   - ⬜ 吊帶褲 X1
@@ -22,9 +22,20 @@
   - ⬜ 棒球帽 X1
   - ⬜ 野營帽 X1
 
-#### 02/03 ~ 02/09 目標
+#### 02/10 ~ 02/16 目標
 
 - ⬜ 量體重
+
+- 日期：
+  - [2025-02-10-週一](/pages/life/task/2025/2月/2025-02-10-週一.md)
+  - [2025-02-11-週二](/pages/life/task/2025/2月/2025-02-11-週二.md)
+  - [2025-02-12-週三](/pages/life/task/2025/2月/2025-02-12-週三.md)
+  - [2025-02-13-週四](/pages/life/task/2025/2月/2025-02-13-週四.md)
+  - [2025-02-14-週五](/pages/life/task/2025/2月/2025-02-14-週五.md)
+  - [2025-02-15-週六](/pages/life/task/2025/2月/2025-02-15-週六.md)
+  - [2025-02-16-週日](/pages/life/task/2025/2月/2025-02-16-週日.md)
+
+#### 02/03 ~ 02/09 目標
 
 - 日期：
   - [2025-02-03-週一](/pages/life/task/2025/2月/2025-02-03-週一.md)
