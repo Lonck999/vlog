@@ -206,8 +206,8 @@ beforeEnter 的參數有 to、from、next，用法跟 beforeEach 一樣，差別
 組件守衛分為三種：
 
 - 組件前置守衛 beforeRouteEnter
-- 組件前置守衛 beforeRouteUpdate
-- 組件前置守衛 beforeRouteLeave
+- 組件前置守衛 beforeRouteUpdate(onBeforeRouteUpdate)
+- 組件前置守衛 beforeRouteLeave(onBeforeRouteLeave)
 
 ### 組件前置守衛 beforeRouteEnter 範例：
 
@@ -237,22 +237,31 @@ export default {
 };
 ```
 
-### 組件前置守衛 beforeRouteUpdate 範例：
+### 組件前置守衛 beforeRouteUpdate(onBeforeRouteUpdate) 範例：
 
-beforeRouteUpdate 是組件前置守衛，在更新組件之前執行。
+beforeRouteUpdate(onBeforeRouteUpdate) 是組件前置守衛，在更新組件之前執行。
 
 ```js
 <script setup>
-import { beforeRouteUpdate } from "vue-router";
-  beforeRouteUpdate(to, from, next) {
+import { onBeforeRouteUpdate } from "vue-router";
+  onBeforeRouteUpdate((to, from, next) => {
     console.log("組件前置守衛");
   },
 </script>
 ```
 
-### 組件前置守衛 beforeRouteLeave 範例：
+### 組件前置守衛 beforeRouteLeave(onBeforeRouteLeave) 範例：
 
-beforeRouteLeave 是組件前置守衛，在離開組件之前執行。
+beforeRouteLeave(onBeforeRouteLeave) 是組件前置守衛，在離開組件之前執行。
+
+```js
+<script setup>
+import { onBeforeRouteLeave } from "vue-router";
+  onBeforeRouteLeave((to, from, next) => {
+    console.log("組件前置守衛");
+  },
+</script>
+```
 
 ```js
 export default {
