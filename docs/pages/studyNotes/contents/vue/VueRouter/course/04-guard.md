@@ -123,6 +123,8 @@ router.beforeResolve((to, from, next) => {
 
 ### 全域後置守衛 afterEach 範例：
 
+afterEach 是在所有全域守衛執行完後，才會執行。
+
 ```js
 router.afterEach((to, from) => {
   console.log("全域後置守衛");
@@ -130,6 +132,8 @@ router.afterEach((to, from) => {
 ```
 
 ### 全域錯誤守衛 onError 範例：
+
+onError 是在全域守衛執行過程中，如果發生錯誤，就會執行 onError。
 
 ```js
 router.onError((error) => {
@@ -238,11 +242,12 @@ export default {
 beforeRouteUpdate 是組件前置守衛，在更新組件之前執行。
 
 ```js
-export default {
+<script setup>
+import { beforeRouteUpdate } from "vue-router";
   beforeRouteUpdate(to, from, next) {
     console.log("組件前置守衛");
   },
-};
+</script>
 ```
 
 ### 組件前置守衛 beforeRouteLeave 範例：
