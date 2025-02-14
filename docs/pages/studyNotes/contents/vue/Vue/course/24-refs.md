@@ -70,3 +70,14 @@ const handleClick = () => {
   <button @click="handleClick">Access Child Ref</button>
 </template>
 ```
+
+子層
+
+```vue
+<template>
+  <div class="child">
+    <p class="text-white" ref="child">123</p>
+    // 這邊的child
+  </div>
+</template>
+```
