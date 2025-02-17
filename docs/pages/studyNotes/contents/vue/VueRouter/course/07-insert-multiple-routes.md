@@ -17,8 +17,15 @@ const routes = [
     component: () => import("@/views/About.vue"),
     children: [
       {
-        path: "user",
-        component: {
+        path: "title1",
+        components: {
+          name1: () => import("@/views/User.vue"),
+          name2: () => import("@/views/User2.vue"),
+        },
+      },
+      {
+        path: "title2",
+        components: {
           name1: () => import("@/views/User.vue"),
           name2: () => import("@/views/User2.vue"),
         },
@@ -33,4 +40,18 @@ const router = createRouter({
 });
 
 export default router;
+```
+
+views/About.vue
+
+```vue
+<template>
+  <div>
+    <h1>About</h1>
+    <router-link to="/about/title1">title1</router-link>
+    <router-link to="/about/title2">title2</router-link>
+    <router-view name="name1" />
+    <router-view name="name2" />
+  </div>
+</template>
 ```
