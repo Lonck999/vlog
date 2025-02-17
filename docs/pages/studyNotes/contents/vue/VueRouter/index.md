@@ -5,3 +5,4 @@
 - [03-配置 404 頁面](./course/03-config-404.md)
 - [04-VueRouter 的路由守衛](./course/04-guard.md)
 - [05-VueRouter 的嵌套路由](./course/05-nested.md)
+- [06-VueRouter 的預設路由](./course/06-default.md)
