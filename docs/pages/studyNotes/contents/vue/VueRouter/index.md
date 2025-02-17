@@ -6,3 +6,4 @@
 - [04-VueRouter 的路由守衛](./course/04-guard.md)
 - [05-VueRouter 的嵌套路由](./course/05-nested.md)
 - [06-VueRouter 的預設路由](./course/06-default.md)
+- [07-VueRouter 的插入多個路由](./course/07-insert-multiple-routes.md)
