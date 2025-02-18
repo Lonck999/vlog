@@ -36,3 +36,74 @@ const router = createRouter({
 
 export default router;
 ```
+
+ProductDetail.vue 方法一
+
+```vue
+<template>
+  <div>
+    <h1>產品列表</h1>
+    <ul>
+      <li v-for="product in products" :key="product.id">
+        <!-- 使用 <router-link> 帶 params 的方法 -->
+        <router-link
+          :to="{ name: 'ProductDetail', params: { id: product.id } }"
+        >
+          {{ product.name }}
+        </router-link>
+      </li>
+    </ul>
+
+    <!-- 亦可使用程式導向的方式 -->
+    <button @click="goToProduct(3)">查看產品 #3</button>
+  </div>
+</template>
+
+<script setup>
+// 模擬資料
+const products = [
+  { id: 1, name: "產品 A" },
+  { id: 2, name: "產品 B" },
+  { id: 3, name: "產品 C" },
+];
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+function goToProduct(productId) {
+  router.push({ name: "ProductDetail", params: { id: productId } });
+}
+</script>
+```
+
+ProductDetail.vue 方法二
+
+```vue
+<template>
+  <div>
+    <h1>產品列表</h1>
+    <ul>
+      <li v-for="product in products" :key="product.id"></li>
+    </ul>
+
+    <!-- 亦可使用程式導向的方式 -->
+    <button @click="goToProduct(3)">查看產品 #3</button>
+  </div>
+</template>
+
+<script setup>
+// 模擬資料
+const products = [
+  { id: 1, name: "產品 A" },
+  { id: 2, name: "產品 B" },
+  { id: 3, name: "產品 C" },
+];
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+function goToProduct(productId) {
+  router.push({ name: "ProductDetail", params: { id: productId } });
+}
+</script>
+```
