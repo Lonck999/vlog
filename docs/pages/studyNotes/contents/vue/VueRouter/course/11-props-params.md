@@ -47,7 +47,7 @@ import UserView from "./UserView.vue";
 </script>
 
 <template>
-  <UserView :id="123" />
+  <router-link :to="{ name: 'User', params: { id: 123 } }">User</router-link>
 </template>
 ```
 
@@ -88,3 +88,5 @@ const routes = [
   },
 ];
 ```
+
+這樣一來，我們就可以在 AboutView.vue 中使用 msg 這個 props 了。
