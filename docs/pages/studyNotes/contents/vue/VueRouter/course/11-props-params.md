@@ -90,3 +90,48 @@ const routes = [
 ```
 
 這樣一來，我們就可以在 AboutView.vue 中使用 msg 這個 props 了。
+
+方式三：
+
+```js
+// router/index.js
+import { createRouter, createWebHistory } from "vue-router";
+import UserView from "@/views/UserView.vue";
+
+const routes = [
+  {
+    path: "/user/:id",
+    name: "User",
+    component: UserView,
+    props: (route) => ({ id: 200 }), // 直接把所有 params 當作 props 傳進去
+  },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
+```
+
+UserView.vue
+
+```vue
+<template>
+  <div>
+    <h2>使用 props 取得的 id: {{ id }}</h2>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+});
+</script>
+```
