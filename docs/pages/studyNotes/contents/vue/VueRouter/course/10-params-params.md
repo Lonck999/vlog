@@ -107,3 +107,11 @@ function goToProduct(productId) {
 }
 </script>
 ```
+
+## 3. 可以選擇可傳可不傳嗎？
+
+可以，只需要在 path: "/products/:id" 的 id 後面加上 `?` 即可。
+
+```js
+path: "/products/:id?",
+```
