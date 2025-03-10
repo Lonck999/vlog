@@ -17,6 +17,50 @@
   - ⬜ 習慣開車練習
   - ⬜ 輸出文章
 
+### 三月目標
+
+- 買[冬季襯衫](https://shopee.tw/ma_den_clothing?gad_source=1&gclid=CjwKCAiAwaG9BhAREiwAdhv6YwFbcIPkF4hPSALWb1hPD7f-SJRbHB96HsjeZwuRkGrk2782eIpMbhoCqDAQAvD_BwE)
+  - ⬜ 工裝襯衫 X2
+  - ✅ 格子襯衫 X1
+  - ⬜ 素色襯衫 X2
+- 買[褲子](https://shopee.tw/ma_den_clothing?gad_source=1&gclid=CjwKCAiAwaG9BhAREiwAdhv6YwFbcIPkF4hPSALWb1hPD7f-SJRbHB96HsjeZwuRkGrk2782eIpMbhoCqDAQAvD_BwE)
+  - ⬜ 牛仔褲 X2
+  - ⬜ 工作褲 X2
+  - ⬜ 吊帶褲 X1
+- 買帽子
+  - ⬜ 水兵帽 X1
+  - ⬜ 棒球帽 X1
+  - ⬜ 野營帽 X1
+
+#### 03/11 ~ 03/17 目標
+
+- 日期：
+  - [2025-03-11-週一](/pages/life/task/2025/3月/2025-03-11-週一.md)
+  - [2025-03-12-週二](/pages/life/task/2025/3月/2025-03-12-週二.md)
+  - [2025-03-13-週三](/pages/life/task/2025/3月/2025-03-13-週三.md)
+  - [2025-03-14-週四](/pages/life/task/2025/3月/2025-03-14-週四.md)
+  - [2025-03-15-週五](/pages/life/task/2025/3月/2025-03-15-週五.md)
+  - [2025-03-16-週六](/pages/life/task/2025/3月/2025-03-16-週六.md)
+  - [2025-03-17-週日](/pages/life/task/2025/3月/2025-03-17-週日.md)
+
+#### 03/04 ~ 03/10 目標
+
+- 日期：
+  - [2025-03-04-週一](/pages/life/task/2025/3月/2025-03-04-週一.md)
+  - [2025-03-05-週二](/pages/life/task/2025/3月/2025-03-05-週二.md)
+  - [2025-03-06-週三](/pages/life/task/2025/3月/2025-03-06-週三.md)
+  - [2025-03-07-週四](/pages/life/task/2025/3月/2025-03-07-週四.md)
+  - [2025-03-08-週五](/pages/life/task/2025/3月/2025-03-08-週五.md)
+  - [2025-03-09-週六](/pages/life/task/2025/3月/2025-03-09-週六.md)
+  - [2025-03-10-週日](/pages/life/task/2025/3月/2025-03-10-週日.md)
+
+#### 03/01 ~ 03/03 目標
+
+- 日期：
+  - [2025-03-01-週五](/pages/life/task/2025/3月/2025-03-01-週五.md)
+  - [2025-03-02-週六](/pages/life/task/2025/3月/2025-03-02-週六.md)
+  - [2025-03-03-週日](/pages/life/task/2025/3月/2025-03-03-週日.md)
+
 ### 二月目標
 
 - ⬜ 目標減重 1 公斤
@@ -33,6 +77,15 @@
   - ⬜ 水兵帽 X1
   - ⬜ 棒球帽 X1
   - ⬜ 野營帽 X1
+
+#### 02/24 ~ 02/28 目標
+
+- 日期：
+  - [2025-02-24-週一](/pages/life/task/2025/2月/2025-02-24-週一.md)
+  - [2025-02-25-週二](/pages/life/task/2025/2月/2025-02-25-週二.md)
+  - [2025-02-26-週三](/pages/life/task/2025/2月/2025-02-26-週三.md)
+  - [2025-02-27-週四](/pages/life/task/2025/2月/2025-02-27-週四.md)
+  - [2025-02-28-週五](/pages/life/task/2025/2月/2025-02-28-週五.md)
 
 #### 02/17 ~ 02/23 目標
 
