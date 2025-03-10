@@ -28,3 +28,4 @@
 - [22-transitions](./course/22-transitions.md)
 - [23-attrs](./course/23-attrs.md)
 - [24-refs](./course/24-refs.md)
+- [25-自定義指令](./course/25-自定義指令.md)
