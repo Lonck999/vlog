@@ -29,3 +29,5 @@
 - [23-attrs](./course/23-attrs.md)
 - [24-refs](./course/24-refs.md)
 - [25-自定義指令](./course/25-自定義指令.md)
+- [26-provide&inject](./course/26-provide&inject.md)
+- [27-expose](./course/27-expose.md)
