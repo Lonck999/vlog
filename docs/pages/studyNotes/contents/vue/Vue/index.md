@@ -31,3 +31,5 @@
 - [25-自定義指令](./course/25-自定義指令.md)
 - [26-provide&inject](./course/26-provide&inject.md)
 - [27-expose](./course/27-expose.md)
+- [28-teleport](./course/28-teleport.md)
+- [29-nextTick](./course/29-nextTick.md)
