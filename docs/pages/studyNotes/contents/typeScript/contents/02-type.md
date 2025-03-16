@@ -89,3 +89,5 @@ let myFunction: (a: number | string, b: number | string) => number | string = (
   b
 ) => a + b;
 ```
+
+## 複合型別
