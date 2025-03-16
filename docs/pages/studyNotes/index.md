@@ -6,6 +6,10 @@
 
 Vue 所有學習筆記，包含 Vue3、VueRouter、Pinia、Vitest、Axios 等等......，陸續新增中。
 
+## [TypeScript](./contents/typeScript/index.md)
+
+這是我的 TpyeScript 學習筆記，從 0 開始慢慢學習。
+
 ## [JavaScript](./contents/javaScript/index.md)
 
 一個字都還沒動，先放著。
