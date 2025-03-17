@@ -21,6 +21,16 @@ anyValue = true;
 
 ```ts
 let voidValue: void = undefined;
+let voidValue2: void = null;
+```
+
+never 表示這個變數永遠不會有值，通常用在函式會拋出錯誤的時候
+
+```ts
+let neverValue: never;
+const throwError = (message: string): never => {
+  throw new Error(message);
+};
 ```
 
 - 字串
@@ -77,7 +87,7 @@ let person: { name: string; age: number } = { name: "John", age: 20 };
 - 函式
 
 ```ts
-let myFunction: (a: number, b: number) => number = function (a, b) {
+let myFunction: (a: number, b: number) => number = function (a, b) => {
   return a + b;
 };
 ```
@@ -86,6 +96,12 @@ let myFunction: (a: number, b: number) => number = function (a, b) {
 function add(a: number, b: number): number {
   return a + b;
 }
+```
+
+```ts
+const multiply = function (a: number, b: number): number {
+  return a * b;
+};
 ```
 
 這邊可能看起來有點複雜，我們來拆解一下：
