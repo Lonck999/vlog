@@ -7,6 +7,22 @@
 
 ## 基本型別
 
+這邊要特別注意一個就是 any 型別，這個型別可以讓你任意賦值，如果都用 any 型別，這樣就失去了型別檢查的意義(就跟寫 js 一樣)，所以盡量不要使用。
+
+- any
+
+```ts
+let anyValue: any = "Hello";
+anyValue = 123;
+anyValue = true;
+```
+
+- void，表示這個變數沒有型別，通常用在函式沒有回傳值的時候
+
+```ts
+let voidValue: void = undefined;
+```
+
 - 字串
 
 ```ts
