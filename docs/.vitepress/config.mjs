@@ -1,14 +1,14 @@
 import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "/docs/",
+  base: "/vlog/",
   rewrites: {
     "/pages/(.*)": "/(.*)",
   },
   ignoreDeadLinks: true,
   lastUpdated: true,
   title: "地瓜球工程師",
-  head: [["link", { rel: "icon", href: "/docs/logo.png" }]],
+  head: [["link", { rel: "icon", href: "/vlog/logo.png" }]],
   description: "地瓜球工程師的vlog",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -168,7 +168,7 @@ export default defineConfig({
       { icon: "linkedin", link: "https://www.linkedin.com/in/lonck999/" },
       {
         icon: "task",
-        link: "https://lonck999.github.io/docs/pages/life/task/",
+        link: "https://lonck999.github.io/vlog/pages/life/task/",
       },
     ],
     footer: {
