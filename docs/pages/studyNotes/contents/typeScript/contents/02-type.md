@@ -82,6 +82,12 @@ let myFunction: (a: number, b: number) => number = function (a, b) {
 };
 ```
 
+```ts
+function add(a: number, b: number): number {
+  return a + b;
+}
+```
+
 這邊可能看起來有點複雜，我們來拆解一下：
 
 - 第一個 `let myFunction` 是宣告一個變數 `myFunction`
