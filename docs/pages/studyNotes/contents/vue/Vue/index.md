@@ -33,3 +33,4 @@
 - [27-expose](./course/27-expose.md)
 - [28-teleport](./course/28-teleport.md)
 - [29-nextTick](./course/29-nextTick.md)
+- [30-asyncComponents](./course/30-asyncComponents.md)
