@@ -213,9 +213,8 @@ const projects = reactive([
       "4. 利用滑鼠框列範圍辨識車牌上的字母、數字。",
       "5. 部分網頁開發案，其他與甲方溝通、要素材、資料等...其他行政事宜。",
     ],
-    skills: [
+    skills:
       "Vue3、Element-plus、TypeScript、JavaScript、TailwindCSS、RESTful API、Websocket。",
-    ],
     contribute: [
       "1. Vue3 的 Composition API，打造模組化、可維護的前端架構。",
       "2. 使用 Element Plus 作為 UI 組件庫，快速構建高效、易用的介面，例如表單、表格和彈窗設計，縮短 30% 開發時間。",
