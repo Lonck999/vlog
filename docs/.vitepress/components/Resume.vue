@@ -162,6 +162,15 @@ const works = reactive([
       "7. 使用 SCSS 預處理器編寫 CSS 代碼，以提高開發效率和維護性。",
       "8. 支援後端使用C#開發後端API,確保前後端的高效溝通。",
     ],
+    contribute: [
+      "1. 導入 Vite、Nuxt，提高開發效率、降低維護成本。",
+      "2. 使用 Vue3 Composition API 開發應用，提升了應用的加載速度和性能。",
+      "3. 使用 Vue Router 構建動態和嵌套路由。",
+      "4. 採用Pinia 進行全域狀態管理，簡化了資料流，提高了程式碼的可維護性。",
+      "5. 使用 SCSS 預處理器編寫 CSS 代碼，以提高開發效率和維護性。",
+      "6. 導入Swiper、Vuetify、Vee-Validate 等元件庫封裝，對齊專案技術，降低專案維護門檻。",
+      "7. 在 Node 用Mocha、selenium編寫自動化程式模擬測試。",
+    ],
   },
   {
     id: 2,
@@ -363,6 +372,12 @@ const mySelf = ref(
               <ul>
                 <li v-for="(content, index) in work.content" :key="index">
                   {{ content }}
+                </li>
+              </ul>
+              <p class="work-text">專案貢獻：</p>
+              <ul>
+                <li v-for="(contribute, index) in work.contribute" :key="index">
+                  {{ contribute }}
                 </li>
               </ul>
             </div>
