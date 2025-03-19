@@ -78,6 +78,28 @@ let mixed: (string | number | boolean | object)[] = [
 ];
 ```
 
+也有另一種寫法
+
+```ts
+let mixed: Array<number | string | boolean | object> = [
+  1,
+  "two",
+  true,
+  { name: "John" },
+];
+```
+
+或是
+
+```ts
+let mixed: [number, string, boolean, object] = [
+  1,
+  "two",
+  true,
+  { name: "John" },
+];
+```
+
 - 物件
 
 ```ts
