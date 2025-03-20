@@ -57,3 +57,30 @@ const dog: Animal = {
   },
 };
 ```
+
+當然也有別種寫法，像是這樣：
+
+```ts
+interface Animal {
+  name: string;
+  // 這個方法沒實作細節，只規定輸入、輸出型別
+  makeSound(): void;
+}
+
+const dog = {
+  name: "Buddy",
+  age: 3,
+  makeSound() {
+    console.log("Woof!");
+  },
+};
+
+const woof = (woofs: Animal) => {
+  console.log(woofs.name);
+  woofs.makeSound();
+};
+
+woof(dog);
+```
+
+大意上就是，先定義了一個 Animal 介面，然後函式用了 Animal 介面檢查帶進去的值有沒有符合 Animal 介面規定，函式裡只要必備的屬性都有就能通過檢查，額外的屬性不會造成問題，就算是函式多要屬性也不會報錯。
