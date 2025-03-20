@@ -40,3 +40,20 @@ const studentB: Person = {
   age: 10,
 };
 ```
+
+## 介面裡的函式
+
+```ts
+interface Animal {
+  name: string;
+  // 這個方法沒實作細節，只規定輸入、輸出型別
+  makeSound(): void;
+}
+
+const dog: Animal = {
+  name: "Buddy",
+  makeSound() {
+    console.log("Woof!");
+  },
+};
+```
