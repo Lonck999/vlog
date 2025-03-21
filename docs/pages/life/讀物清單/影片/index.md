@@ -15,6 +15,7 @@
 - ⬜ [axios](https://www.bilibili.com/video/BV1pu4y11793?spm_id_from=333.788.recommend_more_video.12&vd_source=09429cc2cd18c5979862bdb67049c5e2)
 - ⬜ [class(active)的方法大全](https://blog.csdn.net/sxjit/article/details/105179075)
 - ⬜ [前端系统設計-Namaste Frontend System Design](https://b23.tv/P5dFTMB)
+- ⬜ [JS 演算法](https://www.bilibili.com/video/BV11gRYY2EyU?spm_id_from=333.788.videopod.episodes&vd_source=09429cc2cd18c5979862bdb67049c5e2&p=3)
 
 ## Vue
 
