@@ -34,3 +34,4 @@
 - [28-teleport](./course/28-teleport.md)
 - [29-nextTick](./course/29-nextTick.md)
 - [30-asyncComponents](./course/30-asyncComponents.md)
+- [31-defineModel](./course/31-defineModel.md)
