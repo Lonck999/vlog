@@ -58,6 +58,9 @@ class Vehicle {
 }
 
 class Car extends Vehicle {
+  constructor(public wheels: number, color: string) {
+    super(color);
+  }
   // private 的話，外面不能讀也不能改，連繼承的也不能用
   private drive(): void {
     // 在繼承的 class 中，可以覆蓋類別的方法
@@ -70,11 +73,103 @@ class Car extends Vehicle {
   }
 }
 
-const car = new Car("red");
+const car = new Car(4, "red");
 car.startDrivingProcess();
 car.drive(); // 這裡會報錯，因為 drive 是 private 的
 
 const vehicle = new Vehicle("red");
 vehicle.honk(); // 這裡會報錯，因為 honk 是 protected 的
 console.log(vehicle.color); // 這裡會直接顯示 red
+```
+
+## Constructor（建構子）
+
+在 TypeScript 中，建構子是 class 的 constructor 方法，用來初始化 class 的屬性。
+
+```typescript
+class Person {
+  // 在 TypeScript 中可先宣告屬性或在 constructor 的參數中直接給型別
+  public name: string;
+  public age: number;
+
+  // constructor: 當 new Person(...) 時就會自動被呼叫
+  constructor(name: string, age: number) {
+    // 把傳進來的參數賦值給類別內部屬性
+    this.name = name;
+    this.age = age;
+  }
+
+  // 一個普通的方法
+  public sayHello() {
+    console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
+  }
+}
+
+// 使用方式
+const p1 = new Person("Alice", 20); // 這裡會自動呼叫上面 constructor
+p1.sayHello(); // Hi, I'm Alice and I'm 20 years old.
+```
+
+簡寫
+
+```typescript
+class Person {
+  // 直接在 constructor 裡宣告屬性並賦值
+  constructor(public name: string, private age: number) {}
+
+  sayHello() {
+    console.log(`Hi, I'm ${this.name}.`);
+    // console.log(`Age: ${this.age}`); // 可以存取，但外部無法直接讀取 age
+  }
+}
+
+const p2 = new Person("Bob", 25);
+// p2.name; // "Bob"
+// p2.age;  // ❌ 無法在外部存取，因為是 private
+p2.sayHello(); // Hi, I'm Bob.
+```
+
+## 什麼是 super
+
+super 通常會出現在「繼承 (Inheritance)」的情境，也就是一個類別 extends 另一個類別的時候。
+
+在 TypeScript 中，如果子類別（child）自己宣告了 constructor，多加東西，它就必須在建構子裡呼叫 super()，目的是先執行父類別的建構子來初始化「父類別的那一塊」。
+
+```typescript
+class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  move() {
+    console.log(`${this.name} is moving`);
+  }
+}
+
+// Dog 繼承 Animal
+class Dog extends Animal {
+  breed: string;
+
+  // 若子類別有自己的 constructor，就必須呼叫 super(...)
+  constructor(name: string, breed: string) {
+    // 把 name 先交給父類別 (Animal) 的 constructor 處理
+    super(name);
+    // 再來處理 Dog 自己新增的屬性
+    this.breed = breed;
+  }
+
+  bark() {
+    console.log(`${this.name} is barking`);
+  }
+}
+
+const dog = new Dog("Spike", "Bulldog");
+// 這時候整個流程：
+// 1. new Dog(...) -> 進入 Dog 的 constructor
+// 2. super(name) -> 先跑 Animal 的 constructor -> this.name = name
+// 3. 回到 Dog constructor -> this.breed = breed
+dog.move(); // Spike is moving
+dog.bark(); // Spike is barking
 ```
