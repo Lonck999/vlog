@@ -70,7 +70,7 @@ class Car extends Vehicle {
   }
 }
 
-const car = new Car();
+const car = new Car("red");
 car.startDrivingProcess();
 car.drive(); // 這裡會報錯，因為 drive 是 private 的
 
