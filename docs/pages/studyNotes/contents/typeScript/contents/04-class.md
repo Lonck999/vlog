@@ -26,18 +26,21 @@ vehicle.honk();
 
 在後續如果聲明一個 `vehicle` 的變數，它就會有 `drive` 和 `honk` 這兩個方法。
 
-## public、private、protected
+## 存取修飾子 (Access Modifiers)
 
-public：大家都可以使用
+在 TypeScript 中，存取修飾子有以下三種：
 
-private：只有自己能用，外面讀不到也改不到
-
-protected：只有自己跟繼承的能用，外面讀不到也改不到
+- public：大家都可以使用
+- private：只有自己能用，外面讀不到也改不到
+- protected：只有自己跟繼承的能用，外面讀不到也改不到
 
 ```typescript
 class Vehicle {
   public color: string;
-  public honk(): void {
+  public drive(): void {
+    console.log("chugga chugga");
+  }
+  protected honk(): void {
     console.log("beep beep");
   }
 }
@@ -54,7 +57,11 @@ class Car extends Vehicle {
   }
 }
 
+const car = new Car();
+car.startDrivingProcess();
+car.drive(); // 這裡會報錯，因為 drive 是 private 的
+
 const vehicle = new Vehicle();
 vehicle.color = "red";
-vehicle.honk();
+vehicle.honk(); // 這裡會報錯，因為 honk 是 protected 的
 ```
