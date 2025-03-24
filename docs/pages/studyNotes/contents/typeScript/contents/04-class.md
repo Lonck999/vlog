@@ -25,3 +25,11 @@ vehicle.honk();
 這裡的寫法會很像 interface 的寫法，就是在 function 的寫上輸出之後會是什麼型別，不過這裡的 `class` 是定義了一個類別，而 `interface` 是定義了一個型別。
 
 在後續如果聲明一個 `vehicle` 的變數，它就會有 `drive` 和 `honk` 這兩個方法。
+
+## public、private、protected
+
+public：大家都可以使用
+
+private：只有自己能用，外面讀不到也改不到
+
+protected：只有自己跟繼承的能用，外面讀不到也改不到
