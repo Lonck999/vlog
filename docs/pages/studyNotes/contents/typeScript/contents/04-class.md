@@ -36,16 +36,29 @@ vehicle.honk();
 
 ```typescript
 class Vehicle {
-  public color: string;
+  // 詳細的寫法
+  // public color: string;
+  // 建構子：new 的時候會被呼叫
+  // constructor(public color: string) {
+  //   this.color = color; // 將傳進來的參數 color 指派給 this.color
+  // }
+
+  // 簡單的寫法
+  constructor(public color: string) {}
+
+  // public 的話，外面可以讀也可以改
   public drive(): void {
     console.log("chugga chugga");
   }
+
+  // protected 的話，外面不能讀也不能改，但繼承的可以
   protected honk(): void {
     console.log("beep beep");
   }
 }
 
 class Car extends Vehicle {
+  // private 的話，外面不能讀也不能改，連繼承的也不能用
   private drive(): void {
     // 在繼承的 class 中，可以覆蓋類別的方法
     console.log("vroom vroom");
@@ -61,7 +74,7 @@ const car = new Car();
 car.startDrivingProcess();
 car.drive(); // 這裡會報錯，因為 drive 是 private 的
 
-const vehicle = new Vehicle();
-vehicle.color = "red";
+const vehicle = new Vehicle("red");
 vehicle.honk(); // 這裡會報錯，因為 honk 是 protected 的
+console.log(vehicle.color); // 這裡會直接顯示 red
 ```
