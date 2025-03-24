@@ -33,3 +33,28 @@ public：大家都可以使用
 private：只有自己能用，外面讀不到也改不到
 
 protected：只有自己跟繼承的能用，外面讀不到也改不到
+
+```typescript
+class Vehicle {
+  public color: string;
+  public honk(): void {
+    console.log("beep beep");
+  }
+}
+
+class Car extends Vehicle {
+  private drive(): void {
+    // 在繼承的 class 中，可以覆蓋類別的方法
+    console.log("vroom vroom");
+  }
+
+  public startDrivingProcess(): void {
+    this.drive();
+    this.honk();
+  }
+}
+
+const vehicle = new Vehicle();
+vehicle.color = "red";
+vehicle.honk();
+```
