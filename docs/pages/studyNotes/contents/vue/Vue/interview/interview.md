@@ -2,4 +2,4 @@
 
 ## 目錄
 
-- [Pinia 和 Vuex 的差異](./01-pinia-vuex.md)
+- [Pinia 和 Vuex 的差異](./pinia-01-pinia-vuex.md)
