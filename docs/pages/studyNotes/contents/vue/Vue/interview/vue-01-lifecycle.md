@@ -194,3 +194,9 @@ onErrorCaptured(() => {
 });
 </script>
 ```
+
+vue2 和 vue3 的差異
+
+- 創建的簡化，vue3 的創建只需要 setup 即可，vue2 需要 beforeCreate 和 created
+- 卸載的差異，vue3 的卸載是 onBeforeUnmount 和 onUnmounted，vue2 是 beforeDestroy 和 destroyed，功能是一樣的只是取名不同
+- 錯誤處理的差異，vue3 的錯誤處理是 onErrorCaptured，vue2 是 errorCaptured，功能是一樣的只是取名不同
