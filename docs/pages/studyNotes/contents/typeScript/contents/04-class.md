@@ -173,3 +173,115 @@ const dog = new Dog("Spike", "Bulldog");
 dog.move(); // Spike is moving
 dog.bark(); // Spike is barking
 ```
+
+## 與 interface 的搭配
+
+主要會與 class 搭配使用，是因為可能有很多的 class 都有一些共同的屬性或方法，這時候就可以使用 interface 來定義這些共同的屬性或方法，然後讓 class 去實作這個 interface。
+
+User.ts
+
+```typescript
+import { faker } from "@faker-js/faker";
+
+export class User {
+  name: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+
+  constructor() {
+    this.name = faker.name.fullName();
+    this.location = {
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.longitude()),
+    };
+  }
+
+  markerContent(): string {
+    return `User Name: ${this.name}`;
+  }
+}
+```
+
+Company.ts
+
+```typescript
+import { faker } from "@faker-js/faker";
+
+export class Company {
+  companyName: string;
+  catchPhrase: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+
+  constructor() {
+    this.companyName = faker.company.name();
+    this.catchPhrase = faker.company.catchPhrase();
+    this.location = {
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.longitude()),
+    };
+  }
+
+  markerContent(): string {
+    return `
+    <div>
+      <h1>Company Name: ${this.companyName}</h1>
+      <h3>Catchphrase: ${this.catchPhrase}</h3>
+    </div>
+    `;
+  }
+}
+```
+
+Map.ts
+
+```typescript
+import { User } from "./User";
+import { Company } from "./Company";
+
+interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+  markerContent(): string;
+}
+
+export class CustomMap {
+  private googleMap: google.maps.Map; // private 代表這個屬性只能在這個 class 裡面使用
+
+  constructor(divId: string) {
+    this.googleMap = new google.maps.Map(
+      document.getElementById(divId) as HTMLElement,
+      {
+        zoom: 1,
+        center: {
+          lat: 0,
+          lng: 0,
+        },
+      }
+    );
+  }
+
+  addMarker(mappable: Mappable): void {
+    const marker = new google.maps.Marker({
+      map: this.googleMap,
+      position: {
+        lat: mappable.location.lat,
+        lng: mappable.location.lng,
+      },
+    });
+
+    marker.addListener("click", () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent(),
+      });
+      infoWindow.open(this.googleMap, marker);
+    });
+  }
+}
+```
