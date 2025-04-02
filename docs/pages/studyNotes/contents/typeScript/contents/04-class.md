@@ -285,3 +285,5 @@ export class CustomMap {
   }
 }
 ```
+
+這是某個 class 裡的函式，它會接受一個 `Mappable` 的型別，然後在裡面會有一個 `markerContent` 的函式，這個函式會回傳一個字串，這個字串會是 `Mappable` 的型別。
