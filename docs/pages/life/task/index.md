@@ -17,6 +17,30 @@
   - ⬜ 習慣開車練習
   - ⬜ 輸出文章
 
+## 四月目標
+
+- 買[冬季襯衫](https://shopee.tw/ma_den_clothing?gad_source=1&gclid=CjwKCAiAwaG9BhAREiwAdhv6YwFbcIPkF4hPSALWb1hPD7f-SJRbHB96HsjeZwuRkGrk2782eIpMbhoCqDAQAvD_BwE)
+  - ⬜ 工裝襯衫 X2
+  - ✅ 格子襯衫 X1
+  - ⬜ 素色襯衫 X2
+- 買[褲子](https://shopee.tw/ma_den_clothing?gad_source=1&gclid=CjwKCAiAwaG9BhAREiwAdhv6YwFbcIPkF4hPSALWb1hPD7f-SJRbHB96HsjeZwuRkGrk2782eIpMbhoCqDAQAvD_BwE)
+  - ⬜ 牛仔褲 X2
+  - ⬜ 工作褲 X2
+  - ⬜ 吊帶褲 X1
+- 買帽子
+  - ⬜ 水兵帽 X1
+  - ⬜ 棒球帽 X1
+  - ⬜ 野營帽 X1
+
+#### 04/01 ~ 04/06 目標
+
+- [2025-04-01-週二](/pages/life/task/2025/4月/2025-04-01-週二.md)
+- [2025-04-02-週三](/pages/life/task/2025/4月/2025-04-02-週三.md)
+- [2025-04-03-週四](/pages/life/task/2025/4月/2025-04-03-週四.md)
+- [2025-04-04-週五](/pages/life/task/2025/4月/2025-04-04-週五.md)
+- [2025-04-05-週六](/pages/life/task/2025/4月/2025-04-05-週六.md)
+- [2025-04-06-週日](/pages/life/task/2025/4月/2025-04-06-週日.md)
+
 ### 三月目標
 
 - 買[冬季襯衫](https://shopee.tw/ma_den_clothing?gad_source=1&gclid=CjwKCAiAwaG9BhAREiwAdhv6YwFbcIPkF4hPSALWb1hPD7f-SJRbHB96HsjeZwuRkGrk2782eIpMbhoCqDAQAvD_BwE)
@@ -32,16 +56,10 @@
   - ⬜ 棒球帽 X1
   - ⬜ 野營帽 X1
 
-#### 03/31 ~ 04/06 目標
+#### 03/31 目標
 
 - 日期：
   - [2025-03-31-週一](/pages/life/task/2025/3月/2025-03-31-週一.md)
-  - [2025-04-01-週二](/pages/life/task/2025/4月/2025-04-01-週二.md)
-  - [2025-04-02-週三](/pages/life/task/2025/4月/2025-04-02-週三.md)
-  - [2025-04-03-週四](/pages/life/task/2025/4月/2025-04-03-週四.md)
-  - [2025-04-04-週五](/pages/life/task/2025/4月/2025-04-04-週五.md)
-  - [2025-04-05-週六](/pages/life/task/2025/4月/2025-04-05-週六.md)
-  - [2025-04-06-週日](/pages/life/task/2025/4月/2025-04-06-週日.md)
 
 #### 03/24 ~ 03/30 目標
 
