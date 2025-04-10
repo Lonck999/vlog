@@ -11,6 +11,7 @@
 ### Vue
 
 - [Vue 的 生命週期](./content/vue-01-lifecycle.md)
+- [Vue 的 methods、computed、watch 的差異](./content/vue-02-methods-computed-watch.md)
 
 ### Vue-Router
 
