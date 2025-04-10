@@ -47,3 +47,13 @@
 [Day 19 - 什麼是質化分析](./contents/19-什麼是質化分析.md)
 
 [Day 20 - 什麼是選股法](./contents/20-什麼是選股法.md)
+
+[Day 21 - 什麼是金字塔買法(英文：Pyramiding 或 Pyramid Trading)](./contents/21-什麼是金字塔買法.md)
+
+[Day 22 - 什麼是 ETF 3 選 3 買 2 賣法則](./contents/22-什麼是3選3買2賣法則.md)
+
+[Day 23 - 什麼是海龜交易法則](./contents/23-什麼是海龜交易法則.md)
+
+[Day 24 - 什麼是葛蘭碧八大法則](./contents/24-什麼是葛蘭碧八大法則.md)
+
+[Day 25 - 什麼是 357 法則](./contents/25-什麼是357法則.md)
