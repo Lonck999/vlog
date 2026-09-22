@@ -172,7 +172,13 @@ export default defineConfig({
       },
     ],
     footer: {
-      message: "Released under the MIT License.",
+      // 🔴 隱私權政策與使用條款必須從首頁連得到 —— 這是 Google OAuth
+      //    發布（In production）的硬性要求，不是裝飾。
+      //    移除這兩個連結會讓 OAuth publish 狀態失效，
+      //    症狀是 7 天後 16 支吃 Google API 的腳本一起停（延遲發作，很難聯想）。
+      //    2026-09-22 從 blog 搬過來時一併加上。
+      message:
+        'Released under the MIT License. · <a href="/vlog/pages/legal/privacy.html">隱私權政策</a> · <a href="/vlog/pages/legal/terms.html">使用條款</a>',
       copyright: "Copyright © 2024-present Lonck999",
     },
   },
