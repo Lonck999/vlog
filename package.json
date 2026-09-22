@@ -2,7 +2,11 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "sync": "node scripts/sync-posts.mjs",
+    "sync:dry": "node scripts/sync-posts.mjs --dry-run",
+    "publish": "node scripts/publish.mjs",
+    "test": "node scripts/test-sync-posts.mjs"
   },
   "devDependencies": {
     "vitepress": "^1.5.0"

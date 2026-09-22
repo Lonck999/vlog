@@ -15,6 +15,10 @@ export default defineConfig({
     logo: "/img/logo.png",
     nav: [
       { text: "首頁", link: "/" },
+      // 🔴 文章索引由 scripts/sync-posts.mjs 產生（來源：vault 05-心得/ 標了
+      //    publish: true 的檔案）。沒有這個 nav 入口的話，文章發了也沒人找得到 ——
+      //    「同步成功」與「讀者看得到」是兩件事。
+      { text: "文章", link: "/pages/posts/" },
       {
         text: "學習筆記",
         items: [
