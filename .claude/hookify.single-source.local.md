@@ -1,0 +1,1 @@
+/Users/lonck/.claude/hookify.single-source.local.md

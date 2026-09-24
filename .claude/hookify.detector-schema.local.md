@@ -1,0 +1,1 @@
+/Users/lonck/.claude/hookify.detector-schema.local.md

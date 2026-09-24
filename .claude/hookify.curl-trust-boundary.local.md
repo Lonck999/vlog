@@ -1,0 +1,1 @@
+/Users/lonck/.claude/hookify.curl-trust-boundary.local.md

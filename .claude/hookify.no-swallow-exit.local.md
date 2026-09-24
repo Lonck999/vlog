@@ -1,0 +1,1 @@
+/Users/lonck/.claude/hookify.no-swallow-exit.local.md

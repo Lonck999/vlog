@@ -1,0 +1,1 @@
+/Users/lonck/.claude/hookify.no-fake-verified.local.md
