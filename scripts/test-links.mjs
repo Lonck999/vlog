@@ -20,7 +20,7 @@
  *
  * 跑法：node scripts/test-links.mjs
  */
-import { readFileSync, writeFileSync, existsSync, unlinkSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, unlinkSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -222,6 +222,65 @@ for (const url of facade) {
 }
 ck("🔴 門面頁面都有實際內容", empties.length === 0,
    empties.length ? `空白頁：${empties.join(", ")}` : "");
+
+console.log("\n【⑦】🔴 目錄頁宣稱的篇數 vs 實際檔案");
+// 🔴 2026-10-01 C-5：改寫 studyNotes/index.md 時我在文案裡寫了篇數
+//    （「Vue 38 篇」「股票 19 篇」…）—— 那就是**第二個來源**，必然漂移。
+//
+//    ⚠️ 跟 STRUCTURE.md 的處理不同：那份是內部文件，可以要求它別寫；
+//    這是**給訪客看的頁面**，寫出「19 篇」對讀者有用（判斷值不值得點）。
+//    🔴 所以不是禁止它寫，是**驗它寫的是對的**。
+//
+// ⚠️ 第一版用 `/Vue[^\n]{0,40}?(\d+)\s*篇/` 去猜，四條紅燈全是 regex 問題
+//    不是文案錯：「Vue」先撞到「31 篇指令與 API」、「股票」跟「19 篇」
+//    中間字數超過 40。
+//    🔴 **靠 regex 猜文案必然脆** —— 文案本來就該能自由改寫。
+//    ✅ 改成在文案裡放明確標記 `<!-- count:<路徑> -->`，
+//       測試只認那個標記。標記不見了報 FAIL（斷言失效 ≠ 通過）。
+const COUNT_MARK = /<!--\s*count:(\S+?)\s+(\d+)\s*-->/g;
+const pagesToCheck = [
+  "docs/pages/studyNotes/index.md",
+  "docs/pages/studyNotes/contents/vue/index.md",
+];
+function countMdIn(rel) {
+  const dir = path.join(ROOT, rel);
+  if (!existsSync(dir)) return -1;
+  let n = 0;
+  const walk = (d) => {
+    for (const e of readdirSync(d, { withFileTypes: true })) {
+      if (["dist", "cache"].includes(e.name)) continue;
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.name.endsWith(".md")) n++;
+    }
+  };
+  walk(dir);
+  return n;
+}
+let marks = 0;
+for (const rel of pagesToCheck) {
+  const src = readFileSync(path.join(ROOT, rel), "utf8");
+  for (const m of src.matchAll(COUNT_MARK)) {
+    marks++;
+    const real = countMdIn(m[1]);
+    ck(`${path.basename(rel)} 宣稱 ${m[1]} = ${m[2]} 篇（實際 ${real}）`,
+       Number(m[2]) === real,
+       real < 0 ? "🔴 標記指向不存在的目錄" : "給訪客看的數字過期了");
+  }
+}
+// 🔴 一個標記都沒找到 ⇒ 標記被改掉了，這整節形同沒跑
+ck(`找得到 count 標記（${marks} 個）`, marks >= 6,
+   "標記不見了 ⇒ 這節的斷言全部失效，不是通過");
+
+// 🔴 這兩頁不可再出現與事實不符的自嘲
+const sn = readFileSync(path.join(ROOT, "docs/pages/studyNotes/index.md"), "utf8");
+const vueIdx = readFileSync(path.join(ROOT, "docs/pages/studyNotes/contents/vue/index.md"), "utf8");
+for (const bad of ["隨便寫寫", "一個字都還沒動"]) {
+  ck(`目錄頁沒有「${bad}」`, !sn.includes(bad),
+     "94 篇筆記說自己是隨便寫的，或說沒寫而實際有寫 —— 兩種都在誤導訪客");
+}
+ck("TypeScript 沒有拼成 TpyeScript",
+   !sn.includes("TpyeScript") && !vueIdx.includes("TpyeScript"));
 
 console.log(`\n${pass}/${pass + fail} 通過`);
 process.exit(fail ? 1 : 0);
