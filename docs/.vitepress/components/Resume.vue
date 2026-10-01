@@ -500,6 +500,32 @@ const mySelf = ref(
 </template>
 
 <style scoped>
+/*
+ * 🔴 2026-10-01：整份改用 VitePress 主題變數，不可寫死顏色。
+ *
+ * 症狀：Lonck 回報「兩個區塊顏色不統一，有些字看不到」。
+ *
+ * 實測（headless Chrome 量運算後的顏色，不是讀 CSS 猜的）：
+ *   【亮色】「蕭鼎澄」fg=rgb(255,255,255) bg=rgb(255,255,255) → **對比度 1.0**
+ *   【暗色】同一個元素                                        → 對比度 17.17
+ *
+ * 根因：這份元件有 38 處寫死的顏色、**0 處 CSS 變數、0 個 .dark 樣式** ——
+ *       等於它假設「背景永遠是深色」。VitePress 預設是亮色，
+ *       所以**白底白字**，整個左欄＋工作經歷在亮色模式下全部隱形。
+ *
+ * ⚠️ 為什麼拖這麼久沒被發現：作者自己開暗色模式，而暗色下它完全正常。
+ *    🔴 **預設狀態（第一次來的訪客看到的）才是要驗的那個。**
+ *
+ * ✅ 規則：
+ *    · 文字 → var(--vp-c-text-1)   （主文字，隨模式切換）
+ *    · 分隔線 → var(--vp-c-divider)
+ *    · 強調/hover → var(--vp-c-brand-1)
+ *    · 技術標籤的品牌色邊框（#42b883 Vue、#f7df1e JS…）**保持原色** ——
+ *      那是各家官方識別色，不該隨主題變。
+ *      🔴 但它們**單靠自己撐不住兩種模式**（實算：JS 亮底 1.35、
+ *      Vite 暗底 1.95，門檻 3.0）⇒ 加一塊 var(--vp-c-bg-soft) 襯底，
+ *      讓邊框永遠貼在穩定背景上，而不是去改各家的識別色。
+ */
 .resume {
   display: flex;
 
@@ -510,26 +536,28 @@ const mySelf = ref(
       width: 18rem;
       height: 18rem;
       border-radius: 50%;
-      border: 0.4rem solid #efe9aa;
+      /* 🔴 原本 #efe9aa（淡黃）在亮底對比度 **1.24**，等於沒有外框。
+         改用主題分隔線色：兩種模式下都看得見。 */
+      border: 0.4rem solid var(--vp-c-divider);
       padding: 0.6rem;
       object-fit: cover;
     }
 
     .name-job {
-      border-bottom: 0.2rem solid #fff;
+      border-bottom: 0.2rem solid var(--vp-c-divider);
       margin: 0 0.8rem;
       padding-bottom: 0.5rem;
 
       .name {
         font-size: 2.5rem;
-        color: #fff;
+        color: var(--vp-c-text-1);
         font-weight: 700;
         margin: 1rem 0 0 0;
       }
 
       .job {
         font-size: 1.2rem;
-        color: #fff;
+        color: var(--vp-c-text-1);
         margin: 0.5rem 0 0 0;
       }
     }
@@ -537,11 +565,11 @@ const mySelf = ref(
     .skills {
       margin: 0 0.8rem;
       padding: 0.5rem 0 0.8rem 0;
-      border-bottom: 0.2rem solid #fff;
+      border-bottom: 0.2rem solid var(--vp-c-divider);
 
       .skills-title {
         font-size: 2.2rem;
-        color: #fff;
+        color: var(--vp-c-text-1);
         font-weight: 700;
         margin: 1rem 0 0 0;
       }
@@ -551,7 +579,7 @@ const mySelf = ref(
       .skills-css,
       .skills-other {
         font-size: 1.2rem;
-        color: #fff;
+        color: var(--vp-c-text-1);
         margin: 1rem 0;
       }
 
@@ -567,6 +595,15 @@ const mySelf = ref(
             gap: 0.2rem;
             border-radius: 0.5rem;
             padding: 0.18rem 0.24rem 0.18rem 0.18rem;
+            /* 🔴 襯底：讓品牌色邊框在兩種模式下都看得見。
+               實算邊框對比度（門檻：非文字 3.0）——
+                 JS  #f7df1e  亮底 1.35 ❌ / 暗底 12.70 ✅
+                 Pinia #ffd700 亮底 1.40 ❌ / 暗底 12.24 ✅
+                 Vite #5c21bb 亮底 8.79 ✅ / 暗底  1.95 ❌   ← 反方向也會壞
+               ⚠️ 兩個方向都有問題 ⇒ 不能只「為亮色調一次」。
+               ✅ 解法不是改品牌色（那是各家官方識別色），
+                  是給一塊中性襯底，讓邊框永遠貼在穩定的背景上。 */
+            background-color: var(--vp-c-bg-soft);
 
             img {
               width: 1.8rem;
@@ -575,7 +612,7 @@ const mySelf = ref(
 
             p {
               font-size: 1.4rem;
-              color: #fff;
+              color: var(--vp-c-text-1);
             }
           }
         }
@@ -585,11 +622,11 @@ const mySelf = ref(
     .contact {
       margin: 0 0.8rem;
       padding: 0.5rem 0 0.8rem 0;
-      border-bottom: 0.2rem solid #fff;
+      border-bottom: 0.2rem solid var(--vp-c-divider);
 
       .contact-title {
         font-size: 2.2rem;
-        color: #fff;
+        color: var(--vp-c-text-1);
         font-weight: 700;
         margin: 1rem 0 0 0;
       }
@@ -605,7 +642,11 @@ const mySelf = ref(
             font-size: 1rem;
 
             &:hover {
-              color: #f6bb62;
+              /* 🔴 用主題的強調色，不寫死。
+                 實算：#f6bb62 在亮底 #fff 上對比度 **1.72**（暗底 9.98）——
+                 又是同一個病：只在深色背景下成立的顏色。
+                 改用 var(--vp-c-brand-1)：亮 7.08、暗 8.5，兩邊都過 AA。 */
+              color: var(--vp-c-brand-1);
             }
           }
         }
@@ -615,14 +656,14 @@ const mySelf = ref(
 
   .content {
     width: 54rem;
-    border-left: 0.2rem solid #fff;
+    border-left: 0.2rem solid var(--vp-c-divider);
     padding-left: 0.6rem;
 
     .work {
       .work-item {
         h3 {
           font-size: 1.75rem;
-          color: #fff;
+          color: var(--vp-c-text-1);
           font-weight: 700;
           margin: 2.5rem 0;
         }
@@ -630,7 +671,7 @@ const mySelf = ref(
         .work-introduce {
           display: flex;
           gap: 2rem;
-          border-bottom: 0.1rem solid #fff;
+          border-bottom: 0.1rem solid var(--vp-c-divider);
           margin: 1.7rem 0;
 
           .work-img {
@@ -644,19 +685,19 @@ const mySelf = ref(
 
             .work-company {
               font-size: 1.5rem;
-              color: #fff;
+              color: var(--vp-c-text-1);
               font-weight: 700;
             }
 
             .work-job,
             .work-time {
               font-size: 1.25rem;
-              color: #fff;
+              color: var(--vp-c-text-1);
             }
 
             .work-text {
               font-size: 1.2rem;
-              color: #fff;
+              color: var(--vp-c-text-1);
               margin: 1rem 0 0.5rem 0;
             }
 
@@ -672,7 +713,7 @@ const mySelf = ref(
 
     .content-title {
       font-size: 2.2rem;
-      color: #fff;
+      color: var(--vp-c-text-1);
       font-weight: 700;
       margin: 1rem 0 0 0;
     }
@@ -680,7 +721,7 @@ const mySelf = ref(
     .content-text {
       font-size: 1.2rem;
       line-height: 1.5;
-      color: #fff;
+      color: var(--vp-c-text-1);
       margin: 2rem 0;
     }
   }
