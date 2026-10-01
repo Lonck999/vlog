@@ -35,35 +35,30 @@ export default defineConfig({
       { text: "文章", link: "/pages/posts/" },
       {
         text: "學習筆記",
+        // 🔴 2026-10-01（階段 C-2／C-3，Lonck 2026-09-22 決定）：
+        //    子選單砍到 Vue／TypeScript／股票三項。
+        //    理由：TailwindCSS 1 篇、SCSS 2 篇、JS 3 篇掛在導覽列反而顯空，
+        //    留在內頁即可；股票 19 篇份量紮實，且與 stock 專案同一件事。
+        //    ⚠️ 被拿掉的三項**內容仍在、網址仍可進**，只是不佔導覽列。
         items: [
           { text: "Vue", link: "/pages/studyNotes/contents/vue/Vue/index.md" },
           {
-            items: [
-              {
-                text: "TypeScript",
-                link: "/pages/studyNotes/contents/typeScript/index.md",
-              },
-              {
-                text: "JavaScript",
-                link: "/pages/studyNotes/contents/javaScript/index.md",
-              },
-            ],
+            text: "TypeScript",
+            link: "/pages/studyNotes/contents/typeScript/index.md",
           },
           {
-            items: [
-              {
-                text: "SCSS",
-                link: "/pages/studyNotes/contents/SCSS/index.md",
-              },
-              {
-                text: "TailwindCSS",
-                link: "/pages/studyNotes/contents/tailwindCSS/index.md",
-              },
-            ],
+            text: "股票",
+            link: "/pages/studyNotes/contents/stock/index.md",
           },
         ],
       },
-      { text: "生活", link: "/pages/life/index.md" },
+      // 🔴 「生活」移出導覽列（Lonck 2026-09-22 選 A）：
+      //    239 篇裡 203 篇是停了 400 多天的每日待辦，不是技術站門面。
+      //    ⚠️ 網址仍可進、Google 仍收得到 —— 只是不放在導覽列。
+      {
+        text: "關於我",
+        link: "/pages/aboutMe/index.md",
+      },
     ],
 
     sidebar: {

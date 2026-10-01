@@ -12,7 +12,7 @@
 
 就是放一些做菜的食譜，及慣用的調味跟料理方法吧 🤪。
 
-## [股票](/pages/life/stock/stock.md)
+## [股票](/pages/studyNotes/contents/stock/index.md)
 
 從零開始的學習生活
 

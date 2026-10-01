@@ -59,6 +59,42 @@ function allMarkdown(dir, out = []) {
 }
 
 /**
+ * 🔴 檔案搬家後的對應表 —— 讓舊連結自動指到新位置，而不是被當成死連結砍掉。
+ *
+ * ⚠️ 為什麼必須有這個（2026-10-01 C-2 實測）：
+ *    把 `life/stock/` 搬到 `studyNotes/contents/stock/` 之後，
+ *    **115 條指向舊位置的連結全部變成「目標不存在」** ——
+ *    而這支腳本對「目標不存在」的處理是**拿掉連結**。
+ *    🔴 直接跑的話會把 196 個檔案裡的 stock 連結一次砍光，
+ *    而那些頁面其實都還在，只是換了位置。
+ *
+ * 🔴 判準：**搬家 ≠ 刪除。** 檔案還在就要改指向，不是拿掉連結。
+ *    （「拿掉連結」只保留給真的從沒寫過的東西。）
+ *
+ * 🔴 寫在這裡而不是寫成一次性 sed 的理由：
+ *    舊連結散在 196 個檔案（其中 194 個是停更的日誌），
+ *    日後再搬一次目錄時同樣會發生，而這張表是累積的紀錄。
+ *
+ * 格式：[舊前綴, 新前綴]。比對在「解析不到檔案」之後才做，
+ * 所以不會影響正常連結，也不會因為表過期而誤改。
+ */
+const MOVED = [
+  // 2026-10-01 C-2：股票筆記從「生活」移進「學習筆記」
+  // ⚠️ 順序重要：長的在前 —— `stock/stock.md` 必須先於 `stock/` 被比對到，
+  //    否則前者會被後者改成 `.../stock/stock.md`（而檔名已改成 index.md）。
+  ["/pages/life/stock/stock.md", "/pages/studyNotes/contents/stock/index.md"],
+  ["/pages/life/stock/", "/pages/studyNotes/contents/stock/"],
+];
+
+/** 舊路徑 → 新路徑（搬家對應）；沒有對應回 null。 */
+function applyMoved(url) {
+  for (const [from, to] of MOVED) {
+    if (url.startsWith(from)) return to + url.slice(from.length);
+  }
+  return null;
+}
+
+/**
  * 🔴 把一個連結解析成實際檔案路徑，試遍所有合理的寫法。
  *
  * ⚠️ 順序重要：先試「原樣」再試「補 /pages」——
@@ -141,7 +177,13 @@ for (const file of allMarkdown(DOCS)) {
     const hash = (url.match(/#.*$/) || [""])[0];
     // 🔴 空連結 `[文字]()` 一律拿掉連結外殼 —— resolveTarget 對空字串回 null，
     //    下面的 else 分支會處理，這裡不需要特判（但要確保 `continue` 沒跳過它）。
-    const target = resolveTarget(url, file);
+    let target = resolveTarget(url, file);
+    // 🔴 解析不到時，先問「是不是搬家了」再判它死 ——
+    //    搬家 ≠ 刪除，檔案還在就要改指向而不是拿掉連結。
+    if (!target) {
+      const moved = applyMoved(url.replace(/[?#].*$/, ""));
+      if (moved) target = resolveTarget(moved, file);
+    }
     let replacement = null;
 
     if (target) {
