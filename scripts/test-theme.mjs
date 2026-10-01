@@ -67,30 +67,55 @@ console.log("\n【②】🔴 兩種模式的實際對比度（WCAG AA：一般�
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 if (!existsSync(CHROME)) {
   skip++; console.log("  ⏭️  找不到 Chrome，跳過行為層（🔴 這不算通過）");
-} else if (!existsSync(path.join(ROOT, "docs/.vitepress/dist/index.html"))) {
-  skip++; console.log("  ⏭️  還沒 build（先跑 npm run docs:build），跳過行為層（🔴 這不算通過）");
 } else {
-  const PORT = 4100 + (process.pid % 400);
-  const CPORT = PORT + 1000;
-  const preview = spawn("npx", ["vitepress", "preview", "docs", "--port", String(PORT)],
-                        { cwd: ROOT, stdio: "ignore", detached: true });
-  const chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--no-sandbox",
-    `--remote-debugging-port=${CPORT}`, `--user-data-dir=/tmp/cdp-theme-${process.pid}`,
-    "--no-first-run", "--disable-extensions", "--disable-sync", "--hide-scrollbars",
-    "--mute-audio", "--window-size=1440,900", "about:blank"], { stdio: "ignore", detached: true });
+  // 🔴 必須自己現場 build，不可拿磁碟上現成的 dist。
+  //
+  //    踩雷（2026-10-01，寫完這支測試當天就驗出來）：
+  //    原本的寫法是「dist 不存在就跳過，存在就直接量」。
+  //    實測三種情況 ——
+  //      ① dist 不存在          → 跳過 → exit 0 → 回歸報綠
+  //      ② 原始碼壞了沒 rebuild → 行為層量舊 dist → ✅ 綠
+  //      ③ ②＋靜態抓不到的壞法（var(--vp-c-bg)）→ **4/4 全綠**
+  //         而真實原始碼是壞的、網站是壞的。
+  //
+  //    🔴 ③ 是完全靜默的失敗：測試說一切正常，使用者看到白字白底。
+  //    根因是「量的東西不是這次的產出」—— 與測試邏輯對不對無關。
+  //
+  //    ✅ build 只要約 5 秒，沒有理由省。
+  //    ⚠️ build 失敗要報 FAIL，**不可跳過** —— 編不出來本身就是問題。
+  let built = false;
   try {
-    await sleep(6000);
-    const results = await audit(CPORT, `http://127.0.0.1:${PORT}/vlog/pages/aboutMe/`);
-    for (const [mode, rows] of Object.entries(results)) {
-      const worst = rows.length ? Math.min(...rows.map((r) => r.cr)) : null;
-      ck(`${mode}：最低對比度 ${worst} ≥ 4.5（量到 ${rows.length} 組）`,
-         rows.length > 0 && worst >= 4.5,
-         rows.length === 0 ? "🔴 一組都沒量到 ⇒ 探針壞了，不是通過"
-                           : `最差：${rows.filter((r) => r.cr < 4.5).map((r) => `"${r.txt}" ${r.cr}`).join(", ")}`);
+    execFileSync("npx", ["vitepress", "build", "docs"],
+                 { cwd: ROOT, stdio: "ignore", timeout: 300000 });
+    built = true;
+  } catch (e) {
+    ck("🔴 現場 build（行為層的前提）", false,
+       `build 失敗 ⇒ 不能拿舊 dist 充當本次產出：${(e.message || "").slice(0, 80)}`);
+  }
+  if (built) {
+    ck("🔴 現場 build 成功（量的是本次產出，不是磁碟舊檔）", true);
+    const PORT = 4100 + (process.pid % 400);
+    const CPORT = PORT + 1000;
+    const preview = spawn("npx", ["vitepress", "preview", "docs", "--port", String(PORT)],
+                          { cwd: ROOT, stdio: "ignore", detached: true });
+    const chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--no-sandbox",
+      `--remote-debugging-port=${CPORT}`, `--user-data-dir=/tmp/cdp-theme-${process.pid}`,
+      "--no-first-run", "--disable-extensions", "--disable-sync", "--hide-scrollbars",
+      "--mute-audio", "--window-size=1440,900", "about:blank"], { stdio: "ignore", detached: true });
+    try {
+      await sleep(6000);
+      const results = await audit(CPORT, `http://127.0.0.1:${PORT}/vlog/pages/aboutMe/`);
+      for (const [mode, rows] of Object.entries(results)) {
+        const worst = rows.length ? Math.min(...rows.map((r) => r.cr)) : null;
+        ck(`${mode}：最低對比度 ${worst} ≥ 4.5（量到 ${rows.length} 組）`,
+           rows.length > 0 && worst >= 4.5,
+           rows.length === 0 ? "🔴 一組都沒量到 ⇒ 探針壞了，不是通過"
+                             : `最差：${rows.filter((r) => r.cr < 4.5).map((r) => `"${r.txt}" ${r.cr}`).join(", ")}`);
+      }
+    } finally {
+      try { process.kill(-preview.pid); } catch {}
+      try { process.kill(-chrome.pid); } catch {}
     }
-  } finally {
-    try { process.kill(-preview.pid); } catch {}
-    try { process.kill(-chrome.pid); } catch {}
   }
 }
 
