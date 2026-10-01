@@ -69,13 +69,39 @@ percent-encoding。
 預設輸出會做**八進位跳脫**，拿那個字串回頭餵 `git rm` 會
 `did not match any files`。
 
+### 5. 🔴 站內連結只有一種寫法：`/pages/....md`
+
+```bash
+node scripts/normalize-links.mjs --dry-run   # 看會改什麼
+node scripts/normalize-links.mjs             # 統一寫法 ＋ 拿掉死連結
+node scripts/normalize-links.mjs --check     # 只檢查（CI 用，有問題 exit 1）
+```
+
+🔴 **`ignoreDeadLinks` 不可改回 `true`。**
+
+它從 first commit（2024-12-30）就開著 ⇒ VitePress 內建的死連結檢查整整兩年
+沒作用，首頁一顆主按鈕 404 掛了 8 個多月。2026-10-01 關掉它時有 **152 個死連結**。
+
+⚠️ **build 因死連結失敗時，最快的「修法」就是把它改回 `true`** ——
+那會讓整批工作一次歸零，而且**不會有任何錯誤訊息**。
+`scripts/test-links.mjs` 有一條斷言專門擋這件事。
+
+⚠️ **`rewrites: {"/pages/(.*)": "/(.*)"}` 是 no-op**（實測：dist 仍是
+`dist/pages/...`、線上 `/vlog/occult/` 回 404 而 `/vlog/pages/occult/` 回 200）
+—— 所以連結**一定要帶 `/pages`**，少了就是真的連不到。
+
+⚠️ 相對路徑（`./x.md`）**檔案一搬家就全死且不報錯** ——
+統一用絕對路徑的主因就是這個（C-2 要搬 stock 目錄）。
+
 ## 測試
 
 ```bash
 npm test          # test-sync-posts.mjs，26 項
 ```
 
-已納入每日回歸（`~/.hermes/scripts/run_all_regressions.py`，39 支）。
+已納入每日回歸（`~/.hermes/scripts/run_all_regressions.py`）。
+⚠️ **支數不寫死** —— 它用 glob 自動發現，寫死的數字每次新增測試就過期。
+vlog 組目前兩支：`test-sync-posts.mjs`（26 項）、`test-links.mjs`（11 項）。
 
 🔴 改 `sync-posts.mjs` 之後**要植入反向案例確認測試真的會紅** ——
 全綠本身沒有意義。特別是第 ⑧ 組「手寫檔案不可被刪」：
