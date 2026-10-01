@@ -7,14 +7,15 @@
 
 VitePress 1.5.0 靜態站，GitHub Actions 自動部署到 GitHub Pages。
 
-```
-docs/pages/studyNotes/   75 篇   Vue / JS / SCSS / TailwindCSS 學習筆記
-docs/pages/life/task/   239 篇   2024-12 ~ 2025-06 每日進度清單
-docs/pages/occult/        3 篇   小六壬
-docs/pages/aboutMe/             自介、作品、接案聯絡
-docs/pages/posts/               🔄 由 vault 同步產生（見下）
-docs/pages/legal/               隱私權政策、使用條款
-```
+🔴 **資料夾結構與每個目錄的用途，看 [`STRUCTURE.md`](./STRUCTURE.md)。**
+
+⚠️ **這裡刻意不再列篇數** —— 原本寫著「studyNotes 75 篇、task 239 篇」，
+實際是 **94 / 203**。兩個數字都在這份文件裡躺著過期，
+而**過期的數字跟正確的數字長得一模一樣**，讀到的人會拿它當事實。
+
+🔴 **篇數只能有一個來源**：`STRUCTURE.md`，
+並由 `scripts/test-structure.mjs`（每日回歸）比對實際檔案。
+兩個地方各寫一份必然漂移 —— 上面那兩個數字就是證據。
 
 ## 🔴 紅線
 
