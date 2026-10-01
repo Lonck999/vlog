@@ -12,10 +12,10 @@ hero:
   actions:
     - theme: brand
       text: 最新文章
-      link: /pages/studyNotes/contents/vue/Vue/v-for.md
+      link: /pages/posts/
     - theme: alt
-      text: 接案、發案聯絡我
-      link: /pages/aboutMe/contents/contactMe.md
+      text: 關於我
+      link: /pages/aboutMe/
 
 features:
   - title: 軟體技術

@@ -1,6 +1,6 @@
 # 生活技能
 
-## [粵語](./language/Cantonese/index.md)
+## [粵語](/pages/life/language/Cantonese/index.md)
 
 為了老婆，終究還是得學一下的吧，畢竟以後可能會去澳門工作。
 
@@ -8,18 +8,18 @@
 
 好像真的該點一下這技能......起碼以後不會人家在游泳看海裡美麗生物時，我還是在海灘上吃炒麵 😅。
 
-## [做菜](./cooking/cooking.md)
+## [做菜](/pages/life/cooking/cooking.md)
 
 就是放一些做菜的食譜，及慣用的調味跟料理方法吧 🤪。
 
-## [股票](./stock/stock.md)
+## [股票](/pages/life/stock/stock.md)
 
 從零開始的學習生活
 
-## [讀物清單](./讀物清單/index.md)
+## [讀物清單](/pages/life/讀物清單/index.md)
 
 在外面或在網路上看到的好東西，就會放在這，畢竟有時候看書、看影片、看文章，總是會忘記，所以就放在這裡吧 。
 
-## [專案發想](./專案/index.md)
+## [專案發想](/pages/life/專案/index.md)
 
 現在想做的，就會放在這，就像前輩們說的想到的專案不可貴，可貴的是你開始做了，這些是還沒做的 😅。

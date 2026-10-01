@@ -4,4 +4,4 @@
 
 ## 目錄
 
-- [開心果糊](./contents/開心果糊.md)
+- [開心果糊](/pages/life/cooking/contents/開心果糊.md)

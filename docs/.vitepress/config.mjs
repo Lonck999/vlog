@@ -5,7 +5,21 @@ export default defineConfig({
   rewrites: {
     "/pages/(.*)": "/(.*)",
   },
-  ignoreDeadLinks: true,
+  // 🔴 2026-10-01：從 `true` 改成 `false`。
+  //
+  //   它從 first commit（2024-12-30）就開著 ⇒ VitePress 內建的死連結檢查
+  //   整整兩年沒作用。首頁兩顆主按鈕其中一顆 404 掛了 8 個多月沒人發現，
+  //   根因不是「沒有檢查工具」，是**檢查被關掉了**。
+  //
+  //   關掉它的當下有 152 個死連結，而那不是 152 次手誤 ——
+  //   是站內連結四種寫法混用（詳見 scripts/normalize-links.mjs 的註解）。
+  //   已用 `node scripts/normalize-links.mjs` 統一成 `/pages/....md` 一種。
+  //
+  // ⚠️ 從今以後：**新增死連結會讓 build 失敗**，Actions 會紅。
+  //    這是刻意的 —— 那正是過去兩年缺的那道防線。
+  //    真的需要暫時放行某個 url，用陣列而不是 `true`：
+  //      ignoreDeadLinks: [/^\/some\/known-missing/]
+  ignoreDeadLinks: false,
   lastUpdated: true,
   title: "地瓜球工程師",
   head: [["link", { rel: "icon", href: "/vlog/logo.png" }]],

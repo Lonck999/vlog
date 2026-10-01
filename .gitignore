@@ -14,4 +14,11 @@
 node_modules
 dist
 dist-ssr
+
+# 🔴 VitePress 的建置產物與快取（2026-10-01 補）
+#    ⚠️ `docs/.vitepress/dist` 與**根目錄**的 `.vitepress/cache` 是兩個不同位置 ——
+#    上面那行 `dist` 只蓋到前者，根目錄這個 cache 會變成未追蹤檔案一直冒出來。
+.vitepress/cache
+docs/.vitepress/cache
+docs/.vitepress/dist
 *.local
