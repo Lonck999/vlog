@@ -90,10 +90,11 @@ export default defineConfig({
               text: "v-if",
               link: "/pages/studyNotes/contents/vue/Vue/course/05-v-if.md",
             },
-            {
-              text: "v-memo",
-              link: "/pages/studyNotes/contents/vue/Vue/course/06-v-memo.md",
-            },
+            // 🔴 2026-10-01：v-memo 從側邊欄拿掉 —— `06-v-memo.md` 是 **0 字**。
+            //    它掛在側邊欄上，訪客點進去是一片空白（線上 HTTP 200）。
+            //    ⚠️ 檔案本身留著（編號連續，而且 v-memo 確實該寫），
+            //       但「推薦一個空白頁」比「少一個項目」糟。
+            //    寫完內容再加回來 —— `test-links.mjs` 第⑥節會擋住它空著被加回去。
             {
               text: "v-model",
               link: "/pages/studyNotes/contents/vue/Vue/course/07-v-model.md",

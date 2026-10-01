@@ -9,7 +9,7 @@
 - [03-v-for](/pages/studyNotes/contents/vue/Vue/course/03-v-for.md)
 - [04-v-html](/pages/studyNotes/contents/vue/Vue/course/04-v-html.md)
 - [05-v-if](/pages/studyNotes/contents/vue/Vue/course/05-v-if.md)
-- [06-v-memo](/pages/studyNotes/contents/vue/Vue/course/06-v-memo.md)
+- 06-v-memo（還沒寫）
 - [07-v-model](/pages/studyNotes/contents/vue/Vue/course/07-v-model.md)
 - [08-v-on](/pages/studyNotes/contents/vue/Vue/course/08-v-on.md)
 - [09-v-once](/pages/studyNotes/contents/vue/Vue/course/09-v-once.md)

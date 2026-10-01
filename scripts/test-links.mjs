@@ -166,5 +166,62 @@ for (const [, from, to] of movedPairs) {
   ck(`  ${from} → ${to}`, ok, "🔴 對應表指向的新位置不存在 ⇒ 舊連結會被誤砍");
 }
 
+// ── ⑥ 🔴 導覽列與首頁推薦的頁面，內容不可是空的 ──────────
+console.log("\n【⑥】🔴 門面上的頁面不可是空白頁");
+// 🔴 為什麼（2026-10-01）：
+//    首頁 features「玄學術數」卡片指向的 index.md 只有一行連結（100 字），
+//    而它底下還有一個 0 bytes 的檔案 —— 線上 HTTP 200、build 零錯誤、
+//    連結檢查全綠，**而訪客點進去看到一片空白**。
+//
+//    ⚠️ 全站當時有 20 頁這種「200 的空白頁」。
+//    🔴 但判準不是「全站不准有空白頁」—— `life/task/` 的日誌有幾天
+//       沒寫是歷史事實，改它等於篡改紀錄。
+//    ✅ 判準是**「門面上的」不可空** ——
+//       首頁按鈕、首頁 features 卡片、導覽列指到的頁面。
+//       那些是我主動推薦給訪客的，推薦一個空白頁才是問題。
+function bodyChars(file) {
+  if (!existsSync(file)) return -1;
+  let t = readFileSync(file, "utf8");
+  t = t.replace(/^---[\s\S]*?^---/m, "");    // frontmatter
+  t = t.replace(/^#.*$/gm, "");              // 🔴 標題不算內容（只有標題＝空白頁）
+  t = t.replace(/```[\s\S]*?```/g, "");
+  return t.replace(/\s/g, "").length;
+}
+const facade = new Set();
+// 首頁 hero 按鈕 ＋ features 卡片
+for (const m of readFileSync(path.join(ROOT, "docs/index.md"), "utf8")
+                  .matchAll(/link:\s*(\/pages\/\S+)/g)) facade.add(m[1].trim());
+// 導覽列
+for (const m of readFileSync(path.join(ROOT, "docs/.vitepress/config.mjs"), "utf8")
+                  .matchAll(/link:\s*"(\/pages\/[^"]+)"/g)) facade.add(m[1]);
+ck(`抓到門面頁面（${facade.size} 個）`, facade.size >= 4,
+   "抓不到就代表首頁/config 格式變了，斷言已失效");
+let empties = [];
+// ⚠️ 兩類例外，不是放水 —— 它們的內容確實不在 .md 裡：
+//    · `posts/index.md`  由 sync-posts.mjs 產生的文章清單，內容是 frontmatter 的資料
+//    · `aboutMe/index.md` 只有 `<Resume />` 一行，真正的內容在 Resume.vue（約 800 行）
+//    🔴 判準不是「檔案很短就放過」，是**「內容是不是真的存在於別處」** ——
+//       所以要去驗那個別處，不是直接豁免。
+const EXEMPT = {
+  "/pages/posts/": () => existsSync(path.join(ROOT, "scripts/sync-posts.mjs")),
+  "/pages/posts/index.md": () => existsSync(path.join(ROOT, "scripts/sync-posts.mjs")),
+  "/pages/aboutMe/": () => bodyChars(path.join(ROOT, "docs/.vitepress/components/Resume.vue")) > 500,
+  "/pages/aboutMe/index.md": () => bodyChars(path.join(ROOT, "docs/.vitepress/components/Resume.vue")) > 500,
+};
+for (const url of facade) {
+  if (EXEMPT[url]) {
+    // 🔴 豁免要自己驗 —— 「內容在別處」如果那個別處也空了，就不該豁免
+    ck(`  ${url} 的內容在別處且仍存在`, EXEMPT[url](),
+       "豁免的前提不成立了 ⇒ 這頁真的變成空白頁");
+    continue;
+  }
+  let f = path.join(ROOT, "docs", url.replace(/^\//, ""));
+  if (!f.endsWith(".md")) f = path.join(f, "index.md");
+  const n = bodyChars(f);
+  if (n >= 0 && n < 40) empties.push(`${url}（${n} 字）`);
+}
+ck("🔴 門面頁面都有實際內容", empties.length === 0,
+   empties.length ? `空白頁：${empties.join(", ")}` : "");
+
 console.log(`\n${pass}/${pass + fail} 通過`);
 process.exit(fail ? 1 : 0);

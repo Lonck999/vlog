@@ -22,7 +22,7 @@ features:
     details: 一些前端技能的學習筆記，以Vue3為主，在搭配Pinia、VueRouter、Vitest、Axios。往後會在學習TypeScript、Websocket、在搭配一些遊戲引擎，目前以這方向前進中。
     link: /pages/studyNotes/index.md
   - title: 玄學術數
-    details: 小道的術數技能，對於人生有何迷茫、問事、斷命、論流年也歡迎跟我聊聊，裡面也有放一些經驗、問術筆記，有想要學習的可以來看看。
+    details: 小道的術數筆記。有人生迷茫、問事、斷命、論流年也歡迎跟我聊聊。目前寫完的是道傳小六壬——六宮完整解釋、七種盤、排盤法都在裡面。
     link: /pages/occult/index.md
   - title: 作品與自介
     details: 這裡有我的一些作品，以及自介，歡迎大家來看看。
