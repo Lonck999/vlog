@@ -54,9 +54,9 @@ const uiSkills = reactive([
   },
   {
     id: 2,
-    icon: "/vlog/img/veutify-icon.svg",
-    name: "Veutify",
-    class: "veutify",
+    icon: "/vlog/img/vuetify-icon.svg",
+    name: "Vuetify",
+    class: "vuetify",
   },
   {
     id: 3,
@@ -148,10 +148,40 @@ const contacts = reactive([
 const works = reactive([
   {
     id: 1,
+    // 🔴 爾升官網是 SPA 外殼，favicon 只有 16×16 放大後模糊
+    //    ⇒ 用文字方塊（textIcon）取代圖片，與無品牌 logo 的技能同一套做法
+    textIcon: "爾升",
+    job: "前端工程師（管理 4 人以下）",
+    company: "爾升資訊股份有限公司",
+    time: "2025-06 ~ 在職中",
+    content: [
+      "1. 惠加 QMS 品質管理暨進銷存系統前端主要開發者：97 頁、9 大模組、35 個 API 模組，個人提交佔 72%（276/385）。",
+      "2. 雙鴻 ESS 員工自助入口共同開發：出勤請假、薪資獎金、會議室預約，支援六語系。",
+      "3. 集團零用金申請審核系統全端獨立開發（Express + PostgreSQL）。",
+      "4. 彰化銀行投資人關係官網與 CMS：前台 36 頁、後台 119 頁／171 元件，符合金融資安與政府無障礙規範。",
+      "5. 凱基 ePass、華南銀行 App、金融 FIDO 合庫／兆豐版 UI 切版與 API 串接。",
+      "6. 撰寫團隊 coding style 與 AI Agent 協作規範，統一組員間的寫作方式。",
+      "7. 與甲方專案負責人開需求會議、擬定前端流程與技術棧，依功能頁面分工給組員並參與開發。",
+    ],
+    contribute: [
+      "1. 〔QMS〕設計全站權限層：usePermission 統一控制增／讀／改／刪／匯出／審核六種權限，useVisibleTabs 依權限動態顯示頁籤。",
+      "2. 〔QMS〕抽出 useReviewStatus 與 ReviewStatusBlock 統一十餘個表單的多階段簽核，依狀態鎖定表單並杜絕權限繞過。",
+      "3. 〔QMS〕以軟刪除旗標解決 vee-validate 動態 FieldArray 刪除時索引位移造成的資料錯亂；退貨批號改用複合 key 根治跨單別 ID 衝突。",
+      "4. 〔ESS〕導入 vue-i18n 六語系（繁中／簡中／英／泰／越／緬），Yup schema 改為 computed 讓驗證訊息隨語系同步更新。",
+      "5. 〔ESS〕維護模式子系統的訊號模組刻意零相依 —— axios 攔截器偵測 503 是最關鍵路徑，不能因 Pinia 未初始化或循環相依而整條靜默失效；並加 TTL 自動過期避免單次錯誤永久鎖死。",
+      "6. 〔ESS〕全域錯誤對話框佇列以訊息 key 去重，一頁多支平行請求失敗只彈一次，並傳 i18n key 而非翻譯結果使切換語系即時更新。",
+      "7. 〔零用金〕routes → controller → service → repository 四層架構、17 支 migration；狀態轉移以 version + CAS 更新包在交易內，衝突回 409，防止多人審核覆蓋。",
+      "8. 〔零用金〕append-only 稽核軌跡記錄狀態與欄位差異；修補未登入可下載附件漏洞，補上 PDF magic bytes 驗證、SVG 過濾與角色授權矩陣；node:test 端對端測試 9 檔 94 案例（真實 DB 與 HTTP）。",
+      "9. 〔零用金〕Ubuntu + nginx + systemd 部署與每日備份，撰寫冪等安裝腳本與離線安裝包供無網路機房使用。",
+      "10. 〔彰銀 IR〕SSO 與 AD 雙軌登入以 runtime 設定檔切換免重新編譯；實作無障礙 accesskey 跳轉錨點，配合 IIS CSP／HSTS 等資安標頭。",
+    ],
+  },
+  {
+    id: 2,
     icon: "/vlog/img/shinsoft-icon.png",
     job: "前端工程師",
     company: "新誼整合科技",
-    time: "2023-07 ~ 在職中",
+    time: "2022-07 ~ 2025-06",
     content: [
       "1. 協助新平台大型專案前台架構規劃與開發，多部門協作、API、後台功能及資料庫架構規劃。",
       "2. 新平台的前、後台，前端功能、特效、動畫撰寫。",
@@ -159,42 +189,47 @@ const works = reactive([
       "4. 定期行銷活動、節慶活動頁面製作。",
       "5. 新光醫院後台管理維護、新功能開發。",
       "6. 其他新光集團專案開發、新增舊專案功能開發。",
-      "7. 幫忙設定使用者測驗角色跟檢測方式與大量下單測試",
+      "7. 協助設定使用者測驗角色跟檢測方式與大量下單測試。",
     ],
     contribute: [
       "1. 導入 Vite、Nuxt，提高開發效率、降低維護成本。",
       "2. 使用 Vue3 Composition API 開發應用，提升了應用的加載速度和性能。",
       "3. 使用 Vue Router 構建動態和嵌套路由。",
-      "4. 採用Pinia 進行全域狀態管理，簡化了資料流，提高了程式碼的可維護性。",
+      "4. 採用 Pinia 進行全域狀態管理，簡化了資料流，提高了程式碼的可維護性。",
       "5. 使用 SCSS 預處理器編寫 CSS 代碼，以提高開發效率和維護性。",
-      "6. 導入Swiper、Vuetify、Vee-Validate 等元件庫封裝，對齊專案技術，降低專案維護門檻。",
-      "7. 在 Node 用Mocha、selenium編寫自動化程式模擬測試。",
+      "6. 導入 Swiper、Vuetify、Vee-Validate 等元件庫封裝，對齊專案技術，降低專案維護門檻。",
+      "7. 在 Node 用 Mocha、Selenium 編寫自動化程式模擬測試。",
+      "8. 以 three.js 建置產品展示：GLTFLoader 搭配 Draco 壓縮載入模型、EXR 環境貼圖打光，並在元件卸載時遍歷釋放 geometry 與 material 避免記憶體洩漏。",
+      "9. 以 GSAP ScrollTrigger 實作捲動驅動的產品拆解、鏡頭移動與段落轉場。",
+      "10. 大型 3D 資產（glb／exr 逾 100MB）不進版控改以 NAS 管理，並壓縮模型與光照貼圖優化首屏載入。",
     ],
   },
   {
-    id: 2,
+    id: 3,
     icon: "/vlog/img/dlin-icon.png",
-    job: "前端工程師",
+    job: "軟體工程師",
     company: "德霖科技有限公司",
-    time: "2022-11 ~ 2023-06",
+    time: "2020-11 ~ 2022-06",
     content: [
       "1. 可在線上觀看現場看診的即時進度。",
       "2. 患者線上預約指定的科別、醫生、時間。",
       "3. 患者可查詢自己所有的預約、提醒患者同時段不可重複預約看診。",
       "4. 醫生、護士、管理者權限角色的衛生福利部工作法規、排班規則、後台架設心智圖建立。",
-      "5. 舊專案重構，專案開發，前端特效撰寫，多人協作、前後端分離串接API。",
+      "5. 舊專案重構，專案開發，前端特效撰寫，多人協作、前後端分離串接 API。",
       "6. 後臺功能製作及技術迭代，邏輯、效能優化。",
+      "7. ERP／人資系統：多公司租戶的內部 HR 與行政系統，44 個模組、139 個頁面。",
+      "8. 接手維護舊架構站台：Gulp + Pug + Sass 靜態站、jQuery 純 HTML（60+ 頁）、ant-design-vue + Vuex 後台。",
     ],
     contribute: [
       "1. 導入 Javascript(ES6)、Vue、SCSS 等現代前端技術。",
-      "2. 導入 Vue.Draggable 統一拖曳套件，更容易實現拖曳移動到其他時間，提高協作效率80%。",
-      "3. 導入 SCSS 預處理器技術，提高切版及維護效率200%。",
-      "4. 導入 Seven One Pattern 的 CSS 管理方式，並且使用共用參數，提高切版及維護效率80%。",
-      "5. flex、grid 等更具效率，邏輯的現代切版方式，實現更復雜的排版,提高切版效率。",
-      "6. RWD規劃，依據各個大、小畫面顯示符合視窗寬度的內容，使用者好使用增加使用者體驗。",
-      "7. 在專案中建議使用swagger，使前、後端分離更好管理。",
-      "8. Git版控系統，整合工作SOP，降低維護工時 180%。",
-      "9. 使用 jQuery 函式庫進行前端開發，包括操作 DOM、事件處理、Ajax 請求等。",
+      "2. 導入 Vue.Draggable 統一拖曳套件，更容易實現拖曳移動到其他時間，提高排班協作效率。",
+      "3. 導入 SCSS 預處理器與 Seven One Pattern 的 CSS 管理方式並使用共用參數，提高切版及維護效率。",
+      "4. 以 flex、grid 等更具效率的現代切版方式實現複雜排版；RWD 規劃依各尺寸畫面顯示符合視窗寬度的內容。",
+      "5. 在專案中建議使用 Swagger，使前、後端分離更好管理；整合 Git 版控與工作 SOP，降低維護工時。",
+      "6. 〔ERP〕開發簽核流程引擎前端：流程定義、簽核角色、待簽核事項與撤銷，並套用至請假、派車、出差等各式單據。",
+      "7. 〔ERP〕實作 GPS 定位打卡（座標比對允許地點）、差勤與請假加班出差的撤銷流程、組織圖、薪資表列印、車輛派遣與會議室預約、經銷商子系統。",
+      "8. 〔ERP〕以獨立 axios instance 串接 QMS 系統 API，達成兩套系統的資料整合。",
+      "9. 維護 Gulp 建置管線：以參數切換開發／正式模式，並自動產出 sitemap。",
     ],
   },
 ]);
@@ -358,19 +393,21 @@ const skillsOther = ref("其他：");
 const contactTitle = ref("Contact");
 const mySelf = ref(
   `
-  我是一名擁有兩年多經驗的前端工程師，<br>
-  擅長 Vue 2、Vue 3、Vue Router 和 Pinia 等前端框架技術。<br>
-  在職期間，參與多個專案開發與維護，熟練運用這些技術框架，提升了應用的性能和用戶體驗。<br>
+  我是一名前端工程師，擅長 Vue 3 Composition API、Vue Router、Pinia、Nuxt 等前端技術，<br>
+  也能獨立完成 Node.js / Express + PostgreSQL 的後端與 Ubuntu 部署。<br>
   <br>
-  例如：<br>
-  1. 在德霖科技時的線上預約掛號、線上看診進度、排班後台。<br>
-  2. 在新誼整合科技的攝影機後台控制系統、設備短路系統、對內電商平台、行銷活動頁、ＥＤＭ、分類頁面、購物車、Selenium整合測試。<br>
+  近期主要負責的專案：<br>
+  1. 惠加 QMS 品質管理暨進銷存系統 —— 97 頁、9 大模組，個人提交佔 72%，從權限層、多階段簽核到匯出審核流程。<br>
+  2. 雙鴻 ESS 員工自助入口 —— 六語系（繁簡英泰越緬）、維護模式子系統、全域錯誤佇列。<br>
+  3. 集團零用金申請審核系統 —— 全端獨立開發，四層架構、CAS 防併發覆蓋、append-only 稽核軌跡。<br>
+  4. 彰化銀行投資人關係官網與 CMS —— 符合金融資安與政府無障礙規範。<br>
   <br>
-  在假日期間，我積極與團隊合作承接外部專案，主要使用 Vue 3、Element plus、Vue Router、Pinia 、TypeScript 進行開發。<br>
-  這些經驗讓我更加熟悉團隊協作流程，並提升了實戰技能，能夠高效地解決專案中遇到的各種技術挑戰。<br>
+  比較在意的事：<br>
+  1. 錯誤不要靜默。例如 ESS 的維護訊號模組刻意零相依，因為 axios 攔截 503 是最關鍵路徑，不能因為 Pinia 未初始化就整條失效。<br>
+  2. 用機制取代約定。團隊的 coding style 與 AI Agent 協作規範寫成文件，不靠口頭提醒。<br>
+  3. 交付標準是「能用」。寫在註解裡的方案、切不動的功能都算沒做完。<br>
   <br>
-  知道自己還不夠想做的更好。因此，平時我利用平日空閒時間持續進修，目前也有自己安排一些讀書計畫，不斷完善自己的知識體系，力求在專業領域保持領先。<br>
-  我的目標是成為一名具備有技術力的前端工程師，為公司和團隊和自己創造更大的價值。
+  平時持續進修並安排讀書計畫，目標是成為具備技術判斷力的前端工程師，為團隊創造更大的價值。
   `,
 );
 </script>
@@ -440,7 +477,16 @@ const mySelf = ref(
         <div class="work-item">
           <h3>公司經歷：</h3>
           <div v-for="work in works" :key="work.id" class="work-introduce">
-            <img :src="work.icon" :alt="work.company" class="work-img" />
+            <!-- 🔴 沒有品牌 logo 的公司用文字方塊，不硬配一個無關的圖示 -->
+            <div v-if="work.textIcon" class="work-img work-text-icon">
+              {{ work.textIcon }}
+            </div>
+            <img
+              v-else
+              :src="work.icon"
+              :alt="work.company"
+              class="work-img"
+            />
             <div class="work-content">
               <p class="work-company">{{ work.company }}</p>
               <p class="work-job">{{ work.job }}</p>
@@ -679,6 +725,22 @@ const mySelf = ref(
             height: 6rem;
           }
 
+          /* 🔴 沒有品牌 logo 的公司：文字方塊取代圖片。
+             用 var(--vp-c-*) 不寫死顏色（亮暗模式都要讀得到）。 */
+          .work-text-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--vp-c-text-1);
+            background: var(--vp-c-bg-soft);
+            border: 2px solid var(--vp-c-divider);
+            border-radius: 0.6rem;
+          }
+
           .work-content {
             line-height: 1.2;
             margin-bottom: 1.5rem;
@@ -726,6 +788,101 @@ const mySelf = ref(
     }
   }
 }
+
+/* ══════════════════════════════════════════════
+   🔴 RWD：這個元件原本**完全沒有 @media**。
+   實測 390px 時 .resume 仍是 flex-direction: row ⇒
+   左欄被壓到 244px、右欄「工作經驗」擠成直書細縫，完全讀不了。
+   ══════════════════════════════════════════════ */
+
+/* 平板：兩欄還放得下，但左欄要縮、字級降一階 */
+@media (max-width: 1024px) {
+  .resume {
+    .head {
+      width: 15rem;
+
+      .head-img {
+        width: 13rem;
+        height: 13rem;
+      }
+    }
+  }
+}
+
+/* 🔴 手機：改成單欄直向堆疊（上頭像/技能、下工作經歷） */
+@media (max-width: 768px) {
+  .resume {
+    flex-direction: column;
+
+    .head {
+      /* 🔴 固定寬度要一起解掉，否則 column 下仍然只有 18.75rem */
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      .head-img {
+        width: 12rem;
+        height: 12rem;
+      }
+
+      .name-job,
+      .skills,
+      .contact {
+        width: 100%;
+        max-width: 32rem;
+      }
+    }
+
+    .content {
+      width: 100%;
+      /* 🔴 原本靠 flex 分配剩餘空間，column 下要解掉任何左邊距 */
+      margin-left: 0;
+      padding-left: 0;
+
+      .work {
+        .work-item {
+          .work-introduce {
+            /* 🔴 圖示 + 文字在窄螢幕改成上下排，否則文字欄寬不足 */
+            flex-direction: column;
+
+            .work-img {
+              margin-bottom: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 小手機：字級再降一階，避免長技術名詞撐破 */
+@media (max-width: 420px) {
+  .resume {
+    .content {
+      .work .work-item .work-introduce .work-content {
+        .work-company {
+          font-size: 1.3rem;
+        }
+
+        .work-job,
+        .work-time {
+          font-size: 1.1rem;
+        }
+
+        ul,
+        .work-text {
+          font-size: 1.05rem;
+        }
+      }
+    }
+
+    .content-title {
+      font-size: 1.8rem;
+    }
+  }
+}
 .vue {
   border: 0.2rem solid #42b883;
 }
@@ -750,7 +907,7 @@ const mySelf = ref(
   border: 0.2rem solid #2f8aa6;
 }
 
-.veutify {
+.vuetify {
   border: 0.2rem solid #5f9efc;
 }
 
