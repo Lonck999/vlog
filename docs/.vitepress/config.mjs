@@ -2,9 +2,25 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: "/vlog/",
-  rewrites: {
-    "/pages/(.*)": "/(.*)",
-  },
+  // 🔴 2026-10-02：拿掉 `rewrites: { "/pages/(.*)": "/(.*)" }`。
+  //
+  //   它從一開始就**完全沒有作用**。官方文件（vitepress.dev/guide/routing
+  //   § Route Rewrites）的寫法是「**檔案路徑** → 檔案路徑」，而且動態段
+  //   用 path-to-regexp 的命名參數：
+  //     rewrites: { 'packages/:pkg/src/:slug*': ':pkg/:slug*' }
+  //   原本那條三處都錯：① 有開頭斜線 ② 用 regex 的 `(.*)` 而不是 `:slug*`
+  //   ③ 沒有 `.md` 副檔名。
+  //
+  //   實測：321 個 md → 321 個 html，全部仍在 `dist/pages/` 底下，
+  //   根目錄只有 `index.html` 與 `404.html`。
+  //   ⚠️ 所以它不是「壞掉的功能」，是**從來沒啟動過的死設定**；
+  //   留著的唯一效果是讓下一個讀 config 的人以為網址會被改寫。
+  //
+  //   🔴 不改成正確語法（`pages/:slug*.md` → `:slug*.md`）的理由：
+  //   改對會讓全站網址從 `/vlog/pages/xxx` 變成 `/vlog/xxx` ——
+  //   321 頁的已收錄連結全部失效，站內 699 個 `](/pages/…)` 連結
+  //   也得跟著改（2026-10-02 實測，grep 計數）。
+  //   換掉一個沒人要求的網址格式，代價遠大於收益。
   // 🔴 2026-10-01：從 `true` 改成 `false`。
   //
   //   它從 first commit（2024-12-30）就開著 ⇒ VitePress 內建的死連結檢查

@@ -105,6 +105,36 @@ const facts = [
 ];
 for (const [name, ok] of facts) ck(name, ok);
 
+// ── 🔴 config.mjs 不可有「看起來在做事但實際沒作用」的設定 ──
+//
+//   2026-10-02 拿掉 `rewrites: { "/pages/(.*)": "/(.*)" }`。
+//   它從一開始就完全沒作用：官方（vitepress.dev/guide/routing）的
+//   rewrites 是「**檔案路徑** → 檔案路徑」，動態段用 path-to-regexp
+//   的 `:slug*`，不是 regex 的 `(.*)`；且 key 不帶開頭斜線、要含 `.md`。
+//   實證：拿掉前後 323 個 html 的 md5 **逐檔完全相同**。
+//
+//   ⚠️ 這條擋的不是「rewrites 這個功能」，是**無效的 regex 寫法**——
+//   真的要用 rewrites 就照官方語法寫，那樣這條不會誤殺。
+//   🔴 要先剝註解再找，否則上面這段說明文字本身會被當成設定。
+const cfgSrc = readFileSync(path.join(ROOT, "docs/.vitepress/config.mjs"), "utf8");
+const cfgNoComment = cfgSrc
+  .replace(/\/\*[\s\S]*?\*\//g, "")
+  .split("\n").map((l) => l.replace(/\/\/.*$/, "")).join("\n");
+ck("🔴 config 沒有 regex 寫法的 rewrites（那種寫法完全不生效）",
+   !/rewrites\s*:/.test(cfgNoComment) ||
+   !/["'][^"']*\(\.\*\)[^"']*["']/.test(cfgNoComment),
+   "`(.*)` 是 regex，VitePress 要的是 path-to-regexp 的 `:slug*`；"
+   + "寫錯不會報錯，只會安靜地什麼都不做");
+
+// 🔴 產物一定要在 pages/ 底下 —— 這是 699 個站內連結與已收錄網址的前提。
+//    若有人把 rewrites 改「對」，這條會紅，提醒他那會讓全站網址改變。
+if (existsSync(path.join(ROOT, "docs/.vitepress/dist"))) {
+  ck("🔴 build 產物仍在 dist/pages/（網址格式沒被改掉）",
+     existsSync(path.join(ROOT, "docs/.vitepress/dist/pages")),
+     "pages/ 不見了 ⇒ 網址從 /vlog/pages/xxx 變成 /vlog/xxx，"
+     + "321 頁已收錄連結與 699 個站內連結全部失效");
+}
+
 // 🔴 文件不該寫精確行數 —— 改一次註解就過期
 ck("🔴 文件沒有寫 .vue 的精確行數", !/Resume\.vue[^\n]*（\d{3,} 行）/.test(doc),
    "精確行數每改一次註解就過期；用概數或不寫");
