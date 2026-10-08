@@ -124,6 +124,53 @@ node scripts/test-theme.mjs      # 亮/暗兩種模式各量一次真實對比�
 `var(--vp-c-bg)` 時靜態檢查照樣說「✅ 沒寫死」，只有量運算後的
 對比度才抓得到。所以 `test-theme.mjs` 一定要有行為層那一節。
 
+### 7. 🔴 `- [ ]` 要變 checkbox 必須裝插件（VitePress 沒內建）
+
+```bash
+node scripts/test-links.mjs   # 第⑧節守這件事（49 項裡 5 項）
+```
+
+VitePress 1.5.0 內建的 markdown-it 插件只有
+**anchor / attrs / container / emoji / mathjax** —— **沒有 task-list**。
+
+⚠️ 沒裝插件時 `- [ ] 未勾` 會原樣輸出 `<li>[ ] 未勾</li>` ——
+**build 綠、不報錯**，看起來只像「markdown 寫壞了」。
+🔴 拿掉 `config.mjs` 那段 `md.use(taskLists)` 或移除依賴，
+既有測試原本**全部仍綠**而站上的清單全變成字面文字。
+
+用 `@hackmd/markdown-it-task-lists`（ISC、零依賴、2024-03 仍有維護；
+`markdown-it-task-lists` 本尊停在 2018）。
+
+🔴 **checkbox 刻意 `disabled`**（不傳 `enabled`）：這是靜態站，
+勾選狀態沒有地方存 ⇒ 可點會變成「點了重新整理就復原」的假互動。
+
+🔴 **CSS 要把 task-list 的 bullet 拿掉，但選擇器只能收 `.task-list-item`**
+—— 插件只產生 `<input>`，**完全不動列表樣式**，
+不加 CSS 會顯示成「• ☑ 未勾」（一個項目兩個符號）；
+而收整個 `ul` 會讓**一般項目**失去 bullet。
+
+**踩雷（2026-10-08）**：我傳了 `disabled: true` —— **那個選項不存在**，
+是我自己編的參數名，**被完全忽略**（輸出仍是可點的 `class="enabled"`）。
+🔴 **傳一個不存在的選項不會報錯，只是沒效果。**
+
+### 🔴 兩個假綠燈（寫測試時最該記的部分）
+
+第⑧節的斷言我連錯兩次，兩次都是**雙向驗證才抓到**：
+
+1. 原本在 **HTML** 裡驗 `<li>一般項目</li>` 還在 —— 但 **CSS 不會改 HTML**
+   ⇒ 把選擇器放寬成 `.vp-doc ul li` 時 bullet 真的消失，而測試 **48/48 全綠**。
+   🔴 **斷言測的層級必須跟它要防的東西同一層。**
+2. 改成檢查選擇器後**仍然全綠**：`([^{}]*)\{…\}` 會把規則上方
+   **整段 `/* */` 註解**當成選擇器，而那段註解裡正好寫著
+   「只收 `.task-list-item`」⇒ **自己的註解騙過自己的斷言**。
+   🔴 **掃原始碼的斷言必須先剝註解** —— `test-theme.mjs` 已經記過這個坑，
+   CSS 這邊又踩一次。
+
+⚠️ 驗這件事要**三層**（依賴在 / config 真的 `use` / **build 產物真的有 `<input>`**）
+—— 只驗前兩層的話「裝了但沒生效」會通過，上面那個 `disabled: true`
+就是那個形狀。行為層用臨時探針檔驗完就刪，**不可依賴站上既有頁面**
+（目前一個 checkbox 都還沒用，依賴既有頁面會讓斷言「因為沒人用」而永遠綠）。
+
 ## 測試
 
 ```bash
@@ -132,7 +179,7 @@ npm test          # test-sync-posts.mjs，26 項
 
 已納入每日回歸（`~/.hermes/scripts/run_all_regressions.py`）。
 ⚠️ **支數不寫死** —— 它用 glob 自動發現，寫死的數字每次新增測試就過期。
-vlog 組目前三支：`test-sync-posts.mjs`（26 項）、`test-links.mjs`（23 項）、
+vlog 組目前三支：`test-sync-posts.mjs`（26 項）、`test-links.mjs`（49 項）、
 `test-theme.mjs`（4 項，含 headless Chrome 行為層）。
 
 🔴 改 `sync-posts.mjs` 之後**要植入反向案例確認測試真的會紅** ——
