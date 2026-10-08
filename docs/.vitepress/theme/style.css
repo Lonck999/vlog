@@ -137,3 +137,35 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+
+/**
+ * Component: Task list（checkbox 清單）
+ * --------------------------------------------------------------------------
+ * 🔴 2026-10-08 加入，配合 config.mjs 的 @hackmd/markdown-it-task-lists。
+ *
+ * ⚠️ 不加這段的話 `list-style: disc` 還在 ⇒ 顯示成「• ☑ 未勾」，
+ *    一個項目兩個符號。實測（headless Chrome 量 computed style）：
+ *    插件只負責產生 <input>，**完全不動列表樣式**。
+ *
+ * 🔴 選擇器只收 `.task-list-item`，不是整個 `ul` ——
+ *    同一份文件裡混用一般項目與 checkbox 項目很常見，
+ *    把整個 ul 的符號拿掉會讓一般項目失去 bullet。
+ */
+.vp-doc li.task-list-item {
+  list-style: none;
+  margin-left: -1.25em;
+}
+
+.vp-doc li.task-list-item > label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+  cursor: default;
+}
+
+/* disabled 的 checkbox 瀏覽器預設會調淡，這裡維持可辨識 */
+.vp-doc input.task-list-item-checkbox {
+  flex: none;
+  margin: 0;
+  opacity: 0.9;
+}

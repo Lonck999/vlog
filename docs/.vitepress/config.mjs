@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import taskLists from "@hackmd/markdown-it-task-lists";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: "/vlog/",
@@ -36,6 +37,28 @@ export default defineConfig({
   //    真的需要暫時放行某個 url，用陣列而不是 `true`：
   //      ignoreDeadLinks: [/^\/some\/known-missing/]
   ignoreDeadLinks: false,
+  // 🔴 2026-10-08：`- [ ]` / `- [x]` 要變成真的 checkbox 必須裝插件。
+  //
+  //   ⚠️ VitePress 1.5.0 **沒有**內建 task-list（它內建的 markdown-it 插件
+  //   只有 anchor / attrs / container / emoji / mathjax）。
+  //   實測不裝的話 `- [ ] 未勾` 會原樣輸出字面的 `<li>[ ] 未勾</li>`
+  //   —— **不報錯、build 綠**，看起來只是「markdown 寫壞了」。
+  //
+  //   `@hackmd/markdown-it-task-lists`：ISC、零依賴、2024-03 仍有維護。
+  //   （`markdown-it-task-lists` 本尊最後發版是 2018 年。）
+  //
+  // 🔴 `enabled: false`（預設值）是刻意的：這是靜態站，勾選狀態沒有地方存
+  //   ⇒ 讓它可點會變成「點了重新整理就復原」的假互動。
+  //   插件會輸出 `<input disabled>`。
+  //
+  // ⚠️ 這個插件**沒有 `disabled` 選項** —— 我第一版寫 `disabled: true`，
+  //   那是我自己編的參數名，**被完全忽略**（輸出仍是 `class="enabled"`
+  //   ＋ 可點的 checkbox）。🔴 傳一個不存在的選項不會報錯，只是沒效果。
+  markdown: {
+    config: (md) => {
+      md.use(taskLists, { label: true });
+    },
+  },
   lastUpdated: true,
   title: "地瓜球工程師",
   head: [["link", { rel: "icon", href: "/vlog/logo.png" }]],

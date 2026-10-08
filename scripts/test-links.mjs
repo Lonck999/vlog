@@ -282,5 +282,103 @@ for (const bad of ["隨便寫寫", "一個字都還沒動"]) {
 ck("TypeScript 沒有拼成 TpyeScript",
    !sn.includes("TpyeScript") && !vueIdx.includes("TpyeScript"));
 
+// ── ⑧ 🔴 checkbox 清單（`- [ ]`）必須真的渲染成 checkbox ──────
+console.log("\n【⑧】🔴 `- [ ]` 要渲染成真 checkbox，不是字面的「[ ]」");
+// 🔴 為什麼需要它（2026-10-08）：
+//    VitePress **沒有**內建 task-list 插件。沒裝的話 `- [ ] 未勾`
+//    會原樣輸出 `<li>[ ] 未勾</li>` —— **build 綠、不報錯**，
+//    看起來只像「markdown 寫壞了」。
+//
+//    ⚠️ 這是靜默失敗的標準形狀：拿掉 config.mjs 那段 `md.use(taskLists)`
+//    或移除依賴，所有既有測試都還是全綠，而站上的清單全部變成字面文字。
+//
+// 🔴 三層都要驗，因為三者可以各自壞掉而其他兩層仍綠：
+//    ① 依賴在 package.json　② config.mjs 真的 use 它　③ **build 產物真的有 <input>**
+//    只驗①②的話「插件裝了但沒生效」會通過（我第一版傳了一個不存在的
+//    選項 `disabled: true`，①②全對而行為是錯的）。
+const pkg = JSON.parse(readFileSync(path.join(ROOT, "package.json"), "utf8"));
+const TASKLIST_PKG = "@hackmd/markdown-it-task-lists";
+ck(`依賴有 ${TASKLIST_PKG}`,
+   !!(pkg.devDependencies?.[TASKLIST_PKG] || pkg.dependencies?.[TASKLIST_PKG]),
+   "🔴 拿掉它 `- [ ]` 會變成字面文字，而 build 仍然綠");
+
+// ⚠️ `cfgSrc` 上面第④節已宣告過 —— 直接沿用，不要重複宣告
+//    （ESM 的重複宣告是 SyntaxError，整支測試一行都跑不到）。
+const cfgCode = cfgSrc.replace(/\/\*[\s\S]*?\*\//g, "")
+                      .split("\n").filter((l) => !l.trim().startsWith("//")).join("\n");
+ck("config.mjs 真的 md.use(taskLists)（非註解）",
+   /md\.use\(\s*taskLists/.test(cfgCode) && /from\s+["']@hackmd\/markdown-it-task-lists["']/.test(cfgCode),
+   "🔴 只在註解裡提到不算 —— 那段被註解掉之後清單會安靜變回字面文字");
+
+// 🔴 `enabled` 不可開啟：靜態站沒有地方存勾選狀態，
+//    可點的 checkbox 會變成「點了重新整理就復原」的假互動。
+ck("checkbox 維持不可點（沒有 enabled: true）",
+   !/taskLists\s*,\s*\{[^}]*enabled\s*:\s*true/.test(cfgCode),
+   "靜態站的勾選狀態存不下來，可點就是假互動");
+
+// 🔴 ③ 行為層：build 產物裡真的要有 <input type=checkbox>
+//    用一個臨時探針檔，驗完就刪 —— 不依賴站上既有頁面有沒有 checkbox
+//    （目前一個都還沒用，若依賴既有頁面，這條斷言會「因為沒人用」而永遠綠）。
+const PROBE_MD = path.join(ROOT, "docs/pages/_tasklist-probe.md");
+const PROBE_HTML = path.join(ROOT, "docs/.vitepress/dist/pages/_tasklist-probe.html");
+let probeOk = false, probeWhy = "";
+try {
+  writeFileSync(PROBE_MD,
+    "---\ntitle: tasklist probe\n---\n\n# probe\n\n- [ ] 未勾\n- [x] 已勾\n- 一般項目\n");
+  execFileSync("npx", ["vitepress", "build", "docs"],
+               { cwd: ROOT, stdio: "ignore", timeout: 300000 });
+  const html = readFileSync(PROBE_HTML, "utf8");
+  const inputs = [...html.matchAll(/<input[^>]*task-list-item-checkbox[^>]*>/g)].map((m) => m[0]);
+  const plainLi = /<li>\[[ x]\]/.test(html);     // 字面的「[ ]」= 插件沒生效
+  // 一般項目的 bullet 不可被連帶拿掉（CSS 只該收 .task-list-item）
+  const normalLiKept = /<li>一般項目<\/li>/.test(html);
+  probeOk = inputs.length === 2 && !plainLi && normalLiKept
+            && inputs.every((s) => s.includes("disabled"))
+            && inputs.filter((s) => s.includes("checked")).length === 1;
+  probeWhy = `<input> ${inputs.length} 個（要 2）`
+    + `, 字面[ ] ${plainLi ? "有🔴" : "無"}`
+    + `, 一般項目保留 ${normalLiKept}`
+    + `, disabled ${inputs.filter((s) => s.includes("disabled")).length}`
+    + `, checked ${inputs.filter((s) => s.includes("checked")).length}（要 1）`;
+} catch (e) {
+  probeWhy = "探針失敗：" + (e.message || "").slice(0, 120);
+} finally {
+  // ⚠️ 用 unlinkSync（這支的 import 清單裡沒有 rmSync），且包 try ——
+  //    收尾程式碼丟例外會掩蓋後面所有斷言。
+  try { unlinkSync(PROBE_MD); } catch {}
+  try { unlinkSync(PROBE_HTML); } catch {}
+}
+ck("🔴 build 產物真的有 2 個 disabled checkbox（其中 1 個 checked）",
+   probeOk, probeWhy);
+
+// 🔴 CSS 必須把 task-list 的項目符號拿掉，否則顯示成「• ☑ 未勾」
+const themeCssRaw = readFileSync(path.join(ROOT, "docs/.vitepress/theme/style.css"), "utf8");
+// 🔴 **先剝 CSS 註解再比對選擇器。**
+//    ⚠️ 這是雙向驗證抓到的第二個問題（同一條斷言連錯兩次）：
+//    `([^{}]*)\{…\}` 會把規則上方**整段 `/* */` 註解**當成選擇器的一部分，
+//    而那段註解裡正好寫著「選擇器只收 `.task-list-item`」
+//    ⇒ 把選擇器放寬成 `.vp-doc ul li` 時，檢查仍然看到 `.task-list-item`
+//    （來自註解）而判為通過，**49/49 全綠**。
+//    🔴 「這個字出現過」與「它出現在有效果的位置」是兩件事
+//    —— test-theme.mjs 與第⑧節上面都記過這個坑，CSS 這邊又踩一次。
+const themeCss = themeCssRaw.replace(/\/\*[\s\S]*?\*\//g, "");
+const listNoneRule = themeCss.match(/([^{}]*)\{[^}]*list-style\s*:\s*none[^}]*\}/);
+ck("style.css 有 .task-list-item 的 list-style: none",
+   !!listNoneRule && /\.task-list-item/.test(listNoneRule[1]),
+   "🔴 沒有它會顯示成「• ☑ 未勾」—— 一個項目兩個符號");
+
+// 🔴 那條規則的選擇器**每一個逗號分段**都必須含 .task-list-item。
+//    原本我只在 HTML 裡驗 `<li>一般項目</li>` 還在，但 **CSS 不會改 HTML**
+//    ⇒ 範圍放寬時一般項目的 bullet 真的消失，而測試全綠。
+//    🔴 斷言測的層級必須跟它要防的東西同一層。
+if (listNoneRule) {
+  const parts = listNoneRule[1].split(",").map((s) => s.trim()).filter(Boolean);
+  const tooBroad = parts.filter((p) => !p.includes(".task-list-item"));
+  ck(`list-style:none 只收 .task-list-item（${parts.length} 個選擇器）`,
+     parts.length > 0 && tooBroad.length === 0,
+     tooBroad.length ? `🔴 範圍過寬：${tooBroad.join(" / ")} ⇒ 一般項目的 bullet 也會被拿掉`
+                     : "");
+}
+
 console.log(`\n${pass}/${pass + fail} 通過`);
 process.exit(fail ? 1 : 0);

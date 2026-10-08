@@ -9,6 +9,7 @@
     "test": "node scripts/test-sync-posts.mjs"
   },
   "devDependencies": {
+    "@hackmd/markdown-it-task-lists": "^2.1.4",
     "vitepress": "^1.5.0"
   }
 }
