@@ -1,6 +1,6 @@
 # 生活技能
 
-## [粵語](/pages/life/language/Cantonese/index.md)
+## 粵語
 
 為了老婆，終究還是得學一下的吧，畢竟以後可能會去澳門工作。
 

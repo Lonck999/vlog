@@ -38,7 +38,7 @@
 
 [Day 15 - 什麼是融資、融券](/pages/studyNotes/contents/stock/contents/15-什麼是融資、融券.md)
 
-[Day 16 - 什麼是賣超、買超](/pages/studyNotes/contents/stock/contents/16-什麼是賣超、買超.md)
+Day 16 - 什麼是賣超、買超（還沒寫內容）
 
 [Day 17 - 什麼是左側交易、右側交易](/pages/studyNotes/contents/stock/contents/17-什麼是左側交易、右側交易.md)
 

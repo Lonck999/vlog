@@ -223,6 +223,74 @@ for (const url of facade) {
 ck("🔴 門面頁面都有實際內容", empties.length === 0,
    empties.length ? `空白頁：${empties.join(", ")}` : "");
 
+// ── ⑥-2 🔴 **任何**被連過去的頁面都不可是空白頁（不只門面）────
+console.log("\n【⑥-2】🔴 被連過去的空白頁 ＝ 假承諾");
+// 🔴 為什麼要擴大（2026-10-08，vlog D）：
+//    第⑥節只看「門面」（首頁按鈕/features/導覽列），但實查全站 21 個
+//    空白頁裡有 **12 個是被內頁連過去的** —— 那些同樣是對訪客的假承諾，
+//    只是入口深一層。
+//
+// 🔴 判準不是「空不空」，是**有沒有人連過去**：
+//    · 沒人連的空白頁 → 訪客到不了，不構成承諾（9 個，刻意不處理）
+//    · 被連過去的空白頁 → **點進去一片空白**，那才是問題
+//
+// ⚠️ 兩類刻意例外：
+//    · `life/task/` 的日誌 —— 「那幾天沒寫」是歷史事實，
+//      改它等於篡改紀錄（它被 task/index.md 連著是對的）
+//    · `posts/index.md` —— 「（還沒有發布的文章）」是誠實的狀態說明
+function bodyCharsLoose(file) {
+  if (!existsSync(file)) return -1;
+  let t = readFileSync(file, "utf8");
+  const fm = t.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  const fmText = fm ? fm[1] : "";
+  if (/^layout:\s*home/m.test(fmText)) return 9999;   // 內容在 frontmatter
+  if (fm) t = t.slice(fm[0].length);
+  if (/<[A-Z][A-Za-z0-9]*\s*\/?>/.test(t)) return 9999; // 內容在 Vue 元件
+  t = t.replace(/<!--[\s\S]*?-->/g, "");
+  // 🔴 **帶連結的標題就是內容**（目錄頁整頁都是 `## [標題](連結)`）——
+  //    一律剝標題會把有效的目錄頁判成空白（第一版就這樣誤判了讀物清單）。
+  t = t.replace(/^#{1,6} (?!.*\]\()\S.*$/gm, "");
+  t = t.replace(/```[\s\S]*?```/g, "");
+  t = t.replace(/<[^>]+>/g, "");
+  return t.replace(/\s/g, "").length;
+}
+const LINK_EXEMPT = [
+  /^pages\/life\/task\//,          // 日誌：那天沒寫是歷史事實
+  /^pages\/posts\/index\.md$/,     // 誠實的狀態說明
+];
+const allMd = [];
+(function walk(dir) {
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    if (e.name === "node_modules" || e.name === ".vitepress") continue;
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) walk(p);
+    else if (e.name.endsWith(".md")) allMd.push(p);
+  }
+})(path.join(ROOT, "docs"));
+const srcCache = new Map(allMd.map((f) => [f, readFileSync(f, "utf8")]));
+const fakePromises = [];
+for (const f of allMd) {
+  const rel = path.relative(path.join(ROOT, "docs"), f);
+  if (LINK_EXEMPT.some((re) => re.test(rel))) continue;
+  const n = bodyCharsLoose(f);
+  if (n < 0 || n >= 40) continue;
+  const noExt = "/" + rel.replace(/\.md$/, "");
+  const pats = ["/" + rel, noExt, noExt.replace(/\/index$/, "/")];
+  const linkers = [];
+  if (pats.some((p) => cfgSrc.includes(p))) linkers.push("config.mjs");
+  for (const [g, src] of srcCache) {
+    if (g === f) continue;
+    if (pats.some((p) => src.includes("(" + p + ")") || src.includes('"' + p + '"')))
+      linkers.push(path.relative(path.join(ROOT, "docs"), g));
+  }
+  if (linkers.length)
+    fakePromises.push(`${rel}（${n} 字）← ${linkers.slice(0, 2).join(", ")}`);
+}
+ck(`掃到全站 .md（${allMd.length} 個）`, allMd.length > 200,
+   "抓不到就代表目錄結構變了，斷言已失效");
+ck("🔴 沒有「被連過去的空白頁」", fakePromises.length === 0,
+   fakePromises.length ? `假承諾：${fakePromises.join(" / ")}` : "");
+
 console.log("\n【⑦】🔴 目錄頁宣稱的篇數 vs 實際檔案");
 // 🔴 2026-10-01 C-5：改寫 studyNotes/index.md 時我在文案裡寫了篇數
 //    （「Vue 38 篇」「股票 19 篇」…）—— 那就是**第二個來源**，必然漂移。
