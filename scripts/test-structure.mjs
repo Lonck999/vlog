@@ -34,11 +34,15 @@ const ck = (name, ok, hint = "") => {
 };
 
 // 遞迴數 .md（排除建置產物）
+// 🔴 2026-10-20：每日學習日誌（life/task/<年>/…）由 cron 每天自動多一篇 ⇒
+//    寫進文件的數字隔天必然過期。日誌年份資料夾不算進篇數，改由下面「日誌」那節驗。
+const LOG_ROOT = path.join(ROOT, "docs/pages/life/task");
 function countMd(dir) {
   if (!existsSync(dir)) return -1;
   let n = 0;
   for (const e of readdirSync(dir, { withFileTypes: true })) {
     if (["dist", "cache", "node_modules"].includes(e.name)) continue;
+    if (dir === LOG_ROOT && e.isDirectory() && /^\d{4}$/.test(e.name)) continue;
     const p = path.join(dir, e.name);
     if (e.isDirectory()) n += countMd(p);
     else if (e.name.endsWith(".md")) n++;
@@ -88,6 +92,23 @@ for (const [rel, label] of Object.entries(DIRS)) {
   if (!m) { ck(`${label}：文件裡找得到這一列`, false, "表格格式變了 ⇒ 這條斷言已失效，不是通過"); continue; }
   const claim = Number(m[1]);
   ck(`${label}  文件 ${claim} = 實際 ${real}`, claim === real, "文件過期");
+}
+
+console.log("\n【②-b】每日學習日誌（不寫死數字，驗結構）");
+{
+  const logs = [];
+  if (existsSync(LOG_ROOT)) for (const y of readdirSync(LOG_ROOT)) {
+    if (!/^\d{4}$/.test(y)) continue;
+    for (const m of readdirSync(path.join(LOG_ROOT, y))) for (const f of readdirSync(path.join(LOG_ROOT, y, m)))
+      if (f.endsWith(".md")) logs.push(`${y}/${m}/${f}`);
+  }
+  const bad = logs.filter((l) => !/^\d{4}\/\d{1,2}月\/\d{4}-\d{2}-\d{2}-週[一二三四五六日]\.md$/.test(l));
+  ck(`日誌檔名格式正確（${logs.length} 篇）`, bad.length === 0, bad.slice(0, 3).join(" "));
+  const old = logs.filter((l) => l.slice(l.lastIndexOf("/") + 1, l.lastIndexOf("/") + 11) < "2026-10-20");
+  ck("🔴 沒有早於 2026-10-20 的日誌（Lonck：從那天重新開始）", old.length === 0, old.slice(0, 3).join(" "));
+  const idx = existsSync(path.join(LOG_ROOT, "index.md")) ? readFileSync(path.join(LOG_ROOT, "index.md"), "utf8") : "";
+  const listed = (idx.match(/^- \[/gm) || []).length;
+  ck(`日誌索引列出的篇數 = 實際（${listed} vs ${logs.length}）`, listed === logs.length);
 }
 
 console.log("\n【③】文件描述的事實還成立嗎");
