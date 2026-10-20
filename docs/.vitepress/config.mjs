@@ -60,6 +60,13 @@ export default defineConfig({
     },
   },
   lastUpdated: true,
+  // 🔴 2026-10-20（Lonck 選 A）：產生 /vlog/sitemap.xml，讓 Google 收錄。
+  //   ⚠️ hostname 必須含 `/vlog/` —— VitePress 的 sitemap 網址是 hostname ＋ 相對路徑，
+  //      不會自動加 base；寫成 `https://lonck999.github.io/` 會產出全站 404 的網址，而且 build 不報錯。
+  //   驗證：scripts/test-sitemap.mjs（build 後比對：網址數＝頁面數、抽樣全部 200）。
+  sitemap: {
+    hostname: "https://lonck999.github.io/vlog/",
+  },
   title: "地瓜球工程師",
   head: [["link", { rel: "icon", href: "/vlog/logo.png" }]],
   description: "地瓜球工程師的vlog",

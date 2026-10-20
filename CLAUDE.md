@@ -153,6 +153,13 @@ VitePress 1.5.0 內建的 markdown-it 插件只有
 是我自己編的參數名，**被完全忽略**（輸出仍是可點的 `class="enabled"`）。
 🔴 **傳一個不存在的選項不會報錯，只是沒效果。**
 
+### 8. 🔴 sitemap 的 `hostname` 必須含 `/vlog/`（2026-10-20 加 sitemap）
+
+VitePress 產 sitemap 是「hostname ＋ 相對路徑」，**不會自動補 `base`**。
+寫成 `https://lonck999.github.io/` ⇒ build 成功、檔案產生，但 322 個網址**全部 404**，沒有任何錯誤訊息。
+守門：`scripts/test-sitemap.mjs`（網址前綴、數量＝頁數、每個對得上檔案；植入少 `/vlog/` 會紅）。
+⚠️ `<loc>` 是 XML，`&` 會寫成 `&amp;` —— 拿網址回頭找檔案前要先還原（測試第一版就栽在這）。
+
 ### 🔴 兩個假綠燈（寫測試時最該記的部分）
 
 第⑧節的斷言我連錯兩次，兩次都是**雙向驗證才抓到**：

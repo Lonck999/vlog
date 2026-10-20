@@ -22,7 +22,7 @@ VitePress 靜態網站 → GitHub Actions → GitHub Pages
 | 項目 | 在幹嘛 | 🔴 注意 |
 |---|---|---|
 | `docs/` | **整個網站的內容**（323 md）| VitePress 的 root |
-| `scripts/` | 6 支 `.mjs`：同步、發布、正規化、3 支測試 | 詳見下方 |
+| `scripts/` | 8 支 `.mjs`：同步、發布、正規化、5 支測試 | 詳見下方 |
 | `.vitepress/` | ⬜ **未追蹤的建置快取** | 不是設定檔！設定在 `docs/.vitepress/` |
 | `.github/workflows/deploy.yml` | push 到 main 就 build＋部署 Pages | |
 | `.claude/` | 7 份 hookify 規則（本機紅線，給 Claude Code 讀）| 有進版控 |
@@ -160,7 +160,7 @@ footer 連結同理（Google 要求從首頁連得到）。
 
 ---
 
-## `scripts/` ── 7 支
+## `scripts/` ── 8 支
 
 | 檔案 | 在幹嘛 | 怎麼跑 |
 |---|---|---|
@@ -170,10 +170,11 @@ footer 連結同理（Google 要求從首頁連得到）。
 | `test-sync-posts.mjs` | 同步的回歸（26 項）| `npm test` |
 | `test-links.mjs` | 死連結＋導覽列＋MOVED（23 項）| 每日回歸 |
 | `test-theme.mjs` | 亮/暗模式對比度（5 項，含 headless Chrome）| 每日回歸 |
+| `test-sitemap.mjs` | sitemap 網址都帶 `/vlog/`、數量＝頁數、每個都對得上檔案（4 項，會先 build）| 每日回歸 |
 | `test-structure.mjs` | 🔴 **這份文件的數字**對不對（19 項）| 每日回歸 |
 
 🔴 **`npm test` 只跑 `test-sync-posts.mjs`。**
-另兩支只有 `~/.hermes/scripts/run_all_regressions.py`（glob `test-*.mjs`）會撿到。
+其他幾支只有 `~/.hermes/scripts/run_all_regressions.py`（glob `test-*.mjs`）會撿到。
 ⚠️ 所以**本機手動 `npm test` 綠不代表全部測過** —— 要全驗就跑每日回歸。
 
 ---

@@ -99,9 +99,16 @@ const facts = [
    existsSync(path.join(ROOT, "docs/pages/legal/terms.md"))],
   ["Resume.vue 還是「關於我」的內容來源",
    readFileSync(path.join(ROOT, "docs/pages/aboutMe/index.md"), "utf8").includes("<Resume />")],
-  ["scripts/ 支數與文件表格一致",
-   readdirSync(path.join(ROOT, "scripts")).filter((f) => f.endsWith(".mjs")).length ===
-   (doc.match(/`(sync-posts|publish|normalize-links|test-sync-posts|test-links|test-theme|test-structure)\.mjs`\s*\|/g) || []).length],
+  // 🔴 2026-10-20：原本把 7 個檔名寫死在 regex 裡 ⇒ 新增第 8 支（test-sitemap）時，
+  //    就算文件表格補上了它也不會被數到 —— 永遠紅，或有人為了讓它綠去改錯數字。
+  //    改成「實際每一支都要出現在表格裡」，並反向檢查表格沒有已刪掉的檔。
+  ["scripts/ 每一支都在文件表格裡（且表格沒有不存在的檔）", (() => {
+     const real = readdirSync(path.join(ROOT, "scripts")).filter((f) => f.endsWith(".mjs")).sort();
+     const sec = doc.split("## `scripts/`")[1]?.split("\n---")[0] ?? "";
+     const listed = [...sec.matchAll(/^\| `([\w-]+\.mjs)` \|/gm)].map((m) => m[1]).sort();
+     const head = sec.match(/^ ── (\d+) 支/);
+     return JSON.stringify(real) === JSON.stringify(listed) && head && Number(head[1]) === real.length;
+   })()],
 ];
 for (const [name, ok] of facts) ck(name, ok);
 
