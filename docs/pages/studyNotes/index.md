@@ -1,17 +1,48 @@
-# 學習筆記
+# 學習文章
 
-前端為主，另外有一區股票。
-
-**不是每一區都寫完了** —— 下面標了實際篇數與字數，哪些還空著也直接寫出來，
+**不是每一區都寫完了** —— 下面標了實際頁數（含各區目錄頁），還沒寫的分類只列名字、不給連結，
 點進去才發現是空白頁比較浪費你的時間。
+
+<!-- 🔴 2026-10-20 Lonck：八區固定順序 AI／Python／JavaScript／TypeScript／Vue／股票／SCSS／TailwindCSS。
+     0 篇的區「顯示名稱＋還沒寫、不可點」，有第一篇才改成連結（test-links ⑥-2 會擋空白頁被連）。
+     股票區以後只放交易日誌（舊的 19 篇入門筆記已刪）。
+     🔴 `posts:<dir> BEGIN/END` 區塊由 scripts/sync-posts.mjs 改寫（vault 05-心得/ 標 category 的文章），不要手改區塊內。 -->
 
 ---
 
+## AI
+
+<!-- posts:ai BEGIN -->
+⬜ 還沒寫
+<!-- posts:ai END -->
+
+## Python
+
+<!-- posts:python BEGIN -->
+⬜ 還沒寫
+<!-- posts:python END -->
+
+## [JavaScript](/pages/studyNotes/contents/javaScript/index.md)
+
+**3 頁<!-- count:docs/pages/studyNotes/contents/javaScript 3 -->**（含目錄） —— 目前只有資料型別與 `var` / `let` / `const`。
+
+<!-- posts:javaScript BEGIN -->
+
+<!-- posts:javaScript END -->
+
+## [TypeScript](/pages/studyNotes/contents/typeScript/index.md)
+
+**6 頁<!-- count:docs/pages/studyNotes/contents/typeScript 6 -->**（含目錄） —— 從 0 開始：basic、type、interface、class、implements。
+
+<!-- posts:typeScript BEGIN -->
+
+<!-- posts:typeScript END -->
+
 ## [Vue + 全家桶](/pages/studyNotes/contents/vue/index.md)
 
-**62 篇<!-- count:docs/pages/studyNotes/contents/vue 62 -->、約 28,000 字** —— 這裡最完整。
+**62 頁<!-- count:docs/pages/studyNotes/contents/vue 62 -->** —— 這裡最完整。
 
-| | 篇數 | 狀態 |
+| | 頁面 | 狀態 |
 |---|---|---|
 | **Vue** | 38 <!-- count:docs/pages/studyNotes/contents/vue/Vue 38 --> | ✅ 31 篇指令與 API（v-bind…watch、lifecycle、props、emit）＋ 5 篇面試題 |
 | **VueRouter** | 12 <!-- count:docs/pages/studyNotes/contents/vue/VueRouter 12 --> | ✅ 從 base、mode 到動態路由、query/params |
@@ -19,37 +50,28 @@
 | **VeeValidate** | 2 | ✅ |
 | Vuex / Vite / Nuxt / VueQuery / Vitest | 各 1 | ⬜ **只有目錄，內容還沒寫** |
 
-## [股票](/pages/studyNotes/contents/stock/index.md)
+<!-- posts:vue BEGIN -->
 
-**19 篇<!-- count:docs/pages/studyNotes/contents/stock 19 -->、約 16,700 字** —— 從零開始的投資筆記，編號循序。
+<!-- posts:vue END -->
 
-`什麼是 0050` → 加權指數 → 上市櫃興櫃 → 基本面 / 技術面 / 籌碼 →
-去哪裡找財報 → K 線 → 股息股利 → 殖利率 → 本益比 → 股價淨值比 →
-量化交易 → 除息除權 → 融資融券 → 左側 / 右側交易
+## 股票
 
-⬜ 目錄頁列的 18~25（量化分析、質化分析、選股法、金字塔買法、
-3 選 3 買 2 賣、海龜交易、葛蘭碧八大、357 法則）**還沒寫**。
+之後放交易日誌。
 
-## [TypeScript](/pages/studyNotes/contents/typeScript/index.md)
+<!-- posts:stock BEGIN -->
+⬜ 還沒寫
+<!-- posts:stock END -->
 
-**6 篇<!-- count:docs/pages/studyNotes/contents/typeScript 6 -->、約 2,500 字** —— 從 0 開始：basic、type、interface、class、implements。
+## [SCSS](/pages/studyNotes/contents/SCSS/index.md)
 
-## [JavaScript](/pages/studyNotes/contents/javaScript/index.md)
+**2 頁<!-- count:docs/pages/studyNotes/contents/SCSS 2 -->**（含目錄） —— 讓字體隨區塊寬度縮放的 container 寫法。
 
-**3 篇<!-- count:docs/pages/studyNotes/contents/javaScript 3 -->、約 1,300 字** —— 目前只有資料型別與 `var` / `let` / `const`。
+<!-- posts:SCSS BEGIN -->
 
-## SCSS
-
-**2 篇、約 450 字** —— 只有一篇 container 的寫法。
-太少，暫時不放進導覽列。
+<!-- posts:SCSS END -->
 
 ## TailwindCSS
 
-⬜ **只有目錄，一個字都還沒寫。**
+<!-- posts:tailwindCSS BEGIN -->
 
----
-
-## 順便推薦
-
-[Vue Developer Roadmap](https://roadmap.sh/vue)
-—— 把該學的語言、框架、工具列成單元，學過就劃掉，一眼看出自己還缺什麼。
+<!-- posts:tailwindCSS END -->

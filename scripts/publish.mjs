@@ -2,8 +2,8 @@
 /**
  * 發布：同步 vault → commit → push → **等 GitHub Actions 真的部署完並驗線上**。
  *
- * 🔴 為什麼要 commit `docs/pages/posts/`：
- * GitHub Actions 的建置機器上沒有 Obsidian vault。如果那個目錄不進版控，
+ * 🔴 為什麼要 commit 同步產物（各分類的 `posts/` ＋ 學習文章頁）：
+ * GitHub Actions 的建置機器上沒有 Obsidian vault。如果那些檔不進版控，
  * 雲端建出來會是**零篇文章而且不報錯** —— 本機看起來好好的，線上是空的。
  *
  * 🔴 為什麼要等 Actions 跑完才宣告成功（2026-09-22 從 blog 移植時補的）：
@@ -21,7 +21,8 @@ import { fileURLToPath } from 'node:url'
 
 const root = resolve(fileURLToPath(new URL('../', import.meta.url)))
 const NO_WAIT = process.argv.includes('--no-wait')
-const POSTS = 'docs/pages/posts'
+// 🔴 2026-10-20：文章改成依分類放進學習文章各區 ⇒ 產物在整個 studyNotes/ 底下
+const POSTS = 'docs/pages/studyNotes'
 const SITE = 'https://lonck999.github.io/vlog/'
 
 function git(...args) {
@@ -78,10 +79,10 @@ try {
 // Pages 的 CDN 需要幾秒才吃到新版
 await new Promise(r => setTimeout(r, 15000))
 
-const res = await fetch(`${SITE}pages/posts/`)
+const res = await fetch(`${SITE}pages/studyNotes/`)
 if (!res.ok) {
-  console.error(`🔴 線上文章索引回 ${res.status} —— 部署成功但頁面不在。`)
+  console.error(`🔴 線上學習文章頁回 ${res.status} —— 部署成功但頁面不在。`)
   process.exit(1)
 }
-console.log(`\n✓ 線上已更新：${SITE}pages/posts/`)
+console.log(`\n✓ 線上已更新：${SITE}pages/studyNotes/`)
 console.log(`  commit: ${git('log', '--oneline', '-1')}`)

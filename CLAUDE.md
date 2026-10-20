@@ -30,9 +30,14 @@ VitePress 1.5.0 靜態站，GitHub Actions 自動部署到 GitHub Pages。
 同理 `config.mjs` 的 footer 那兩個連結也不能拿掉：
 Google 要求「隱私權政策必須從首頁連得到」。
 
-### 2. `docs/pages/posts/` 是產生出來的，不要手寫
+### 2. 學習文章各區的 `posts/` 與文章區塊是產生出來的，不要手寫
 
-來源是 vault `~/Obsidian/05-心得/` 裡標了 `publish: true` 的檔案。
+🔴 **2026-10-20 改版**：導覽列「文章」拿掉，`docs/pages/posts/` 已刪。
+發布的文章依 frontmatter `category`（AI／Python／JavaScript／TypeScript／Vue／股票／SCSS／TailwindCSS）
+寫進 `docs/pages/studyNotes/contents/<區>/posts/<slug>.md`，
+並改寫 `studyNotes/index.md` 裡的 `<!-- posts:<區> BEGIN/END -->` 區塊。
+
+來源是 vault `~/Obsidian/05-心得/` 裡標了 `publish: true` 的檔案（還要有 `slug`、`category`）。
 
 ```bash
 npm run sync:dry   # 看會同步哪些，不寫檔
@@ -40,11 +45,12 @@ npm run sync       # 實際寫入
 npm run publish    # sync → commit → push → 等 Actions → 驗線上
 ```
 
-🔴 `sync` 會**清空重建**那個目錄（讓 vault 取消發布時站上也消失）。
-它會逐檔檢查 `generated: true` 標記，遇到手寫檔案／子目錄／非 `.md` 就**停手不刪**。
-⚠️ 想在那裡放手寫內容 → 放別的目錄，不要放這裡。
+🔴 `sync` 會**清空重建**各區 `posts/`（讓 vault 取消發布時站上也消失）。
+它會先逐檔檢查 `generated: true` 標記，遇到手寫檔案／子目錄／非 `.md` 就**整批停手不刪**。
+⚠️ 想在那裡放手寫內容 → 放該區的其他目錄，不要放 `posts/`。
+⚠️ `category` 沒標或拼錯（大小寫也算）直接失敗 —— 放錯區比失敗糟。
 
-🔴 **那個目錄必須進版控**：Actions 的建置機器上沒有 vault，
+🔴 **產物必須進版控**：Actions 的建置機器上沒有 vault，
 不進版控的話雲端會建出**零篇文章而且不報錯**。
 
 ### 3. 發布文章一定要有 `slug`

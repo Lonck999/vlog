@@ -56,10 +56,10 @@ ck("🔴 不在 docs/ 底下（否則會變成公開網頁）",
 const doc = existsSync(DOC) ? readFileSync(DOC, "utf8") : "";
 
 console.log("\n【②】🔴 文件宣稱的篇數 vs 實際檔案");
-// 文件裡的表格欄位：| `posts/` | 1 | ... 以及 | `vue/` | 62 | ...
+// 文件裡的表格欄位：| `websites/` | 1 | ... 以及 | `vue/` | 62 | ...
 const DIRS = {
   "docs/pages": null,                                  // 從「322 篇」那句抓
-  "docs/pages/posts": "posts",
+  "docs/pages/websites": "websites",
   "docs/pages/studyNotes": "studyNotes",
   "docs/pages/life": "life",
   "docs/pages/occult": "occult",
@@ -67,7 +67,7 @@ const DIRS = {
   "docs/pages/legal": "legal",
   "docs/pages/life/task": "life/task",
   "docs/pages/studyNotes/contents/vue": "vue",
-  "docs/pages/studyNotes/contents/stock": "stock",
+  "docs/pages/studyNotes/contents/SCSS": "SCSS",
   "docs/pages/studyNotes/contents/typeScript": "typeScript",
   "docs/pages/studyNotes/contents/javaScript": "javaScript",
 };
@@ -93,7 +93,7 @@ for (const [rel, label] of Object.entries(DIRS)) {
 console.log("\n【③】文件描述的事實還成立嗎");
 // 🔴 這些是「寫死的結論」，最容易活得比它的證據還久
 const facts = [
-  ["posts/ 由腳本產生", existsSync(path.join(ROOT, "scripts/sync-posts.mjs"))],
+  ["學習文章各區的 posts/ 由腳本產生", existsSync(path.join(ROOT, "scripts/sync-posts.mjs"))],
   ["legal/ 兩頁都還在（OAuth 紅線）",
    existsSync(path.join(ROOT, "docs/pages/legal/privacy.md")) &&
    existsSync(path.join(ROOT, "docs/pages/legal/terms.md"))],

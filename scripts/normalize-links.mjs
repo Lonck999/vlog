@@ -79,11 +79,13 @@ function allMarkdown(dir, out = []) {
  * 所以不會影響正常連結，也不會因為表過期而誤改。
  */
 const MOVED = [
-  // 2026-10-01 C-2：股票筆記從「生活」移進「學習筆記」
-  // ⚠️ 順序重要：長的在前 —— `stock/stock.md` 必須先於 `stock/` 被比對到，
-  //    否則前者會被後者改成 `.../stock/stock.md`（而檔名已改成 index.md）。
-  ["/pages/life/stock/stock.md", "/pages/studyNotes/contents/stock/index.md"],
-  ["/pages/life/stock/", "/pages/studyNotes/contents/stock/"],
+  // 🔴 2026-10-20：2026-10-01 C-2 的兩條（life/stock → studyNotes/contents/stock）已移除 ——
+  //    Lonck 決定刪掉那 19 篇，新位置不存在了；留著會讓舊連結被「改指向」一個 404。
+  //    ⚠️ 順序規則仍適用：長的在前（`x/y.md` 必須先於 `x/` 被比對到）。
+  //
+  // 2026-10-20 導覽列改版：「文章」頁 /pages/posts/ 拿掉，入口改成學習文章頁。
+  //   外部（或日後誤寫）連到舊文章索引的連結，改指向學習文章頁而不是被砍。
+  ["/pages/posts/index.md", "/pages/studyNotes/index.md"],
 ];
 
 /** 舊路徑 → 新路徑（搬家對應）；沒有對應回 null。 */

@@ -75,32 +75,14 @@ export default defineConfig({
     logo: "/img/logo.png",
     nav: [
       { text: "首頁", link: "/" },
-      // 🔴 文章索引由 scripts/sync-posts.mjs 產生（來源：vault 05-心得/ 標了
-      //    publish: true 的檔案）。沒有這個 nav 入口的話，文章發了也沒人找得到 ——
-      //    「同步成功」與「讀者看得到」是兩件事。
-      { text: "文章", link: "/pages/posts/" },
-      {
-        text: "學習筆記",
-        // 🔴 2026-10-01（階段 C-2／C-3，Lonck 2026-09-22 決定）：
-        //    子選單砍到 Vue／TypeScript／股票三項。
-        //    理由：TailwindCSS 1 篇、SCSS 2 篇、JS 3 篇掛在導覽列反而顯空，
-        //    留在內頁即可；股票 19 篇份量紮實，且與 stock 專案同一件事。
-        //    ⚠️ 被拿掉的三項**內容仍在、網址仍可進**，只是不佔導覽列。
-        items: [
-          { text: "Vue", link: "/pages/studyNotes/contents/vue/Vue/index.md" },
-          {
-            text: "TypeScript",
-            link: "/pages/studyNotes/contents/typeScript/index.md",
-          },
-          {
-            text: "股票",
-            link: "/pages/studyNotes/contents/stock/index.md",
-          },
-        ],
-      },
-      // 🔴 「生活」移出導覽列（Lonck 2026-09-22 選 A）：
-      //    239 篇裡 203 篇是停了 400 多天的每日待辦，不是技術站門面。
-      //    ⚠️ 網址仍可進、Google 仍收得到 —— 只是不放在導覽列。
+      // 🔴 2026-10-20 改版（Lonck 逐題決定，紀錄在 vault 02-Projects/vlog導覽列改版-2026-10-20.md）：
+      //    首頁／學習文章／網站／關於我。
+      //    · 「文章」拿掉 —— 發布的文章改成依分類放進學習文章的各區（sync-posts.mjs 讀 category）
+      //    · 「學習筆記」改名「學習文章」，不再有子選單；八區列在點進去的頁面裡
+      //    · 「網站」只放 Lonck 指定的，目前 0 個（test-links ⑥ 有豁免，有內容後要拿掉）
+      { text: "學習文章", link: "/pages/studyNotes/index.md" },
+      { text: "網站", link: "/pages/websites/index.md" },
+      // 🔴 「生活」不在導覽列（Lonck 2026-09-22 選 A）；每日日誌 2026-10-20 起重新記錄。
       {
         text: "關於我",
         link: "/pages/aboutMe/index.md",

@@ -11,8 +11,8 @@ hero:
     alt: 地瓜球
   actions:
     - theme: brand
-      text: 最新文章
-      link: /pages/posts/
+      text: 學習文章
+      link: /pages/studyNotes/
     - theme: alt
       text: 關於我
       link: /pages/aboutMe/

@@ -49,8 +49,10 @@ ck("normalize-links --check 通過", checkRc === 0,
 const m = checkOut.match(/(\d+)\s+已經是正規形式/);
 const total = m ? Number(m[1]) : 0;
 // 🔴 negative control：若 total 是 0，上面那條會因為「根本沒掃到東西」而通過。
-//    實測基準 705 條 —— 低於 600 代表掃描範圍壞了，不是連結變少了。
-ck(`掃到足量連結（${total} 條，門檻 600）`, total >= 600,
+//    實測基準：2026-10-01 705 條；**2026-10-20 刪掉 202 篇日誌＋19 篇股票後 79 條**
+//    （那些連結幾乎都在被刪的日誌裡）。門檻 60 ＝ 基準的 75%，
+//    低於它代表掃描範圍壞了，不是連結變少了。⚠️ 之後大量刪檔要重新校準並寫下理由。
+ck(`掃到足量連結（${total} 條，門檻 60）`, total >= 60,
    "掃描範圍可能壞了 —— 0 條也會讓 --check 通過");
 
 // ── ② 🔴 死連結防線不可被關掉 ────────────────────────────
@@ -131,7 +133,7 @@ ck("🔴 失敗時真的會呼叫 applyMoved（剝掉註解後仍在）",
 
 // 🔴 行為層：真的跑一次 normalize，驗它會把舊路徑**改指向**而不是砍掉。
 //    ⚠️ 只掃原始碼不夠 —— 上面兩條在「函式還在但邏輯被改壞」時仍會過。
-const probe = path.join(ROOT, "docs/pages/posts/_tmp-moved-probe.md");
+const probe = path.join(ROOT, "docs/pages/websites/_tmp-moved-probe.md");   // 2026-10-20：posts/ 已拿掉，改放 websites/
 try {
   const old = movedOldPath(normSrc);
   if (old) {
@@ -198,13 +200,17 @@ ck(`抓到門面頁面（${facade.size} 個）`, facade.size >= 4,
    "抓不到就代表首頁/config 格式變了，斷言已失效");
 let empties = [];
 // ⚠️ 兩類例外，不是放水 —— 它們的內容確實不在 .md 裡：
-//    · `posts/index.md`  由 sync-posts.mjs 產生的文章清單，內容是 frontmatter 的資料
 //    · `aboutMe/index.md` 只有 `<Resume />` 一行，真正的內容在 Resume.vue（約 800 行）
 //    🔴 判準不是「檔案很短就放過」，是**「內容是不是真的存在於別處」** ——
 //       所以要去驗那個別處，不是直接豁免。
 const EXEMPT = {
-  "/pages/posts/": () => existsSync(path.join(ROOT, "scripts/sync-posts.mjs")),
-  "/pages/posts/index.md": () => existsSync(path.join(ROOT, "scripts/sync-posts.mjs")),
+  // 🔴 2026-10-20 Lonck 選 B：「網站」照放導覽列、點進去寫「還沒放」。
+  //    豁免條件是「真的還沒放」—— 頁面一出現任何外部連結，豁免就不成立 ⇒ 這條紅，
+  //    提醒把豁免拿掉，改回一般的「不可空」檢查。
+  "/pages/websites/index.md": () => {
+    const t = readFileSync(path.join(ROOT, "docs/pages/websites/index.md"), "utf8");
+    return t.includes("還沒放") && !/\]\(https?:\/\//.test(t);
+  },
   "/pages/aboutMe/": () => bodyChars(path.join(ROOT, "docs/.vitepress/components/Resume.vue")) > 500,
   "/pages/aboutMe/index.md": () => bodyChars(path.join(ROOT, "docs/.vitepress/components/Resume.vue")) > 500,
 };
@@ -212,7 +218,7 @@ for (const url of facade) {
   if (EXEMPT[url]) {
     // 🔴 豁免要自己驗 —— 「內容在別處」如果那個別處也空了，就不該豁免
     ck(`  ${url} 的內容在別處且仍存在`, EXEMPT[url](),
-       "豁免的前提不成立了 ⇒ 這頁真的變成空白頁");
+       "豁免的前提不成立了 ⇒ 這頁真的變成空白頁；websites 頁則是「已經放了網站／拿掉了「還沒放」」⇒ 把這頁的豁免從 EXEMPT 與 LINK_EXEMPT 拿掉");
     continue;
   }
   let f = path.join(ROOT, "docs", url.replace(/^\//, ""));
@@ -237,7 +243,7 @@ console.log("\n【⑥-2】🔴 被連過去的空白頁 ＝ 假承諾");
 // ⚠️ 兩類刻意例外：
 //    · `life/task/` 的日誌 —— 「那幾天沒寫」是歷史事實，
 //      改它等於篡改紀錄（它被 task/index.md 連著是對的）
-//    · `posts/index.md` —— 「（還沒有發布的文章）」是誠實的狀態說明
+//    · `websites/index.md` —— 「還沒放」是誠實的狀態說明（2026-10-20 Lonck 選 B）
 function bodyCharsLoose(file) {
   if (!existsSync(file)) return -1;
   let t = readFileSync(file, "utf8");
@@ -256,7 +262,7 @@ function bodyCharsLoose(file) {
 }
 const LINK_EXEMPT = [
   /^pages\/life\/task\//,          // 日誌：那天沒寫是歷史事實
-  /^pages\/posts\/index\.md$/,     // 誠實的狀態說明
+  /^pages\/websites\/index\.md$/,  // 「還沒放」—— 豁免條件見第⑥節 EXEMPT
 ];
 const allMd = [];
 (function walk(dir) {
@@ -286,7 +292,8 @@ for (const f of allMd) {
   if (linkers.length)
     fakePromises.push(`${rel}（${n} 字）← ${linkers.slice(0, 2).join(", ")}`);
 }
-ck(`掃到全站 .md（${allMd.length} 個）`, allMd.length > 200,
+// 2026-10-20 刪檔後基準 101 個（含首頁）；門檻 75 ＝ 基準的 75%
+ck(`掃到全站 .md（${allMd.length} 個）`, allMd.length > 75,
    "抓不到就代表目錄結構變了，斷言已失效");
 ck("🔴 沒有「被連過去的空白頁」", fakePromises.length === 0,
    fakePromises.length ? `假承諾：${fakePromises.join(" / ")}` : "");
