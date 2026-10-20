@@ -169,3 +169,37 @@
   margin: 0;
   opacity: 0.9;
 }
+
+/**
+ * --------------------------------------------------------------------------
+ * Component: 導覽列「學習文章」下拉（2026-10-20，Lonck 選 B）
+ * --------------------------------------------------------------------------
+ * 「還沒寫」的區在 config 裡是空的分組（{ text, items: [] }），VitePress 預設會在
+ * 每個分組前後畫分隔線、標題用粗體 ⇒ 下拉選單被切成一格一格，看起來像壞掉。
+ * 這裡把它們排得跟一般連結同一列高、同一縮排，只用顏色變淡＋不可點來區分。
+ * ⚠️ VitePress 元件是 scoped style，選擇器要多一層 class 才蓋得過。
+ */
+.VPNavBarMenuGroup .VPMenu .VPMenuGroup,
+.VPNavBarMenuGroup .VPMenu .VPMenuGroup + .VPMenuGroup,
+.VPNavBarMenuGroup .VPMenu .VPMenuGroup + .VPMenuLink {
+  margin: 0;
+  border-top: 0;
+  padding: 0;
+}
+.VPNavBarMenuGroup .VPMenu .VPMenuGroup .title {
+  font-weight: 500;
+  color: var(--vp-c-text-3);
+  cursor: default;
+}
+/* 手機選單：分組標題與連結同一縮排、同字級 */
+.VPNavScreenMenuGroup .items .group .title {
+  margin-left: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--vp-c-text-3);
+}
+.VPNavScreenMenuGroup .items .group,
+.VPNavScreenMenuGroup .items .group + .group,
+.VPNavScreenMenuGroup .items .group + .item {
+  padding-top: 0;
+}

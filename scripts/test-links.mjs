@@ -23,7 +23,7 @@
 import { readFileSync, writeFileSync, existsSync, unlinkSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 let pass = 0, fail = 0;
@@ -97,8 +97,12 @@ console.log("\n【④】導覽列（C-3：子選單重排後每項都要有內�
 //    VitePress 的死連結檢查**不掃它**）。
 //    ⚠️ 這正是「內建檢查有它的邊界」—— 不可假設 build 綠就代表全站可達。
 const cfgSrc = existsSync(cfgPath) ? readFileSync(cfgPath, "utf8") : "";
-const navBlock = cfgSrc.slice(cfgSrc.indexOf("nav:"), cfgSrc.indexOf("sidebar:"));
-const navLinks = [...navBlock.matchAll(/link:\s*"([^"]+)"/g)].map((x) => x[1]);
+// 🔴 2026-10-20：「學習文章」下拉選單由 config 在 build 時算出（studyNav）——
+//    掃 config 原始碼只看得到寫死的連結，看不到生成的那 8 項 ⇒ 改成直接 import config 讀實際 nav。
+const cfgMod = (await import(pathToFileURL(cfgPath).href)).default;
+const navFlat = [];
+(function walk(items) { for (const it of items || []) { navFlat.push(it); walk(it.items); } })(cfgMod.themeConfig.nav);
+const navLinks = navFlat.filter((x) => x.link).map((x) => x.link);
 ck(`導覽列有連結可驗（${navLinks.length} 條）`, navLinks.length >= 3, String(navLinks));
 for (const l of navLinks) {
   if (!l.startsWith("/") || l === "/") continue;
@@ -106,6 +110,25 @@ for (const l of navLinks) {
   const ok = existsSync(path.join(ROOT, "docs", rel + ".md"))
           || existsSync(path.join(ROOT, "docs", rel, "index.md"));
   ck(`  ${l}`, ok, "導覽列指向不存在的頁 ⇒ 點了就是 404");
+}
+
+// ── ④-b 「學習文章」下拉：八區齊全、順序對、空的區不給連結 ──
+console.log("\n【④-b】學習文章下拉選單（Lonck 2026-10-20 選 B）");
+{
+  const study = cfgMod.themeConfig.nav.find((x) => x.text === "學習文章");
+  const ORDER = ["AI", "Python", "JavaScript", "TypeScript", "Vue", "股票", "SCSS", "TailwindCSS"];
+  const names = (study?.items || []).map((x) => x.text.replace(/（還沒寫）$/, ""));
+  ck(`八區齊全且順序正確（${names.join("／")}）`, JSON.stringify(names) === JSON.stringify(ORDER));
+  const { areaHasContent, STUDY_AREAS } = await import(pathToFileURL(cfgPath).href);
+  for (const [name, dir] of STUDY_AREAS) {
+    const it = study.items.find((x) => x.text.startsWith(name));
+    const has = areaHasContent(dir);
+    ck(`  ${name}：${has ? "有內容 → 連結" : "沒內容 → 不可點＋還沒寫"}`,
+       has ? !!it?.link && !it.text.includes("還沒寫") : !it?.link && it?.text.endsWith("（還沒寫）"));
+  }
+  // 🔴 negative control：判斷函式要真的看內容，不是看資料夾在不在（tailwindCSS 有資料夾但只有空目錄頁）
+  ck("🔴 只有空目錄頁的區判成沒內容（tailwindCSS）", areaHasContent("tailwindCSS") === false);
+  ck("🔴 有文章的區判成有內容（vue）", areaHasContent("vue") === true);
 }
 
 // ── ⑤ 🔴 搬家對應表：直接測函式本身 ──────────────────────
@@ -193,7 +216,8 @@ const facade = new Set();
 // 首頁 hero 按鈕 ＋ features 卡片
 for (const m of readFileSync(path.join(ROOT, "docs/index.md"), "utf8")
                   .matchAll(/link:\s*(\/pages\/\S+)/g)) facade.add(m[1].trim());
-// 導覽列
+// 導覽列（含生成的「學習文章」下拉；sidebar 也照舊掃原始碼）
+for (const l of navLinks) if (l.startsWith("/pages/")) facade.add(l);
 for (const m of readFileSync(path.join(ROOT, "docs/.vitepress/config.mjs"), "utf8")
                   .matchAll(/link:\s*"(\/pages\/[^"]+)"/g)) facade.add(m[1]);
 ck(`抓到門面頁面（${facade.size} 個）`, facade.size >= 4,

@@ -1,5 +1,37 @@
 import { defineConfig } from "vitepress";
 import taskLists from "@hackmd/markdown-it-task-lists";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+// 🔴 2026-10-20「學習文章」導覽列下拉選單（Lonck 選 B：改回下拉、分開列出八區）。
+//    順序＝Lonck 定的八區。**有內容的區才給連結**；0 篇的區是不可點的分組標題，
+//    文字後面帶「（還沒寫）」—— 同學習文章頁「顯示名稱、標還沒寫、不可點」的決定。
+//    ⚠️ 判斷「有沒有內容」由程式數實際檔案，不寫死 ⇒ 區裡寫了第一篇，下次 build 自動變連結。
+const NOTES = path.join(path.dirname(fileURLToPath(import.meta.url)), "../pages/studyNotes/contents");
+export const STUDY_AREAS = [
+  ["AI", "ai"], ["Python", "python"], ["JavaScript", "javaScript"], ["TypeScript", "typeScript"],
+  ["Vue", "vue"], ["股票", "stock"], ["SCSS", "SCSS"], ["TailwindCSS", "tailwindCSS"],
+];
+function bodyChars(file) {
+  const t = readFileSync(file, "utf8").replace(/^---[\s\S]*?^---/m, "").replace(/^#.*$/gm, "");
+  return t.replace(/\s/g, "").length;
+}
+/** 該區有沒有「目錄頁以外、且不是空白」的文章（posts/ 由 sync-posts 產生，也算） */
+export function areaHasContent(dir) {
+  const root = path.join(NOTES, dir);
+  if (!existsSync(root)) return false;
+  const walk = (d) => readdirSync(d).some((f) => {
+    const p = path.join(d, f);
+    if (statSync(p).isDirectory()) return walk(p);
+    return f.endsWith(".md") && !(d === root && f === "index.md") && bodyChars(p) >= 40;
+  });
+  return walk(root);
+}
+const studyNav = STUDY_AREAS.map(([text, dir]) =>
+  areaHasContent(dir)
+    ? { text, link: `/pages/studyNotes/contents/${dir}/index.md` }
+    : { text: `${text}（還沒寫）`, items: [] });
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: "/vlog/",
@@ -78,9 +110,9 @@ export default defineConfig({
       // 🔴 2026-10-20 改版（Lonck 逐題決定，紀錄在 vault 02-Projects/vlog導覽列改版-2026-10-20.md）：
       //    首頁／學習文章／網站／關於我。
       //    · 「文章」拿掉 —— 發布的文章改成依分類放進學習文章的各區（sync-posts.mjs 讀 category）
-      //    · 「學習筆記」改名「學習文章」，不再有子選單；八區列在點進去的頁面裡
+      //    · 「學習筆記」改名「學習文章」；🔴 17:56 Lonck 改選「下拉選單分開列八區」（studyNav，見檔頭）
       //    · 「網站」只放 Lonck 指定的，目前 0 個（test-links ⑥ 有豁免，有內容後要拿掉）
-      { text: "學習文章", link: "/pages/studyNotes/index.md" },
+      { text: "學習文章", items: studyNav },
       { text: "網站", link: "/pages/websites/index.md" },
       // 🔴 「生活」不在導覽列（Lonck 2026-09-22 選 A）；每日日誌 2026-10-20 起重新記錄。
       {
