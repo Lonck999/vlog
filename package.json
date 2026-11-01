@@ -6,7 +6,7 @@
     "sync": "node scripts/sync-posts.mjs",
     "sync:dry": "node scripts/sync-posts.mjs --dry-run",
     "publish": "node scripts/publish.mjs",
-    "test": "node scripts/test-sync-posts.mjs"
+    "test": "node scripts/test-sync-posts.mjs && node scripts/test-publish-lib.mjs"
   },
   "devDependencies": {
     "@hackmd/markdown-it-task-lists": "^2.1.4",

@@ -18,6 +18,7 @@
 import { execFileSync } from 'node:child_process'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { pickRun, postUrls } from './publish-lib.mjs'
 
 const root = resolve(fileURLToPath(new URL('../', import.meta.url)))
 const NO_WAIT = process.argv.includes('--no-wait')
@@ -62,12 +63,22 @@ if (NO_WAIT) {
   process.exit(0)
 }
 
-// 4. 🔴 驗終點：等 Actions 跑完，再打線上網址確認
+// 4. 🔴 驗終點：等「這次 commit」的 Actions 跑完，再打線上網址確認
+//    （2026-11-01：原本拿最新一個 run，push 當下新 run 還沒註冊 ⇒ 等到的是上一次的，見 publish-lib.mjs）
 console.log('\n等待 GitHub Actions 部署…')
+let runId = null
+for (let i = 0; i < 24 && !runId; i++) {   // 最多等 2 分鐘讓新 run 註冊
+  const runs = JSON.parse(execFileSync('gh',
+    ['run', 'list', '--limit', '10', '--json', 'databaseId,headSha'], { cwd: root, encoding: 'utf8' }))
+  runId = pickRun(runs, sha)
+  if (!runId) await new Promise(r => setTimeout(r, 5000))
+}
+if (!runId) {
+  console.error(`🔴 2 分鐘內找不到 commit ${sha.slice(0, 7)} 的 Actions run —— 沒辦法確認有沒有部署。`)
+  console.error('   看：gh run list')
+  process.exit(1)
+}
 try {
-  const runId = execFileSync('gh',
-    ['run', 'list', '--limit', '1', '--json', 'databaseId', '--jq', '.[0].databaseId'],
-    { cwd: root, encoding: 'utf8' }).trim()
   execFileSync('gh', ['run', 'watch', runId, '--exit-status'],
     { cwd: root, stdio: 'inherit' })
 } catch {
@@ -79,10 +90,23 @@ try {
 // Pages 的 CDN 需要幾秒才吃到新版
 await new Promise(r => setTimeout(r, 15000))
 
+// 🔴 驗「這次發的那幾篇」本身，不是驗學習文章頁（那頁舊版也回 200，驗不出東西）
+const files = git('diff-tree', '--no-commit-id', '--name-only', '-r', '--diff-filter=AM', 'HEAD').split('\n')
+const urls = postUrls(files, SITE)
+let bad = 0
+for (const u of urls) {
+  let ok = false
+  for (let i = 0; i < 6 && !ok; i++) {     // CDN 慢就再等，最多約 1 分鐘
+    ok = (await fetch(u)).ok
+    if (!ok) await new Promise(r => setTimeout(r, 10000))
+  }
+  console.log(`  ${ok ? '✓' : '🔴'} ${u}`)
+  if (!ok) bad++
+}
 const res = await fetch(`${SITE}pages/studyNotes/`)
-if (!res.ok) {
-  console.error(`🔴 線上學習文章頁回 ${res.status} —— 部署成功但頁面不在。`)
+if (!res.ok || bad) {
+  console.error(`🔴 部署完成但線上不對：學習文章頁 ${res.status}、文章 ${bad}/${urls.length} 篇打不開。`)
   process.exit(1)
 }
-console.log(`\n✓ 線上已更新：${SITE}pages/studyNotes/`)
+console.log(`\n✓ 線上已更新：${SITE}pages/studyNotes/（本次文章 ${urls.length} 篇都打得開）`)
 console.log(`  commit: ${git('log', '--oneline', '-1')}`)
