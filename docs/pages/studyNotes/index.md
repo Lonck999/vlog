@@ -19,7 +19,7 @@
 ## Python
 
 <!-- posts:python BEGIN -->
-⬜ 還沒寫
+- [Python-Day-01](/pages/studyNotes/contents/python/posts/python-day-01.md) <Badge type="info" text="2026-11-01" />
 <!-- posts:python END -->
 
 ## [JavaScript](/pages/studyNotes/contents/javaScript/index.md)
