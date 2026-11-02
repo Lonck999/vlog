@@ -207,6 +207,13 @@ push 到 `main` → Actions 自動 build＋部署。
 `npm run publish` 會等 Actions 跑完再打線上網址驗證；
 手動 push 的話自己 `curl` 確認。
 
+🔴 **2026-11-01 踩雷：publish 自己印了假成功。** 發 Python-Day-01 時印「✓ 線上已更新」，實際文章 404。兩個洞疊在一起：
+① 用 `gh run list --limit 1` 拿「最新的 run」—— push 當下新 run 還沒註冊，拿到的是 16 分鐘前每日學習日誌那個（早已 success）
+② 最後只驗學習文章頁 200 —— 那頁舊版本來就在，**驗不出任何東西**
+✅ 修（`027f1dc`）：依 `headSha` 等「這次 commit」的 run（2 分鐘內等不到就失敗，不可退而求其次）；改驗**本次新增／修改的每篇文章網址**。
+回歸 `test-publish-lib.mjs` 5 項（雙向：改回拿第一個 run ⇒ ①② 紅）。
+⚠️ **23:20 每日學習日誌 cron 之後幾分鐘內發文最容易中**（它剛產生一個 success 的 run）。
+
 ## 相關
 
 - 合併計畫與待辦：`~/Obsidian/02-Projects/vlog合併計畫-2026-09.md`
