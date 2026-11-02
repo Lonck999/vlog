@@ -19,7 +19,7 @@
 ## Python
 
 <!-- posts:python BEGIN -->
-- [Python-Day-01](/pages/studyNotes/contents/python/posts/python-day-01.md) <Badge type="info" text="2026-11-01" />
+- [Python-Day-01：print、input 與變數](/pages/studyNotes/contents/python/posts/python-day-01.md) <Badge type="info" text="2026-11-01" />
 <!-- posts:python END -->
 
 ## [JavaScript](/pages/studyNotes/contents/javaScript/index.md)
