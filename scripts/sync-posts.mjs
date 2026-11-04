@@ -22,7 +22,7 @@
  * ⚠️ 「中文檔名會讓 slug 被吃掉」是 Nuxt Content 專屬的問題，不要把那個理由搬過來。
  */
 import { readdir, readFile, writeFile, mkdir, rm, rmdir, stat } from 'node:fs/promises'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { homedir } from 'node:os'
 import { fileURLToPath } from 'node:url'
@@ -110,8 +110,10 @@ for (const [name, dir] of CATEGORIES) {
   if (!re.test(index)) fail(`學習文章頁少了「${name}」的文章區塊標記 <!-- posts:${dir} BEGIN/END -->`)
   const mine = published.filter(p => p.dir === dir)
   // 0 篇時：該區沒有其他內容 ⇒「還沒寫」；有既有筆記 ⇒ 空著
+  // 🔴 產生出來的 index.md（generated: true）不算「既有筆記」，否則文章歸零時會留白而不是「還沒寫」
   const hasNotes = existsSync(join(CONTENTS, dir)) &&
-    (await readdir(join(CONTENTS, dir))).some(f => f !== 'posts')
+    (await readdir(join(CONTENTS, dir))).some(f => f !== 'posts' &&
+      !(f === 'index.md' && readFileSync(join(CONTENTS, dir, f), 'utf8').includes('generated: true')))
   const inner = mine.length
     ? mine.map(p => `- [${p.title}](/pages/studyNotes/contents/${dir}/posts/${p.slug}.md) <Badge type="info" text="${p.date}" />`).join('\n')
     : (hasNotes ? '' : EMPTY_TEXT)
@@ -144,6 +146,22 @@ for (const [, dir] of CATEGORIES) {
     for (const p of mine) await writeFile(join(out, `${p.slug}.md`), p.content, 'utf8')
   } else if (existsSync(out) && (await readdir(out)).length === 0) {
     await rmdir(out)   // 0 篇就不留空目錄
+  }
+  // 🔴 2026-11-04：導覽列（config.mjs areaHasContent）只要該區有文章就連到
+  //    `<區>/index.md`，但 Python 這種「只有同步文章、沒有手寫目錄頁」的區
+  //    根本沒有 index.md ⇒ 導覽列點了 404（test-links 抓到，11/02 起紅）。
+  //    ⇒ 沒有手寫目錄頁時，由這裡產生一份（標 generated: true，文章歸零時一起收掉）。
+  //    ⚠️ 有手寫的 index.md（沒有 generated 標記）就絕不覆寫。
+  const idx = join(CONTENTS, dir, 'index.md')
+  const idxIsGenerated = existsSync(idx) && (await readFile(idx, 'utf8')).includes('generated: true')
+  const name = CATEGORIES.find(([, d]) => d === dir)[0]
+  if (mine.length && (!existsSync(idx) || idxIsGenerated)) {
+    const list = mine.map(p => `- [${p.title}](/pages/studyNotes/contents/${dir}/posts/${p.slug}.md) <Badge type="info" text="${p.date}" />`).join('\n')
+    await writeFile(idx, `---\ngenerated: true\n---\n\n# ${name}\n\n### 目錄：\n\n${list}\n`, 'utf8')
+  } else if (!mine.length && idxIsGenerated) {
+    await rm(idx)
+    const d = join(CONTENTS, dir)
+    if ((await readdir(d)).length === 0) await rmdir(d)
   }
 }
 await writeFile(INDEX, index, 'utf8')

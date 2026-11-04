@@ -98,9 +98,18 @@ try {
   const before = idx; r = await sync(SRC)
   ck('⑥ 重跑一次結果相同（idempotent）', (await readFile(INDEX, 'utf8')) === before)
 
+  console.log('\n【⑥b】🔴 只有同步文章的區要有目錄頁（導覽列連到 <區>/index.md，2026-11-04 Python 404）')
+  const aiIdx = join(C, 'ai', 'index.md')
+  ck('⑥b AI 區產生了 index.md', existsSync(aiIdx))
+  const aiIdxText = existsSync(aiIdx) ? await readFile(aiIdx, 'utf8') : ''
+  ck('⑥b 標 generated 且列出那篇', aiIdxText.includes('generated: true') && aiIdxText.includes('/ai/posts/ai-first.md'), aiIdxText.slice(0, 160))
+  const jsIdx = join(REPO, 'docs', 'pages', 'studyNotes', 'contents', 'javaScript', 'index.md')
+  ck('⑥b 🔴 手寫的 JavaScript index.md 原封不動', (await readFile(join(C, 'javaScript', 'index.md'), 'utf8')) === (await readFile(jsIdx, 'utf8')))
+
   console.log('\n【⑦】取消發布 → 那篇消失、區塊回到「還沒寫」、空目錄拿掉')
   await rm(join(SRC, '丙.md')); r = await sync(SRC)
   ck('⑦ 🔴 ai/posts/ 整個目錄拿掉', !existsSync(join(C, 'ai', 'posts')))
+  ck('⑦ 🔴 產生的 ai/index.md 也收掉（不留指向空區的目錄頁）', !existsSync(join(C, 'ai', 'index.md')))
   idx = await readFile(INDEX, 'utf8')
   ck('⑦ AI 區回到「還沒寫」', section(idx, 'ai').includes('還沒寫'))
   ck('⑦ Vue 兩篇還在', (await ls('vue')).length === 2)
