@@ -1,6 +1,6 @@
 # vlog 資料夾結構導覽
 
-> 📅 盤點於 2026-10-01，**2026-10-20 導覽列改版後重盤**。**103 篇 markdown。**
+> 📅 盤點於 2026-10-01，**2026-10-20 導覽列改版後重盤**（2026-11-08 加麵包屑、Python-Day-03 後更新）。**104 篇 markdown。**
 >
 > 🔴 **這份是「每個資料夾在幹嘛」的唯一說明。** 動任何目錄之前先讀它。
 > ⚠️ 數字會變，但**每個目錄的「用途」不該變** —— 用途要改就改這份文件。
@@ -44,8 +44,9 @@ docs/
 ├── .vitepress/
 │   ├── config.mjs          導覽列、側邊欄、ignoreDeadLinks、rewrites
 │   ├── components/
-│   │   └── Resume.vue      「關於我」整頁就是這支元件（約 800 行）
-│   ├── theme/              index.js（註冊 Resume）＋ style.css
+│   │   ├── Resume.vue      「關於我」整頁就是這支元件（約 800 行）
+│   │   └── Breadcrumb.vue  麵包屑（2026-11-08），掛在 doc-before，各層名稱由 config 的 breadcrumbTitles 掃檔產生
+│   ├── theme/              index.js（註冊 Resume、掛 Breadcrumb）＋ style.css
 │   └── dist/ cache/        ⬜ 建置產物，不進版控
 ├── public/
 │   ├── img/                36 張圖（頭像、技術 logo、專案截圖）
@@ -67,7 +68,7 @@ docs/
 
 | 目錄 | 篇數 | 用途 | 導覽列 | 真實最後更新 |
 |---|---|---|---|---|
-| `studyNotes/` | 78 | **學習文章**（八區）| ✅「學習文章」＋首頁按鈕 | 2026-10-20 |
+| `studyNotes/` | 79 | **學習文章**（八區）| ✅「學習文章」＋首頁按鈕 | 2026-10-20 |
 | `websites/` | 1 | 做過、想放的網站（Lonck 指定才放，目前 0 個）| ✅「網站」| 2026-10-20 |
 | `life/` | 18 | 生活技能＋每日學習日誌 | 🔴 **無入口** | 2026-10-20 |
 | `occult/` | 2 | 玄學術數 | ✅ 首頁卡片 | 2026-10-01 |
@@ -158,7 +159,7 @@ footer 連結同理（Google 要求從首頁連得到）。
 
 ---
 
-## `scripts/` ── 10 支
+## `scripts/` ── 11 支
 
 | 檔案 | 在幹嘛 | 怎麼跑 |
 |---|---|---|
@@ -171,6 +172,7 @@ footer 連結同理（Google 要求從首頁連得到）。
 | `test-links.mjs` | 死連結＋導覽列＋MOVED| 每日回歸 |
 | `test-theme.mjs` | 亮/暗模式對比度（含 headless Chrome）| 每日回歸 |
 | `test-sitemap.mjs` | sitemap 網址都帶 `/vlog/`、數量＝頁數、每個都對得上檔案（會先 build）| 每日回歸 |
+| `test-breadcrumb.mjs` | 麵包屑：指定頁文字、doc 頁都有／home 與 page 沒有、連結帶 `/vlog/` 且對得上檔案（會先 build）| 每日回歸 |
 | `test-structure.mjs` | 🔴 **這份文件的數字**對不對| 每日回歸 |
 
 🔴 **`npm test` 只跑 `test-sync-posts.mjs`。**

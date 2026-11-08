@@ -28,6 +28,35 @@ export function areaHasContent(dir) {
   });
   return walk(root);
 }
+// 🔴 2026-11-08 麵包屑各層名稱（Lonck 選 A）：掃 docs/pages 底下**有 index.md 的資料夾**，
+//    名稱取該 index.md 的第一個 `# 標題`；沒有標題或是「目錄」「學習進度：」這種泛稱 ⇒ 用資料夾名。
+//    ⚠️ 沒有 index.md 的資料夾（contents/、posts/）不進來 ⇒ 麵包屑會跳過它，不給死連結。
+const PAGES = path.join(path.dirname(fileURLToPath(import.meta.url)), "../pages");
+const GENERIC_TITLE = /^(目錄|學習進度)?[：:]?$/;
+export function breadcrumbTitles(root = PAGES) {
+  const out = {};
+  const walk = (dir, rel) => {
+    const idx = path.join(dir, "index.md");
+    if (existsSync(idx)) {
+      const m = readFileSync(idx, "utf8").replace(/^---[\s\S]*?^---/m, "").match(/^#\s+(.+?)\s*$/m);
+      const t = m ? m[1].trim() : "";
+      out[`/pages/${rel}`] = t && !GENERIC_TITLE.test(t) ? t : path.basename(dir);
+    }
+    for (const f of readdirSync(dir)) {
+      const p = path.join(dir, f);
+      if (statSync(p).isDirectory()) walk(p, `${rel}${f}/`);
+    }
+  };
+  walk(root, "");
+  // 學習文章八區的名稱跟導覽列一致（javaScript/index.md 沒有標題，會變成資料夾名）
+  if (root === PAGES) {
+    for (const [text, dir] of STUDY_AREAS)
+      if (out[`/pages/studyNotes/contents/${dir}/`]) out[`/pages/studyNotes/contents/${dir}/`] = text;
+    // aboutMe/index.md 是 Resume 元件、沒有 # 標題 ⇒ 用導覽列的名稱
+    if (out["/pages/aboutMe/"]) out["/pages/aboutMe/"] = "關於我";
+  }
+  return out;
+}
 const studyNav = STUDY_AREAS.map(([text, dir]) =>
   areaHasContent(dir)
     ? { text, link: `/pages/studyNotes/contents/${dir}/index.md` }
@@ -105,6 +134,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: "/img/logo.png",
+    breadcrumbTitles: breadcrumbTitles(),
     nav: [
       { text: "首頁", link: "/" },
       // 🔴 2026-10-20 改版（Lonck 逐題決定，紀錄在 vault 02-Projects/vlog導覽列改版-2026-10-20.md）：

@@ -166,6 +166,14 @@ VitePress 產 sitemap 是「hostname ＋ 相對路徑」，**不會自動補 `ba
 守門：`scripts/test-sitemap.mjs`（網址前綴、數量＝頁數、每個對得上檔案；植入少 `/vlog/` 會紅）。
 ⚠️ `<loc>` 是 XML，`&` 會寫成 `&amp;` —— 拿網址回頭找檔案前要先還原（測試第一版就栽在這）。
 
+### 9. 麵包屑（2026-11-08，Lonck 選 A）
+
+`components/Breadcrumb.vue` 掛在 `doc-before`（只有 doc 版型渲染；首頁 home、關於我 page 沒有）。
+各層名稱來自 `config.mjs` 的 `breadcrumbTitles()`：掃 `docs/pages` 底下**有 `index.md` 的資料夾**，取第一個 `# 標題`。
+🔴 **沒有 `index.md` 的資料夾（`contents/`、`posts/`、`course/`）刻意跳過** —— 給連結就是 404，而 build 不會報錯。
+⚠️ 新增一層資料夾時要嘛放 `index.md`（才會出現在麵包屑），要嘛不放（直接被跳過），兩種都不會壞。
+守門：`scripts/test-breadcrumb.mjs`（植入「拿掉 slot」「沒目錄頁也給連結」「漏 base」三種都會紅）。
+
 ### 🔴 兩個假綠燈（寫測試時最該記的部分）
 
 第⑧節的斷言我連錯兩次，兩次都是**雙向驗證才抓到**：
