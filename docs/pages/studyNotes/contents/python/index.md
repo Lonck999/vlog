@@ -6,6 +6,7 @@ generated: true
 
 ### 目錄：
 
+- [Python-Day-06：while 迴圈與函式](/pages/studyNotes/contents/python/posts/python-day-06.md) <Badge type="info" text="2026-11-24" />
 - [Python-Day-05：for 迴圈與 range](/pages/studyNotes/contents/python/posts/python-day-05.md) <Badge type="info" text="2026-11-17" />
 - [Python-Day-04：random 隨機與 list 陣列](/pages/studyNotes/contents/python/posts/python-day-04.md) <Badge type="info" text="2026-11-12" />
 - [Python-Day-03：if 條件判斷](/pages/studyNotes/contents/python/posts/python-day-03.md) <Badge type="info" text="2026-11-08" />
