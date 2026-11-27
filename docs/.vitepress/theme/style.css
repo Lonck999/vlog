@@ -120,16 +120,29 @@
 
 /**
  * --------------------------------------------------------------------------
- * Component: 首頁 hero 的粒子標題排序（2026-11-27）
+ * Component: 首頁 hero 的粒子標題（2026-11-27）
  * --------------------------------------------------------------------------
- * `ParticleTitle.vue` 掛在預設主題的 `home-hero-info-before` slot ——
- * 那個位置在 DOM 上是 hero 名稱「之前」，而它要取代的 hero.text 原本在
- * 名稱「之後」、tagline 之前。這裡用 flex order 把視覺順序校正回去。
+ * `ParticleTitle.vue` 掛在預設主題的 `home-hero-info-before` slot，
+ * 一張 canvas 畫兩行標題：
+ *   第一行 ＝ frontmatter 的 `hero.name`（同時是頁面 <h1> 的文字）
+ *   第二行 ＝ frontmatter 的 `particleTitle`
+ *
+ * 🔴 VitePress 自己畫的 `<h1 class="name">` 要**視覺上隱藏但留在 DOM**
+ *    （SEO 與螢幕閱讀器仍讀得到那個 h1）—— 不可用 `display: none`，
+ *    那會讓輔助技術也讀不到，整頁就沒有 h1 了。
+ *
+ * 🔴 用 `:has(> .particle-title)` 限定「粒子標題真的在」才隱藏 h1。
+ *    ⚠️ 無條件隱藏的話，哪天 `particleTitle` 被拿掉（元件 v-if 不渲染）
+ *       首頁會變成**一個標題都看不到**，而 build 綠、連結綠、h1 還在 DOM 裡
+ *       —— 跟 §6 白字白底同一個形狀。這樣寫的話降級方向是「h1 顯示出來」，
+ *       壞也壞在看得見的那一邊。
  *
  * ⚠️ 為什麼不改用 `home-hero-info` slot 自己渲染整組：
  *    `.name` / `.clip` / `.tagline` 的樣式是 VPHero 的 **scoped style**，
  *    slot 內容帶的是父元件的 scope ⇒ 那些樣式不會套到我們自己寫的標籤上，
  *    漸層名稱與字級會整組失效（而 build 完全不會報錯）。
+ *    🔴 `.name` 留著也還有一個用途：元件靠 `getComputedStyle('.VPHero .name')`
+ *       讀字型與基準字級，所以它不能被移除（font-* 不受視覺隱藏影響）。
  *
  * 🔴 選擇器限定在 `.VPHero .main` 底下 —— `.VPHero` 只有 `layout: home`
  *    會渲染，所以其他頁面不受影響（全站只有 docs/index.md 是 home）。
@@ -138,21 +151,34 @@
   display: flex;
   flex-direction: column;
 }
-.VPHero .main > .name {
+
+/* 視覺上隱藏 h1（.main 本身是 position: relative，所以 absolute 收在它裡面） */
+.VPHero .main:has(> .particle-title) > .name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* 🔴 h1 已經 absolute（脫離流排），流排裡只剩下面這幾個 ⇒
+   實際視覺順序＝粒子標題 → tagline → actions。 */
+.VPHero .main > .particle-title {
   order: 1;
 }
-.VPHero .main > .particle-title {
+/* 萬一哪天 hero.text 又被加回來，它仍排在原本的位置（但那是多出來的一份標題） */
+.VPHero .main > .text {
   order: 2;
 }
-/* 萬一哪天 hero.text 又被加回來，它仍排在原本的位置（但那是兩份標題，見 index.md） */
-.VPHero .main > .text {
+.VPHero .main > .tagline {
   order: 3;
 }
-.VPHero .main > .tagline {
-  order: 4;
-}
 .VPHero .main > .actions {
-  order: 5;
+  order: 4;
 }
 
 /**

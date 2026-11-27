@@ -2,41 +2,73 @@
 /**
  * ParticleTitle.vue —— 首頁 hero 的文字粒子化（2026-11-27）
  *
- * 原本的 `hero.text`（一行純文字）改成 Canvas 2D 粒子：文字先畫在離屏畫布上，
- * 每隔數個像素取樣不透明的點當「目標位置」，粒子從畫面各處飛來聚合成字，
- * 游標靠近時被推開、放開後以彈簧力＋阻尼回位。
+ * hero 的兩行標題都改成 Canvas 2D 粒子：文字先畫在離屏畫布上，每隔數個像素取樣
+ * 不透明的點當「目標位置」，粒子從畫面各處飛來聚合成字，游標靠近時被推開、
+ * 放開後以彈簧力＋阻尼回位。
  *
  * 🔴 零新依賴（不用 GSAP）—— 這個效果只需要 rAF ＋ fillRect。
  *
  * ── 幾個刻意的決定（改之前先看完）────────────────────────────
  *
- * ① 文字來源是 frontmatter 的 `particleTitle`，**不是 `hero.text`**。
- *    ⚠️ 兩個都寫 ⇒ 站上會同時出現「粒子標題」與「VitePress 畫的純文字標題」兩份。
+ * ① 字的來源（🔴 兩行各只有一個來源，不要兩邊各寫一份）：
+ *      第一行 ＝ `docs/index.md` 的 `hero.name`（它同時是頁面 <h1> 的文字）
+ *      第二行 ＝ `docs/index.md` 的 frontmatter `particleTitle`
+ *    🔴 第一行刻意「讀 hero.name」而不是另外抄一份：那個 h1 必須留著
+ *       （SEO ／螢幕閱讀器），兩邊各寫一份必然漂移，而漂移後
+ *       「畫面上的字」與「爬蟲讀到的字」不一樣且沒有任何錯誤訊息。
  *
- * ② 真實文字留在 DOM 裡（`<p class="pt-label">`，視覺上隱藏但螢幕閱讀器與
- *    爬蟲讀得到），canvas 是 `aria-hidden="true"` 的純裝飾。
- *    🔴 用 `<p>` 而不是 `<h2>`：原本的 hero.text 就是 `<p class="text">`，
- *       而 hero 名稱是 `<h1>` —— 插一個 h2 在 h1 之前會把標題階層弄反。
+ * ② 真實文字留在 DOM 裡，canvas 是 `aria-hidden="true"` 的純裝飾：
+ *      第一行 → VitePress 自己的 `<h1 class="name">`（由 theme/style.css
+ *               視覺上隱藏，**不是 display:none**，所以照樣讀得到）
+ *      第二行 → 本元件的 `<p class="pt-label">`
+ *    🔴 `pt-label` 只放第二行 —— 把第一行也放進來的話螢幕閱讀器會把
+ *       「歡迎來到…」唸兩次（h1 一次、這裡再一次）。
+ *    🔴 用 `<p>` 而不是 `<h2>`：hero 名稱是 `<h1>`，插一個 h2 在它之前會把
+ *       標題階層弄反。
  *
  * ③ 顏色一律從主題讀，**不指定任何新顏色**（CLAUDE.md §6）：
  *    一般點＝hero 名稱的漸層（`--vp-home-hero-name-background`，依 x 內插），
  *    被推離原位的點＝`--vp-c-brand-1`（讓瀏覽器解析 var() 後讀回來，不寫死）。
  *    切換深／亮色模式時由 MutationObserver 重新讀。
+ *    ⚠️ 漸層是「依 x」而不是「依行」⇒ 兩行上下對齊的位置顏色一致。
  *
- * ④ 所有 canvas／window 操作都在 onMounted 之後 —— VitePress build 是 SSR，
+ * ④ 兩行是**同一張畫布、同一批粒子**（不是兩個元件、兩個 rAF 迴圈）——
+ *    游標推開時兩行會連成一片一起散，這就是要同一批的理由。
+ *
+ * ⑤ 所有 canvas／window 操作都在 onMounted 之後 —— VitePress build 是 SSR，
  *    那時候沒有 window、沒有 canvas、沒有 document.fonts。
  *    🔴 onBeforeUnmount 一定要收乾淨：VitePress 是 SPA，換頁時元件卸載而
  *       rAF 迴圈不會自己停 ⇒ 會留下一個看不見又在燒電的幽靈迴圈。
  *
- * ⑤ 頁面不可見（document.hidden）或畫布滾出視窗（IntersectionObserver）就停 rAF。
+ * ⑥ 頁面不可見（document.hidden）或畫布滾出視窗（IntersectionObserver）就停 rAF。
  *
- * ⑥ `prefers-reduced-motion: reduce` ⇒ 不做進場、不綁游標，直接把點畫在目標位置。
+ * ⑦ `prefers-reduced-motion: reduce` ⇒ 不做進場、不綁游標，直接把點畫在目標位置。
  */
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useData } from "vitepress";
 
 const { frontmatter } = useData();
-const title = computed(() => frontmatter.value.particleTitle || "");
+
+// hero.name 是用 v-html 渲染的（可以帶標籤）⇒ 餵給 canvas 前要剝成純文字
+const plain = (v) =>
+  String(v ?? "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .trim();
+
+/**
+ * 要畫的行：[hero.name, particleTitle]，空的那行自動跳過。
+ * 🔴 最後一行是「主標」（字級最大，撐滿容器寬）；前面的行是副標（上限 0.6 倍）。
+ */
+const lines = computed(() =>
+  [
+    plain(frontmatter.value.hero?.name),
+    plain(frontmatter.value.particleTitle),
+  ].filter(Boolean)
+);
 
 const root = ref(null);
 const cv = ref(null);
@@ -51,18 +83,25 @@ const OFF_MAX = 26; // 到這個距離完全是強調色
 const STOPS = 24; // 漸層切成幾段（粒子存段號，不存顏色字串）
 const LEVELS = 6; // 原色→強調色的過渡階數
 const ALPHA = 140; // 離屏取樣的 alpha 門檻（反鋸齒的半透明邊不算）
+const SUB_RATIO = 0.6; // 🔴 副標字級上限 ＝ 主標 × 這個比例
+const PROBE = 100; // 量字寬用的試算字級（只量寬度，不畫）
+const LINE_H = 1.1; // 每行佔的行高倍率
+const GAP_R = 0.12; // 行距 ＝ 主標字級 × 這個比例
+const PAD_R = 0.28; // 上下留白 ＝ 主標字級 × 這個比例（給排斥位移的空間）
 
 /**
- * 粒子數上限：桌機約上千，手機降到 1/4 以下。
+ * 粒子數上限：桌機約數千，手機降到 1/3 以下。
  * 🔴 真正的數量由「取樣間距」決定（見 sample()）—— 這裡只定上限，
  *    字數或字級變了也不會突然暴增。
  */
 function budget(w) {
   // 🔴 2026-11-27 實測：上限 1400／字級 56px 時「攤」這種筆畫多的字只取得到 ~14 點寬，
-  //    整排糊成一片讀不出來 ⇒ 字級放大到撐滿容器、上限一起拉高（每幀 2000 點的物理運算仍很輕）
-  if (w < 480) return 900; // 手機
-  if (w < 768) return 1400;
-  return 2400;
+  //    整排糊成一片讀不出來 ⇒ 字級放大到撐滿容器、上限一起拉高（每幀數千點的物理運算仍很輕）
+  // 🔴 2026-11-27 第二版（兩行一起畫）：總墨量約 1.5 倍，上限同步上調 ——
+  //    不然取樣間距會被迫跳到 4～5px，字級較小的第一行先糊掉。
+  if (w < 480) return 1800; // 手機
+  if (w < 768) return 1800;
+  return 3200;
 }
 
 /* ── 以下都不是 reactive state：只在瀏覽器裡、onMounted 之後用 ── */
@@ -148,40 +187,64 @@ function setFont(c, weight, family, size) {
 }
 
 function sample() {
-  const text = title.value;
-  if (!text || !root.value || !cv.value) return;
+  const ls = lines.value;
+  if (!ls.length || !root.value || !cv.value) return;
   still = reduced();
 
   // 字型：讀 hero 標題實際算出來的 font-family / font-weight（不猜、不寫死）
+  // ⚠️ `.name` 被 style.css 視覺上隱藏（1px ＋ clip-path），但 font-* 不受影響，
+  //    所以這裡量到的仍是 VitePress 原本的字級（32／48／56px）。
   const heroName = document.querySelector(".VPHero .name");
   const hs = getComputedStyle(heroName || root.value);
   const family = hs.fontFamily || "sans-serif";
   const weight = hs.fontWeight || "700";
   const boxW = Math.max(160, Math.floor(root.value.clientWidth));
-
-  // 字級：從 hero 標題的字級起跳，量過之後縮到塞得進容器（🔴 不可超出容器）
-  // 🔴 這是「大標題」：字級撐滿容器寬，上限是 hero 名稱字級的 2 倍
-  //    （照 hero 名稱字級時取樣點太少，筆畫多的字讀不出來 —— 2026-11-27 截圖實證）
   const base = Math.round(parseFloat(hs.fontSize) || 56);
-  let size = 100;
-  setFont(octx, weight, family, size);
-  const w0 = octx.measureText(text).width;
   const inkMax = boxW - 2;
-  size = Math.max(12, Math.min(base * 2, Math.floor((size * inkMax) / w0)));
 
+  // 先用 PROBE px 量一次字寬，再換算成「剛好塞滿容器寬」的字級
+  setFont(octx, weight, family, PROBE);
+  const fitSize = (t) => {
+    const w = octx.measureText(t).width;
+    return w > 0 ? Math.floor((PROBE * inkMax) / w) : base;
+  };
+
+  // 🔴 主標（最後一行）：字級撐滿容器寬，上限是 hero 名稱字級的 2 倍
+  //    （照 hero 名稱字級時取樣點太少，筆畫多的字讀不出來 —— 2026-11-27 截圖實證）
+  const sizeMain = Math.max(12, Math.min(base * 2, fitSize(ls[ls.length - 1])));
+  // 第一行（副標）：同樣量字寬後撐滿容器，但不得大於主標的 SUB_RATIO 倍
+  // ⚠️ 字數多的那行通常是「0.6 倍」這條先生效 ⇒ 它不會真的貼齊兩側，這是刻意的
+  const subCap = Math.max(10, Math.floor(sizeMain * SUB_RATIO));
+  const sizes = ls.map((t, i) =>
+    i === ls.length - 1 ? sizeMain : Math.max(10, Math.min(subCap, fitSize(t)))
+  );
+
+  // 版面：每行佔 字級×LINE_H，行距與上下留白都按主標字級算 ⇒ 字級一變整組等比縮放
+  const boxes = sizes.map((s) => Math.round(s * LINE_H));
+  const gap = Math.round(sizeMain * GAP_R);
+  const padV = Math.round(sizeMain * PAD_R);
   W = boxW;
-  H = Math.round(size * 1.6); // 留一點上下空間給排斥位移
+  H =
+    padV * 2 +
+    boxes.reduce((a, b) => a + b, 0) +
+    gap * Math.max(0, ls.length - 1);
 
   // 離屏畫布用 1x（取樣間距本來就有好幾 px，放大解析度只是浪費）
   off.width = W;
   off.height = H;
-  setFont(octx, weight, family, size); // 🔴 改 canvas 尺寸會重置 context 狀態
+  // 🔴 改 canvas 尺寸會重置 context 狀態 ⇒ 下面這些一定要在改尺寸之後設
   octx.textAlign = /^(left|start)$/.test(getComputedStyle(root.value).textAlign)
     ? "left"
     : "center";
   octx.textBaseline = "middle";
   octx.fillStyle = "#fff"; // 只是遮罩：只有 alpha 會被讀，顏色不會出現在畫面上
-  octx.fillText(text, octx.textAlign === "left" ? 1 : W / 2, H / 2);
+  const px = octx.textAlign === "left" ? 1 : W / 2;
+  let ly = padV;
+  ls.forEach((t, i) => {
+    setFont(octx, weight, family, sizes[i]); // 🔴 每行字級不同，每行都要重設
+    octx.fillText(t, px, ly + boxes[i] / 2);
+    ly += boxes[i] + gap;
+  });
 
   const data = octx.getImageData(0, 0, W, H).data;
   const cap = budget(W);
@@ -215,6 +278,7 @@ function sample() {
       vx: o && !still ? o.vx : 0,
       vy: o && !still ? o.vy : 0,
       k: SPRING * (0.7 + Math.random() * 0.6),
+      // 🔴 漸層段號只看 x ⇒ 兩行共用同一道漸層，不是各自一道
       gi: Math.min(STOPS - 1, Math.floor((x / W) * STOPS)),
     });
   }
@@ -316,7 +380,7 @@ function onTheme() {
 }
 
 onMounted(async () => {
-  if (!title.value || !cv.value || !root.value) return;
+  if (!lines.value.length || !cv.value || !root.value) return;
   alive = true;
   ctx = cv.value.getContext("2d");
   off = document.createElement("canvas");
@@ -383,9 +447,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="title" ref="root" class="particle-title">
-    <!-- 🔴 真實文字（螢幕閱讀器／爬蟲讀得到）；canvas 只是裝飾 -->
-    <p class="pt-label">{{ title }}</p>
+  <div v-if="lines.length" ref="root" class="particle-title">
+    <!-- 🔴 第二行的真實文字（螢幕閱讀器／爬蟲讀得到）；canvas 只是裝飾。
+         第一行不放這裡 —— 它由 VitePress 的 <h1 class="name"> 提供，
+         兩邊都放會被唸兩次。 -->
+    <p class="pt-label">{{ lines[lines.length - 1] }}</p>
     <canvas ref="cv" class="pt-canvas" aria-hidden="true"></canvas>
   </div>
 </template>
@@ -397,12 +463,13 @@ onBeforeUnmount(() => {
 .particle-title {
   position: relative;
   color: var(--vp-c-brand-1);
-  /* 跟著原本 hero.text 的寬度與對齊（.name/.text 是 392 / 576px，有圖時置中） */
+  /* 跟著原本 hero .name/.text 的寬度與對齊（392 / 576px，有圖時置中） */
   max-width: 392px;
   margin-left: auto;
   margin-right: auto;
-  /* 先占住大約的高度，JS 量完字之後才知道精確值 ⇒ 少一次版面跳動 */
-  min-height: 90px;
+  /* 先占住大約的高度，JS 量完字之後才知道精確值 ⇒ 少一次版面跳動
+     （兩行版的實測高度：手機 ~156、平板 ~235、桌機 ~267） */
+  min-height: 155px;
 }
 
 .pt-canvas {
@@ -425,7 +492,7 @@ onBeforeUnmount(() => {
 @media (min-width: 640px) {
   .particle-title {
     max-width: 576px;
-    min-height: 150px;
+    min-height: 235px;
   }
 }
 
@@ -434,7 +501,7 @@ onBeforeUnmount(() => {
     /* ≥960px 的 hero 是左右欄、文字靠左 ⇒ 不再置中 */
     margin-left: 0;
     margin-right: 0;
-    min-height: 180px;
+    min-height: 265px;
   }
 }
 </style>
