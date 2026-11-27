@@ -2,9 +2,15 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+# 🔴 2026-11-27：原本的 hero.text（「地瓜球小攤」）改成 Canvas 粒子標題
+#    （docs/.vitepress/components/ParticleTitle.vue，掛在 home-hero-info-before）。
+#    標題文字只放這一行 —— 再把 hero.text 加回去的話，站上會同時出現
+#    「粒子標題」與「VitePress 畫的純文字標題」兩份，而 build 不會報錯。
+#    無障礙／SEO 的真實文字由元件輸出（視覺上隱藏的 <p>），不靠這段註解。
+particleTitle: 地瓜球小攤
+
 hero:
   name: "歡迎來到 (,,・ω・,,)"
-  text: "地瓜球小攤"
   tagline: 裡面記錄著自己的一些學習和自介，也歡迎大家來看看有沒有你需要的東西。
   image:
     src: /img/goImg.png

@@ -119,6 +119,43 @@
 }
 
 /**
+ * --------------------------------------------------------------------------
+ * Component: 首頁 hero 的粒子標題排序（2026-11-27）
+ * --------------------------------------------------------------------------
+ * `ParticleTitle.vue` 掛在預設主題的 `home-hero-info-before` slot ——
+ * 那個位置在 DOM 上是 hero 名稱「之前」，而它要取代的 hero.text 原本在
+ * 名稱「之後」、tagline 之前。這裡用 flex order 把視覺順序校正回去。
+ *
+ * ⚠️ 為什麼不改用 `home-hero-info` slot 自己渲染整組：
+ *    `.name` / `.clip` / `.tagline` 的樣式是 VPHero 的 **scoped style**，
+ *    slot 內容帶的是父元件的 scope ⇒ 那些樣式不會套到我們自己寫的標籤上，
+ *    漸層名稱與字級會整組失效（而 build 完全不會報錯）。
+ *
+ * 🔴 選擇器限定在 `.VPHero .main` 底下 —— `.VPHero` 只有 `layout: home`
+ *    會渲染，所以其他頁面不受影響（全站只有 docs/index.md 是 home）。
+ */
+.VPHero .main {
+  display: flex;
+  flex-direction: column;
+}
+.VPHero .main > .name {
+  order: 1;
+}
+.VPHero .main > .particle-title {
+  order: 2;
+}
+/* 萬一哪天 hero.text 又被加回來，它仍排在原本的位置（但那是兩份標題，見 index.md） */
+.VPHero .main > .text {
+  order: 3;
+}
+.VPHero .main > .tagline {
+  order: 4;
+}
+.VPHero .main > .actions {
+  order: 5;
+}
+
+/**
  * Component: Custom Block
  * -------------------------------------------------------------------------- */
 

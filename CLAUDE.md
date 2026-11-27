@@ -180,6 +180,30 @@ VitePress 內建 attrs 插件：**行尾的 `{...}` 會被當成屬性語法拿�
 2026-11-08 實例：Python-Day-03 標題「Python 沒有 ( ) 和 { }」線上只剩「沒有 ( ) 和」。
 ⇒ 文中要顯示大括號一律包在 `` ` ` `` 裡（行內 code 不會被解析）。
 
+### 11. 首頁 hero 的粒子標題（2026-11-27）
+
+`components/ParticleTitle.vue`（Canvas 2D，零新依賴）取代原本的 `hero.text`，
+掛在預設主題的 `home-hero-info-before` slot。
+
+🔴 **標題文字只在 `docs/index.md` 的 frontmatter `particleTitle`。**
+⚠️ 把 `hero.text` 加回去不會報錯 —— 站上會**同時出現兩份標題**（粒子的 ＋ VitePress 畫的純文字）。
+
+🔴 **顏色全部從主題讀，不可指定新顏色**：一般點＝`--vp-home-hero-name-background` 的兩個色依 x 內插、
+被推離原位的點＝`--vp-c-brand-1`（canvas 的 CSS `color` 設成那個 var，再用 `getComputedStyle` 讀回來 ⇒ 深／亮色模式都正確）。
+
+⚠️ **slot 在 DOM 上的位置是 hero 名稱「之前」**，視覺順序靠 `theme/style.css` 那段
+`.VPHero .main` 的 flex order 校正。拿掉那段不會報錯，只是標題會跑到 `歡迎來到` 上面。
+🔴 不改用 `home-hero-info` 自己渲染整組的理由：`.name`／`.clip`／`.tagline` 是 **VPHero 的 scoped style**，
+slot 內容帶的是父元件的 scope ⇒ 那些樣式不會套上去，而 build 一樣綠。
+
+🔴 **字級撐滿容器寬（上限 hero 名稱的 2 倍），不是照 hero 名稱字級。** 2026-11-27 第一版照 56px 畫，
+「攤」這種筆畫多的字每字只取得到 ~14 點寬，整排糊成一片 —— **build、測試、粒子數全部正常，只有截圖看得出來**。
+粒子上限 桌機 2400／平板 1400／手機 900（實測同瀏覽器空白頁 33.5 fps vs 首頁 30.5 fps，成本可忽略）。
+
+⚠️ **這支還沒有自動化回歸。** 它會壞在「build 綠、連結綠、而畫面上什麼都沒有」那個形狀
+（canvas 全透明 ＝ 頁面 200 ＋ 文字在 DOM 裡 ＋ 零錯誤），跟 §6 白字白底同一類 ——
+要驗就得在真瀏覽器裡量 canvas 的非透明像素數，不是看 build 有沒有過。
+
 ### 🔴 兩個假綠燈（寫測試時最該記的部分）
 
 第⑧節的斷言我連錯兩次，兩次都是**雙向驗證才抓到**：

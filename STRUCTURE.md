@@ -40,13 +40,14 @@ VitePress 靜態網站 → GitHub Actions → GitHub Pages
 
 ```
 docs/
-├── index.md                首頁（hero 2 顆按鈕 ＋ 3 張 features 卡）
+├── index.md                首頁（hero 2 顆按鈕 ＋ 3 張 features 卡；標題文字在 frontmatter 的 particleTitle，不是 hero.text）
 ├── .vitepress/
 │   ├── config.mjs          導覽列、側邊欄、ignoreDeadLinks、rewrites
 │   ├── components/
-│   │   ├── Resume.vue      「關於我」整頁就是這支元件（約 800 行）
-│   │   └── Breadcrumb.vue  麵包屑（2026-11-08），掛在 doc-before，各層名稱由 config 的 breadcrumbTitles 掃檔產生
-│   ├── theme/              index.js（註冊 Resume、掛 Breadcrumb）＋ style.css
+│   │   ├── Resume.vue          「關於我」整頁就是這支元件（約 800 行）
+│   │   ├── Breadcrumb.vue      麵包屑（2026-11-08），掛在 doc-before，各層名稱由 config 的 breadcrumbTitles 掃檔產生
+│   │   └── ParticleTitle.vue   首頁 hero 的文字粒子化（2026-11-27），Canvas 2D、零新依賴，掛在 home-hero-info-before
+│   ├── theme/              index.js（註冊 Resume、掛 Breadcrumb 與 ParticleTitle）＋ style.css
 │   └── dist/ cache/        ⬜ 建置產物，不進版控
 ├── public/
 │   ├── img/                36 張圖（頭像、技術 logo、專案截圖）
