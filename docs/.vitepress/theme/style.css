@@ -182,6 +182,66 @@
 }
 
 /**
+ * --------------------------------------------------------------------------
+ * Component: 首頁 features 卡片的邊框聚光（2026-11-27）
+ * --------------------------------------------------------------------------
+ * 座標由 components/FeatureSpotlight.vue 寫進每張卡的 --x / --y（游標相對於「那張卡」）。
+ * ::before ＝ 1px 邊框（mask 挖空中間，只留一圈）；::after ＝ 卡片內部較淡的光暈。
+ *
+ * 🔴 顏色只用主題變數：邊框光 --vp-c-brand-1、內部光暈 --vp-c-brand-soft、
+ *    沒照到的邊框 --vp-c-divider。深色模式自動跟著換。
+ * 🔴 全部掛在 .has-spotlight 底下 —— 那個 class 是 JS 接上監聽才加的；
+ *    JS 沒載入（或手機）時卡片維持 VitePress 原本的樣子，不會變成沒有邊框。
+ * ⚠️ VitePress 原本的 .VPFeature.link:hover 會把整圈邊框變色，這裡要壓過它，
+ *    否則游標底下那張會整圈亮、看不出聚光。
+ */
+.VPFeatures.has-spotlight .VPFeature,
+.VPFeatures.has-spotlight .VPFeature.link:hover {
+  position: relative;
+  isolation: isolate;
+  border-color: transparent;
+}
+.VPFeatures.has-spotlight .VPFeature::before,
+.VPFeatures.has-spotlight .VPFeature::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.VPFeatures.has-spotlight .VPFeature::before {
+  inset: -1px;
+  padding: 1px;
+  background:
+    radial-gradient(
+      240px circle at var(--x, -999px) var(--y, -999px),
+      var(--vp-c-brand-1),
+      transparent 70%
+    ),
+    var(--vp-c-divider);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.VPFeatures.has-spotlight .VPFeature::after {
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    320px circle at var(--x, -999px) var(--y, -999px),
+    var(--vp-c-brand-soft),
+    transparent 70%
+  );
+}
+/* 鍵盤 Tab 到卡片：整圈亮（沒有游標座標可用） */
+.VPFeatures.has-spotlight .VPFeature:focus-visible {
+  outline: none;
+}
+.VPFeatures.has-spotlight .VPFeature:focus-visible::before {
+  background: var(--vp-c-brand-1);
+}
+
+/**
  * Component: Custom Block
  * -------------------------------------------------------------------------- */
 

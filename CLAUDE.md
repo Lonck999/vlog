@@ -246,6 +246,17 @@ slot 內容帶的是父元件的 scope ⇒ 那些樣式不會套上去，而 bui
 🔴 兩行版多一個同形狀的坑：**h1 隱藏了而 canvas 沒畫出來 ⇒ 首頁完全沒有標題**，
 靜態檢查同樣全綠。要驗的是「canvas 的非透明像素數 > 0」。
 
+### 12. 首頁 features 卡片的邊框聚光（2026-11-27）
+
+`components/FeatureSpotlight.vue`（掛 `home-features-before`）只負責在 `.VPFeatures` 上監聽 `pointermove`，
+把游標相對於**每一張**卡的座標寫進 `--x`／`--y`；光暈全在 `theme/style.css`（`::before` 邊框環、`::after` 內部光暈）。
+
+🔴 **每張卡都要算，不是只算游標底下那張** —— 光要能跨過兩張卡之間的縫。
+🔴 **CSS 全掛在 `.has-spotlight` 底下**，那個 class 是 JS 接上監聽才加的 ⇒ JS 沒跑時卡片維持 VitePress 原樣。
+⚠️ 要壓過 VitePress 原本的 `.VPFeature.link:hover`（整圈變色），不然看不出聚光。
+⚠️ 只處理 `pointerType === 'mouse'`；手機沒效果是設計，不是壞掉。鍵盤 Tab 到卡片時整圈亮（`:focus-visible`）。
+✅ 2026-11-27 驗過：淺／深色跨縫截圖、Tab 整圈亮、離開區塊座標清空、SPA 來回後一次移動只寫 3 次（沒有疊監聽）。
+
 ### 🔴 兩個假綠燈（寫測試時最該記的部分）
 
 第⑧節的斷言我連錯兩次，兩次都是**雙向驗證才抓到**：

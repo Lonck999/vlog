@@ -6,6 +6,7 @@ import "./style.css";
 import Resume from "../components/Resume.vue";
 import Breadcrumb from "../components/Breadcrumb.vue";
 import ParticleTitle from "../components/ParticleTitle.vue";
+import FeatureSpotlight from "../components/FeatureSpotlight.vue";
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -23,6 +24,9 @@ export default {
       //       由 theme/style.css 視覺上隱藏（留在 DOM 供 SEO／讀屏），
       //       流排順序則是 粒子標題 → tagline → actions。
       "home-hero-info-before": () => h(ParticleTitle),
+      // 🔴 2026-11-27 features 卡片的邊框聚光：元件只負責寫 --x/--y，光暈在 theme/style.css。
+      //    slot 只有 layout: home 會渲染 ⇒ 其他頁面不會掛上監聽。
+      "home-features-before": () => h(FeatureSpotlight),
     });
   },
   enhanceApp({ app, router, siteData }) {

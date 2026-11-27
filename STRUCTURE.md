@@ -46,9 +46,10 @@ docs/
 │   ├── components/
 │   │   ├── Resume.vue          「關於我」整頁就是這支元件（約 800 行）
 │   │   ├── Breadcrumb.vue      麵包屑（2026-11-08），掛在 doc-before，各層名稱由 config 的 breadcrumbTitles 掃檔產生
-│   │   └── ParticleTitle.vue   首頁 hero 的文字粒子化（2026-11-27），Canvas 2D、零新依賴，掛在 home-hero-info-before
+│   │   ├── ParticleTitle.vue   首頁 hero 的文字粒子化（2026-11-27），Canvas 2D、零新依賴，掛在 home-hero-info-before
+│   │   └── FeatureSpotlight.vue 首頁 features 卡片的邊框聚光（2026-11-27），只寫 --x/--y，光暈在 theme/style.css，掛在 home-features-before
 │   │                           一張畫布兩行：hero.name（小字）＋ particleTitle（大字），同一批粒子
-│   ├── theme/              index.js（註冊 Resume、掛 Breadcrumb 與 ParticleTitle）
+│   ├── theme/              index.js（註冊 Resume、掛 Breadcrumb、ParticleTitle、FeatureSpotlight）
 │   │                       ＋ style.css（含把 hero 的 <h1 class="name"> 視覺上隱藏那段，見 CLAUDE.md §11）
 │   └── dist/ cache/        ⬜ 建置產物，不進版控
 ├── public/
